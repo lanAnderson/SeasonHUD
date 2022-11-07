@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 group = 'club.iananderson'
 version = "1.1.1"
-archivesBaseName = 'seasonhud'
+archivesBaseName = 'seasonhud 1.18.2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -172,8 +172,8 @@ dependencies {
     implementation "curse.maven:serene-seasons-291874:3693808-deobf-api"
 
     //Xaero's Minimap
-//    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
 
 
 
