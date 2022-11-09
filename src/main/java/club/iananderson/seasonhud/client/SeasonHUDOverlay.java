@@ -12,6 +12,7 @@ import sereneseasons.api.season.SeasonHelper;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.SeasonMinimap.minimapLoaded;
 
 //HUD w/ no minimap installed
@@ -33,7 +34,7 @@ public class SeasonHUDOverlay {
                 "textures/season/" + seasonLower + ".png");
 
 
-        if (!minimapLoaded()) {
+        if (!minimapLoaded()&!ftbChunksLoaded()) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 

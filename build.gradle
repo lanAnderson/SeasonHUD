@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 
 group = 'club.iananderson'
-version = "1.1.1"
+version = "1.1.2"
 archivesBaseName = 'seasonhud-1.18.2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -63,6 +63,10 @@ minecraft {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'examplemod'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+
             mods {
                 examplemod {
                     source sourceSets.main
@@ -79,6 +83,10 @@ minecraft {
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
 
             mods {
                 examplemod {
@@ -175,7 +183,16 @@ dependencies {
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
 
+    //FTB Chunks
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4060220")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4040966")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4061657")
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4061588")
 
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4060220")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4040966")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4061657")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4061588")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
