@@ -2,6 +2,7 @@ package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SeasonHUD.MODID)
 public class SeasonHUD{
+
+    public static Minecraft mc = Minecraft.getInstance();
+    // Define mod id in a common place for everything to reference
 
     // Define mod id in a common place for everything to reference
     public static final String MODID = "seasonhud";

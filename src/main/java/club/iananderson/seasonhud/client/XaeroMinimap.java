@@ -12,16 +12,22 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.fml.ModList;
-import sereneseasons.api.season.Season;
-import sereneseasons.api.season.SeasonHelper;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static xaero.common.settings.ModOptions.modMain;
 
-public class SeasonMinimap {
+/* Todo
+    * Need to switch names to translatable ones
+    * Clean up code and improve the accuracy of the formulas
+ */
+
+public class XaeroMinimap {
     public static boolean minimapLoaded(){
         return ModList.get().isLoaded("xaerominimap");
     }
@@ -30,18 +36,10 @@ public class SeasonMinimap {
         Minecraft mc = Minecraft.getInstance();
         int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
 
-
         if (minimapLoaded()) {
-            //Season
-            Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
-            String seasonCap = currentSeason.name();
-            String seasonLower = seasonCap.toLowerCase();
-            String seasonName = seasonLower.substring(0, 1).toUpperCase() + seasonLower.substring(1);
-
-
             //Icon chooser
             ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + seasonLower + ".png");
+                    "textures/season/" + getSeasonLower() + ".png");
 
 
             //Data
@@ -106,7 +104,7 @@ public class SeasonMinimap {
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(seasonName)*fontScale);
+            int stringWidth = Math.round(mc.font.width(getSeasonName())*fontScale);
             int stringHeight = (int) Math.round((mc.font.lineHeight)+1);
             int scaledHeight = (int) ((fontScale) + (stringHeight));
 
@@ -136,7 +134,7 @@ public class SeasonMinimap {
 
 
                 //Font
-                    mc.font.drawShadow (seasonStack, seasonName, (float) stringX, (float) stringY, -1);
+                    mc.font.drawShadow (seasonStack, getSeasonName(), (float) stringX, (float) stringY, -1);
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

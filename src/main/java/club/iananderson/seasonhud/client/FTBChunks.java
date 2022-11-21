@@ -7,7 +7,6 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -16,12 +15,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.fml.ModList;
-import sereneseasons.api.season.Season;
-import sereneseasons.api.season.SeasonHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
+import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.SeasonHUD.mc;
+
+/* Todo
+    * Switch names over to translatable ones
+ */
 
 public class FTBChunks {
     public static boolean ftbChunksLoaded() {
@@ -30,7 +34,6 @@ public class FTBChunks {
     private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
     public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
-        Minecraft mc = Minecraft.getInstance();
         if (ftbChunksLoaded()) {
             MINIMAP_TEXT_LIST.clear();
 
@@ -47,16 +50,12 @@ public class FTBChunks {
             }
 
             //Season
-            Season currentSeason = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
-            String seasonCap = currentSeason.name();
-            String seasonLower = seasonCap.toLowerCase();
-            String seasonName = seasonLower.substring(0, 1).toUpperCase() + seasonLower.substring(1);
-            MINIMAP_TEXT_LIST.add(new TextComponent(seasonName));
+            MINIMAP_TEXT_LIST.add(new TextComponent(getSeasonName()));
 
 
             //Icon chooser
             ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + seasonLower + ".png");
+                    "textures/season/" + getSeasonLower() + ".png");
 
             if (mc.player != null && mc.level != null && MapManager.inst != null) {
                 double guiScale = mc.getWindow().getGuiScale();

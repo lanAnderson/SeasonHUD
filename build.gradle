@@ -2,22 +2,26 @@ buildscript {
     repositories {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 plugins {
     id 'eclipse'
     id 'maven-publish'
+
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = "1.1.2"
+version = "1.1.3"
 archivesBaseName = 'seasonhud-1.18.2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -38,7 +42,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'parchment', version: '2022.11.06-1.18.2'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -168,22 +172,22 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.84'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.85'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
 
-    //Serene Seasons
+    /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:3693807"
     implementation "curse.maven:serene-seasons-291874:3693808-deobf-api"
 
-    //Xaero's Minimap
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4026490")
+    /Xaero's Minimap/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075401")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075401")
 
-    //FTB Chunks
+    /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4060220")
     compileOnly fg.deobf("curse.maven:architectury-api-419699:4040966")
     compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4061657")
@@ -193,6 +197,11 @@ dependencies {
 //    implementation fg.deobf("curse.maven:architectury-api-419699:4040966")
 //    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4061657")
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4061588")
+
+    /JourneyMap/
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4097952")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4097952")
+
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
