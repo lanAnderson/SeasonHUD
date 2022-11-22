@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @Mod(SeasonHUD.MODID)
 public class SeasonHUD{
 
-    public static Minecraft mc = Minecraft.getInstance();
     // Define mod id in a common place for everything to reference
 
     // Define mod id in a common place for everything to reference

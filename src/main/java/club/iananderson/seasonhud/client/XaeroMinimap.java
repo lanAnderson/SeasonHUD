@@ -19,7 +19,6 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.SeasonHUD.mc;
 import static xaero.common.settings.ModOptions.modMain;
 
 /* Todo
@@ -34,6 +33,7 @@ public class XaeroMinimap {
 
     public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
+
         int hudPosition = SeasonHUDClientConfigs.hudPosition.get();
 
         if (minimapLoaded()) {

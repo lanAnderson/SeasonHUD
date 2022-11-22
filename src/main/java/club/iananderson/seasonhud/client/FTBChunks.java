@@ -7,6 +7,7 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -21,7 +22,6 @@ import java.util.List;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.SeasonHUD.mc;
 
 /* Todo
     * Switch names over to translatable ones
@@ -34,6 +34,8 @@ public class FTBChunks {
     private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
     public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+        Minecraft mc = Minecraft.getInstance();
+
         if (ftbChunksLoaded()) {
             MINIMAP_TEXT_LIST.clear();
 

@@ -7,6 +7,7 @@ import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.MiniMap;
 import journeymap.client.ui.theme.Theme;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.ModList;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
-import static club.iananderson.seasonhud.SeasonHUD.mc;
 
 /*Todo
     * Need to switch names over to translatable ones
@@ -28,6 +28,8 @@ public class JourneyMap {
     public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
 
     public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
+        Minecraft mc = Minecraft.getInstance();
+
         if (journeymapLoaded()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
 

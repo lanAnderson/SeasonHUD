@@ -18,6 +18,7 @@ public class DebugHUD {
     //Debug
     public static final IIngameOverlay DEBUG_HUD = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
+
         int offset = 20;
 
         if (enableDebugHUD()&&minimapLoaded()) {
