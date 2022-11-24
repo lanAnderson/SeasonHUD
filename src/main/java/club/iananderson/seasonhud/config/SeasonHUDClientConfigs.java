@@ -13,8 +13,6 @@ public class SeasonHUDClientConfigs {
     }
     public static ForgeConfigSpec.BooleanValue debugHUD;
 
-    public static ForgeConfigSpec.ConfigValue<Integer> hudPosition;
-
     private static void setupConfig(ForgeConfigSpec.Builder builder){
         builder.push("Configs for SeasonHUD");
         builder.push("HUD:");
@@ -22,12 +20,6 @@ public class SeasonHUDClientConfigs {
         debugHUD = builder
                 .comment("Enable the Debug hud for? \n (true/false)")
                 .define("enable_debug_hud",false);
-
-        hudPosition = builder
-                .comment("Change the side of the screen the Season HUD appears on" +
-                        "\n  0 = Right (default)" +
-                        "\n  1 = Left")
-                .defineInRange("hud_position",0,0,1);
 
         builder.pop();
         builder.pop();

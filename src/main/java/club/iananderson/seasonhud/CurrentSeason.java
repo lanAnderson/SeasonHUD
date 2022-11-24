@@ -14,19 +14,15 @@ public class CurrentSeason {
         return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason();
     }
 
-   //Convert to an all caps string
-    public static String getSeasonCaps(){
-        return getCurrentSeason().name();
-    }
-
     //Convert to lower case (for file names)
     public static String getSeasonLower(){
-        return getSeasonCaps().toLowerCase();
+        return getCurrentSeason().name().toLowerCase();
     }
 
-   //Capitalize the first letter (for HUD)
+    //Localized name for the hud
     public static String getSeasonName(){
-        return getSeasonLower().substring(0, 1).toUpperCase() + getSeasonLower().substring(1);
+        return "desc.sereneseasons." +getSeasonLower();
     }
+
 
 }

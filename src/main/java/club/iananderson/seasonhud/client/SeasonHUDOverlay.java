@@ -4,9 +4,13 @@ import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
+
+import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
@@ -22,6 +26,9 @@ public class SeasonHUDOverlay {
         int iconDim = 10;
         int offsetDim = 5;
 
+        ArrayList<Component> MINIMAP_TEXT_SEASON= new ArrayList<>();
+        MINIMAP_TEXT_SEASON.add(new TranslatableComponent(getSeasonName()));
+
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
                 "textures/season/" + getSeasonLower() + ".png");
 
@@ -31,7 +38,9 @@ public class SeasonHUDOverlay {
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
-            ForgeGui.getFont().draw(seasonStack, getSeasonName(), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
+            for (Component s : MINIMAP_TEXT_SEASON) {
+                ForgeGui.getFont().draw(seasonStack, s, (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
+            }
 
             //Icon
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

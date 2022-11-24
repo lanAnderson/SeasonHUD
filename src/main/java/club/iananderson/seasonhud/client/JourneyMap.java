@@ -11,9 +11,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.fml.ModList;
+
+import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
@@ -41,7 +45,8 @@ public class JourneyMap {
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-            String MINIMAP_TEXT_SEASON = getSeasonName();
+            ArrayList<Component> MINIMAP_TEXT_SEASON= new ArrayList<>();
+            MINIMAP_TEXT_SEASON.add(new TranslatableComponent(getSeasonName()));
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
@@ -50,7 +55,7 @@ public class JourneyMap {
             boolean fontShadow = label.shadow;
 
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON)*fontScale;
+            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int minimapHeight = minimap.getDisplayVars().minimapHeight;
 
@@ -111,8 +116,10 @@ public class JourneyMap {
                 double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
                     //moves the icon to  the vertical center of the label
 
-                DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                for (Component s : MINIMAP_TEXT_SEASON) {
+                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                     //No touchy. Season label offset by icon+padding
+                }
 
                 DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
                     //Rectangle for the icon
