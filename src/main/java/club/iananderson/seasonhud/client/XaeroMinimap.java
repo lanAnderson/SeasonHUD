@@ -2,7 +2,6 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -18,7 +17,6 @@ import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
@@ -83,22 +81,22 @@ public class XaeroMinimap {
 
 
             //Icon
-            int stringWidth = mc.font.width(underText.get(0));
-            int stringHeight = (mc.font.lineHeight)+1;
+            float stringWidth = mc.font.width(underText.get(0));
+            float stringHeight = (mc.font.lineHeight)+1;
 
 
-            int iconDim = stringHeight-1;
+            int iconDim = (int)stringHeight-1;
             int offsetDim = 1;
 
-            int totalWidth = (stringWidth - iconDim - offsetDim);
+            float totalWidth = (stringWidth + iconDim + offsetDim);
 
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
             float scaledHeight = (int)((float)height * mapScale);
             boolean under = scaledY + mapSize / 2 < scaledHeight / 2;
 
-            int center = (int)(padding + halfSize - totalWidth/2);
-            int left = 6 + iconDim;
-            int right = (int)(mapSize+2+padding-stringWidth);
+            float center = (float) (padding-0.5 + halfSize+ iconDim + offsetDim - totalWidth/2);
+            float left = 6 + iconDim;
+            float right = (int)(mapSize+2+padding-stringWidth);
 
 
             float stringX = scaledX+(align == 0 ? center : (align == 1 ? left : right));
@@ -122,7 +120,7 @@ public class XaeroMinimap {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int)stringX-iconDim-offsetDim, (int)stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, (int)(stringX-iconDim-offsetDim), (int)stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }
