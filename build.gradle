@@ -21,7 +21,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = "1.2.2"
+version = "1.2.3"
 archivesBaseName = 'seasonhud-1.18.2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -172,7 +172,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.85'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.86'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -181,7 +181,8 @@ dependencies {
 
     /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:3693807"
-    implementation "curse.maven:serene-seasons-291874:3693808-deobf-api"
+    implementation "curse.maven:serene-seasons-291874:3693808"
+    compileOnly "curse.maven:serene-seasons-291874:3693809"
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075401")
