@@ -13,8 +13,8 @@ import net.minecraftforge.client.gui.ForgeIngameGui;
 
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
 import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-//import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
 //import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
+import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 
 //HUD w/ no minimap installed
@@ -34,7 +34,7 @@ public class SeasonHUDOverlay{
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonLower() + ".png");
 
 
-        if (!minimapLoaded()/*&!ftbChunksLoaded()&!journeymapLoaded()*/) {
+        if (!minimapLoaded()&!ftbChunksLoaded()/*&!journeymapLoaded()*/) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
             RenderSystem.enableBlend();

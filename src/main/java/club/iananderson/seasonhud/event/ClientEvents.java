@@ -2,21 +2,20 @@ package club.iananderson.seasonhud.event;
 
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.client.FTBChunks;
+import club.iananderson.seasonhud.client.JourneyMap;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
+import club.iananderson.seasonhud.client.XaeroMinimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
+import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
+import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 
 @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
 public class ClientEvents{
@@ -26,11 +25,14 @@ public class ClientEvents{
             Minecraft mc = Minecraft.getInstance();
             MatrixStack seasonStack = event.getMatrixStack();
 
-            SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
+            if (minimapLoaded()){
+                XaeroMinimap.renderXaeroHUD(mc,seasonStack);
+            }
+            else if(journeymapLoaded()){
+                JourneyMap.renderJourneyMapHUD(mc,seasonStack);
+            }
+            else SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
         }
-        //OverlayRegistry.registerOverlayAbove(ALL,"xaero", XaeroMinimap.XAERO_SEASON);
-        //OverlayRegistry.registerOverlayAbove(ALL,"ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
-        //OverlayRegistry.registerOverlayAbove(ALL,"journeymap", JourneyMap.JOURNEYMAP_SEASON);
     }
 }
 

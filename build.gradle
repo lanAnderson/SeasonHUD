@@ -16,7 +16,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.2.2'
+version = '1.2.3'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'
@@ -60,6 +60,9 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
 
             mods {
                 seasonhud {
@@ -75,6 +78,8 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 seasonhud {
@@ -145,18 +150,18 @@ dependencies {
     compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
     compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
-    //implementation fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
-    //implementation fg.deobf("curse.maven:architectury-api-419699:3857643")
-    //implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
-    //implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:3857643")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4127318")
-    //implementation fg.deobf("curse.maven:xaeros-minimap-263420:4127318")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4127318")
 
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:4012858")
-    //implementation fg.deobf("curse.maven:journeymap-32274:4012858")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4012858")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
