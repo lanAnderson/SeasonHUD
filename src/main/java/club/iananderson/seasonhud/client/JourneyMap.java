@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client;
 
+import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -12,16 +13,13 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.SeasonHUD.MODID;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
 /*Todo
     * Need to switch names over to translatable ones
@@ -45,8 +43,7 @@ public class JourneyMap {
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-            ArrayList<Component> MINIMAP_TEXT_SEASON= new ArrayList<>();
-            MINIMAP_TEXT_SEASON.add(new TranslatableComponent(getSeasonName()));
+            ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
@@ -87,10 +84,18 @@ public class JourneyMap {
             double totalIconSize = (iconDim+(labelPad));
 
 
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getSeasonFileName();
+                season = season.substring(season.length() - 3);
 
-            ResourceLocation SEASON = new ResourceLocation(MODID,
-                    "textures/season/" + getSeasonLower() + ".png");
-
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + getSeasonFileName() + ".png");
+            }
 
             //Values
             if (!mc.isPaused()) {

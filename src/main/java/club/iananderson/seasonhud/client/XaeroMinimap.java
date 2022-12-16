@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.fml.ModList;
@@ -18,8 +17,7 @@ import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static xaero.common.settings.ModOptions.modMain;
 
 /* Todo
@@ -32,17 +30,25 @@ public class XaeroMinimap {
         return ModList.get().isLoaded("xaerominimap");
     }
 
-    public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+    public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        ArrayList<Component> underText = new ArrayList<>();
-        underText.add(new TranslatableComponent(getSeasonName()));
+        ArrayList<Component> underText = getSeasonName();
 
         if (minimapLoaded()) {
             //Icon chooser
-            ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + getSeasonLower() + ".png");
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getSeasonFileName();
+                season = season.substring(season.length() - 3);
 
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + getSeasonFileName() + ".png");
+            }
 
             //Data
             float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
@@ -78,7 +84,7 @@ public class XaeroMinimap {
             if (xAngles) {trueCount++;}
             if (xLight > 0) {trueCount++;}
             if (xTime > 0) {trueCount++;}
-
+            if (mapSize < 61) {trueCount++;}
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
@@ -91,7 +97,9 @@ public class XaeroMinimap {
             float totalWidth = (stringWidth + iconDim + offsetDim);
 
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            float scaledHeight = (int)((float)height * mapScale);
+
+            float height = mc.getWindow().getHeight();
+            float scaledHeight = (int)(height * mapScale);
             boolean under = scaledY + mapSize / 2 < scaledHeight / 2;
 
             float center = (float) (padding-0.5 + halfSize+ iconDim + offsetDim - totalWidth/2);

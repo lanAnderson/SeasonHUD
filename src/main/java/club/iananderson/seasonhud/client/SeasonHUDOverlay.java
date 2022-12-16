@@ -1,22 +1,18 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.data.CurrentSeason;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
-
-import java.util.ArrayList;
-
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
+import static club.iananderson.seasonhud.data.CurrentSeason.isTropicalSeason;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {
@@ -26,21 +22,26 @@ public class SeasonHUDOverlay {
         int iconDim = 10;
         int offsetDim = 5;
 
-        ArrayList<Component> MINIMAP_TEXT_SEASON= new ArrayList<>();
-        MINIMAP_TEXT_SEASON.add(new TranslatableComponent(getSeasonName()));
+        ResourceLocation SEASON;
+        if (isTropicalSeason()){
+            //Tropical season haves no main season, convert here.
+            String season = getSeasonFileName();
+            season = season.substring(season.length() - 3);
 
-        ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID,
-                "textures/season/" + getSeasonLower() + ".png");
-
+            SEASON = new ResourceLocation(SeasonHUD.MODID,
+                    "textures/season/" + season + ".png");
+        } else {
+            SEASON = new ResourceLocation(SeasonHUD.MODID,
+                    "textures/season/" + getSeasonFileName() + ".png");
+        }
 
         if (!minimapLoaded()&!ftbChunksLoaded()&!journeymapLoaded()) {
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
 
             //Text
-            for (Component s : MINIMAP_TEXT_SEASON) {
-                ForgeGui.getFont().draw(seasonStack, s, (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
-            }
+                ForgeGui.getFont().draw(seasonStack, CurrentSeason.getSeasonName().get(0), (float) (x + iconDim + offsetDim + 2), (float) (y + offsetDim + (.12 * iconDim)), 0xffffffff);
+
 
             //Icon
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

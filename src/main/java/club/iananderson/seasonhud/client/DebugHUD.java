@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import xaero.common.core.XaeroMinimapCore;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
 import static xaero.common.core.XaeroMinimapCore.modMain;
 
@@ -81,7 +81,7 @@ public class DebugHUD {
 
             //Icon
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-            int stringWidth = Math.round(mc.font.width(getSeasonName())*fontScale);
+            int stringWidth = Math.round(mc.font.width(getSeasonName().get(0))*fontScale);
             int stringHeight = Math.round((mc.font.lineHeight+1));
 
             int iconDim = stringHeight+1;
