@@ -1,0 +1,23 @@
+{
+  "desc.seasonhud.early_spring": "早春",
+  "desc.seasonhud.mid_spring": "仲春",
+  "desc.seasonhud.late_spring": "晚春",
+  "desc.seasonhud.early_summer": "初夏",
+  "desc.seasonhud.mid_summer": "仲夏",
+  "desc.seasonhud.late_summer": "夏末",
+  "desc.seasonhud.early_autumn": "早秋",
+  "desc.seasonhud.mid_autumn": "仲秋",
+  "desc.seasonhud.late_autumn": "深秋",
+  "desc.seasonhud.early_winter": "初冬",
+  "desc.seasonhud.mid_winter": "仲冬",
+  "desc.seasonhud.late_winter": "深冬",
+  "desc.seasonhud.early_wet": "雨季初期",
+  "desc.seasonhud.mid_wet": "雨季中期",
+  "desc.seasonhud.late_wet": "雨季后期",
+  "desc.seasonhud.early_dry": "旱季初期",
+  "desc.seasonhud.mid_dry": "旱季中期",
+  "desc.seasonhud.late_dry": "旱季后期",
+
+  "desc.seasonhud.detailed": "%s 第 %s 天",
+  "desc.seasonhud.summary": "%s"
+}
