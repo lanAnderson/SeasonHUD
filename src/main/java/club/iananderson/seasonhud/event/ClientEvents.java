@@ -3,8 +3,12 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.*;
+import club.iananderson.seasonhud.client.minimaps.FTBChunks;
+import club.iananderson.seasonhud.client.minimaps.JourneyMap;
+import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -18,10 +22,10 @@ public class ClientEvents{
         public static void init(FMLClientSetupEvent event) {
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT,"season", SeasonHUDOverlay.HUD_SEASON);
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT,"xaero", XaeroMinimap.XAERO_SEASON);
-            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT,"debug", DebugHUD.DEBUG_HUD);
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT,"ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT,"journeymap", JourneyMap.JOURNEYMAP_SEASON);
-
+            MinecraftForge.EVENT_BUS.addListener(KeyInput::onKeyInput);
+            KeyBindings.init();
         }
     }
 }

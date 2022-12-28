@@ -1,9 +1,10 @@
 package club.iananderson.seasonhud.data;
 
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
+import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 
 import java.util.ArrayList;
@@ -25,18 +26,16 @@ public class CurrentSeason {
         Minecraft mc = Minecraft.getInstance();
         if (isTropicalSeason()) {
             return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().name();
-        } else if (SeasonHUDClientConfigs.showSubSeason.get()) {
+        } else if (Config.showSubSeason.get()) {
             return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().name();
         }
         else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name();
     }
 
-
-
     //Convert Season to lower case (for file names)
     public static String getSeasonFileName(){
         Minecraft mc = Minecraft.getInstance();
-        if (isTropicalSeason() || !SeasonHUDClientConfigs.showSubSeason.get()) {
+        if (isTropicalSeason() || !Config.showSubSeason.get()) {
             return getCurrentSeasonState().toLowerCase();
         }
         else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name().toLowerCase();
@@ -55,24 +54,38 @@ public class CurrentSeason {
     //Get the current date of the season
     public static int getDate(){
         Minecraft mc = Minecraft.getInstance();
-        return (SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getDay() % 8) + 1;
+        ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
+
+        int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
+
+        int seasonDate = (seasonDay % 24) + 1; //24 days in a season (8 days * 3 weeks)
+        int subDate = (seasonDay % 8) + 1; //8 days in each subSeason (1 week)
+        int subTropDate = ((seasonDay + 24) % 16) + 1; //16 days in each tropical "subSeason". Starts are "Early Dry" (Summer 1), so need to offset 24 days (Spring 1 -> Summer 1)
+
+        if(isTropicalSeason()){
+            return subTropDate;
+        }
+        else if(Config.showSubSeason.get()){
+            return subDate;
+        }
+        else return seasonDate;
     }
 
    //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
-        //System.out.println(getCurrentLocale());
         ArrayList<Component> text = new ArrayList<>();
         if (supportedLanguages().contains(getCurrentLocale())) {
-            if (SeasonHUDClientConfigs.showDay.get()) {
+            if (Config.showDay.get()) {
                   text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), getDate()));
                 }
             else {
-                text.add(new TranslatableComponent("desc.seasonhud.summary." + getSeasonStateLower()));
+                text.add(new TranslatableComponent("desc.seasonhud.summary" , new TranslatableComponent("desc.seasonhud."+ getSeasonStateLower())));
             }
+        } else if(Config.showDay.get()){
+            text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.sereneseasons." + getCurrentSeasonNameLower()), getDate()));
         }
-        else {
-            text.add(new TranslatableComponent("desc.sereneseasons."+ getCurrentSeasonNameLower()));
-        }
+        else text.add(new TranslatableComponent("desc.seasonhud.summary" , new TranslatableComponent("desc.sereneseasons."+ getSeasonStateLower())));
+
         return text;
     }
 }

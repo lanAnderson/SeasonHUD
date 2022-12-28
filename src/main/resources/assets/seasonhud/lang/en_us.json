@@ -1,19 +1,39 @@
 {
+  "key.categories.seasonhud": "SeasonHUD",
+  "key.seasonhud.seasonhudOptions": "SeasonHUD Options",
+
+  "menu.seasonhud.title": "SeasonHUD Options",
+
+  "menu.seasonhud.button.showDay":"Show Day Value",
+  "menu.seasonhud.button.showSubSeason":"Show Sub-Season",
+
+  "menu.seasonhud.button.desc.showDay":"Show the day of of the current Season/Sub-Season on the HUD",
+  "menu.seasonhud.button.desc.showSubSeason":"Replace the Season with the current Sub-Season",
+
+  "desc.seasonhud.spring": "Spring",
   "desc.seasonhud.early_spring": "Early Spring",
   "desc.seasonhud.mid_spring": "Mid Spring",
   "desc.seasonhud.late_spring": "Late Spring",
+
+  "desc.seasonhud.summer": "Summer",
   "desc.seasonhud.early_summer": "Early Summer",
   "desc.seasonhud.mid_summer": "Mid Summer",
   "desc.seasonhud.late_summer": "Late Summer",
+
+  "desc.seasonhud.autumn": "Autumn",
   "desc.seasonhud.early_autumn": "Early Autumn",
   "desc.seasonhud.mid_autumn": "Mid Autumn",
   "desc.seasonhud.late_autumn": "Late Autumn",
+
+  "desc.seasonhud.winter": "Winter",
   "desc.seasonhud.early_winter": "Early Winter",
   "desc.seasonhud.mid_winter": "Mid Winter",
   "desc.seasonhud.late_winter": "Late Winter",
+
   "desc.seasonhud.early_wet": "Early Wet",
   "desc.seasonhud.mid_wet": "Mid Wet",
   "desc.seasonhud.late_wet": "Late Wet",
+
   "desc.seasonhud.early_dry": "Early Dry",
   "desc.seasonhud.mid_dry": "Mid Dry",
   "desc.seasonhud.late_dry": "Late Dry",

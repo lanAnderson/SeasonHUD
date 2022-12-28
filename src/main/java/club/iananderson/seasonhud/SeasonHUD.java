@@ -1,8 +1,7 @@
 package club.iananderson.seasonhud;
 
-import club.iananderson.seasonhud.config.SeasonHUDClientConfigs;
+import club.iananderson.seasonhud.config.Config;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,7 +43,7 @@ public class SeasonHUD{
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SeasonHUDClientConfigs.GENERAL_SPEC,
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
                 "SeasonHUD-client.toml");
     }
 

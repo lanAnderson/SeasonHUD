@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
-import static club.iananderson.seasonhud.client.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.XaeroMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
+import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
+import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
 import static club.iananderson.seasonhud.data.CurrentSeason.isTropicalSeason;
 

@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class SeasonHUDClientConfigs {
+public class Config {
 
     public static final ForgeConfigSpec GENERAL_SPEC;
 
@@ -34,6 +34,13 @@ public class SeasonHUDClientConfigs {
 
         builder.pop();
         builder.pop();
+    }
+
+    public static void setShowSubSeason(boolean showSubSeason) {
+        Config.showSubSeason.set(showSubSeason);
+    }
+    public static void setShowDay(boolean showDay) {
+        Config.showDay.set(showDay);
     }
 
 }
