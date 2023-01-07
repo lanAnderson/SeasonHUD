@@ -4,36 +4,38 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
 
+
+    //Config Builder
     public static final ForgeConfigSpec GENERAL_SPEC;
 
     static {
-        ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
-        setupConfig(configBuilder);
-        GENERAL_SPEC = configBuilder.build();
+        ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        setupConfig(BUILDER);
+        GENERAL_SPEC = BUILDER.build();
     }
-    public static ForgeConfigSpec.BooleanValue debugHUD;
+    public static ForgeConfigSpec.BooleanValue enableMod;
     public static ForgeConfigSpec.BooleanValue showSubSeason;
-
     public static ForgeConfigSpec.BooleanValue showDay;
 
-    private static void setupConfig(ForgeConfigSpec.Builder builder){
-        builder.push("Configs for SeasonHUD");
-        builder.push("HUD:");
 
-        debugHUD = builder
-                .comment("Enable the Debug hud for testing? \n (true/false)")
-                .define("enable_debug_hud",false);
+    private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
+        BUILDER.push("Configs for SeasonHUD");
+        BUILDER.push("HUD:");
 
-        showSubSeason = builder
+        enableMod = BUILDER
+                .comment("Enable the mod? \n (true/false)")
+                .define("enable_mod",true);
+
+        showSubSeason = BUILDER
                 .comment("Show sub-season (i.e. Early Winter, Late Autumn) instead of basic season? \n (true/false)")
                 .define("enable_show_sub_season",true);
 
-        showDay = builder
+        showDay = BUILDER
                 .comment("Show the current day of the season/sub-season? \n (true/false)")
                 .define("enable_show_day",true);
 
-        builder.pop();
-        builder.pop();
+        BUILDER.pop();
+        BUILDER.pop();
     }
 
     public static void setShowSubSeason(boolean showSubSeason) {
@@ -43,4 +45,7 @@ public class Config {
         Config.showDay.set(showDay);
     }
 
+    public static void setEnableMod(boolean enableMod) {
+        Config.enableMod.set(enableMod);
+    }
 }

@@ -4,6 +4,7 @@
 
   "menu.seasonhud.title": "SeasonHUD Options",
 
+  "menu.seasonhud.button.enableMod": "Enable Mod",
   "menu.seasonhud.button.showDay":"Show Day Value",
   "menu.seasonhud.button.showSubSeason":"Show Sub-Season",
 

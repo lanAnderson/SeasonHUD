@@ -19,6 +19,7 @@ import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
 /*Todo
@@ -32,7 +33,7 @@ public class JourneyMap {
     public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (journeymapLoaded()) {
+        if (journeymapLoaded() && enableMod.get()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
 
 

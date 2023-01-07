@@ -17,6 +17,7 @@ import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
 import static xaero.common.settings.ModOptions.modMain;
 
@@ -35,7 +36,7 @@ public class XaeroMinimap {
 
         ArrayList<Component> underText = getSeasonName();
 
-        if (minimapLoaded()) {
+        if (minimapLoaded() && enableMod.get()) {
             //Icon chooser
             ResourceLocation SEASON;
             if (isTropicalSeason()){
