@@ -2,6 +2,7 @@ package club.iananderson.seasonhud.event;
 
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -9,6 +10,7 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 import static club.iananderson.seasonhud.config.Config.*;
 
@@ -52,6 +54,8 @@ public class SeasonHUDScreen extends Screen{
         int BUTTON_START_Y = MENU_PADDING_FULL;
         int y_OFFSET = BUTTON_HEIGHT + PADDING;
 
+        Location defaultLocation = hudLocation.get();
+
         //Buttons
         CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
                 .create(BUTTON_START_X_LEFT, BUTTON_START_Y, BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -72,7 +76,14 @@ public class SeasonHUDScreen extends Screen{
                     Config.setShowSubSeason(Off);
                 });
 
-        Button doneButton = new Button(this.width / 2 + PADDING, this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT,(new TranslatableComponent("gui.done")),b -> {
+        CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
+                .withValues(Location.TOP_LEFT,Location.TOP_CENTER,Location.TOP_RIGHT,Location.BOTTOM_LEFT,Location.BOTTOM_RIGHT)
+                .withInitialValue(defaultLocation)
+                .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + y_OFFSET), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        new TranslatableComponent("menu.seasonhud.button.hudLocation"),
+                        (b, location) -> Config.setHudLocation(location));
+
+        ExtendedButton doneButton = new ExtendedButton(this.width / 2 + PADDING, this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT,(new TranslatableComponent("gui.done")), b -> {
             mc.options.save();
             mc.setScreen(this.lastScreen);
         });
@@ -84,6 +95,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(enableModButton);
         addRenderableWidget(showDayButton);
         addRenderableWidget(showSubSeasonButton);
+        addRenderableWidget(hudLocationButton);
 
         addRenderableWidget(doneButton);
         //addRenderableWidget(cancelButton);

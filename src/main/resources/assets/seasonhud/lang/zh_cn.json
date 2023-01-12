@@ -7,6 +7,13 @@
   "menu.seasonhud.button.enableMod": "Enable Mod",
   "menu.seasonhud.button.showDay":"Show Day Value",
   "menu.seasonhud.button.showSubSeason":"Show Sub-Season",
+  "menu.seasonhud.button.hudLocation":"HUD Location",
+
+  "location.seasonhud.topLeft": "Top Left",
+  "location.seasonhud.topCenter": "Top Center",
+  "location.seasonhud.topRight": "Top Right",
+  "location.seasonhud.bottomLeft": "Bottom Left",
+  "location.seasonhud.bottomRight": "Bottom Right",
 
   "desc.seasonhud.spring": "春季",
   "desc.seasonhud.early_spring": "早春",

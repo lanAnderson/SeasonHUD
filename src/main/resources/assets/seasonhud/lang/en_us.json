@@ -7,9 +7,16 @@
   "menu.seasonhud.button.enableMod": "Enable Mod",
   "menu.seasonhud.button.showDay":"Show Day Value",
   "menu.seasonhud.button.showSubSeason":"Show Sub-Season",
+  "menu.seasonhud.button.hudLocation":"HUD Location",
 
   "menu.seasonhud.button.desc.showDay":"Show the day of of the current Season/Sub-Season on the HUD",
   "menu.seasonhud.button.desc.showSubSeason":"Replace the Season with the current Sub-Season",
+
+  "location.seasonhud.topLeft": "Top Left",
+  "location.seasonhud.topCenter": "Top Center",
+  "location.seasonhud.topRight": "Top Right",
+  "location.seasonhud.bottomLeft": "Bottom Left",
+  "location.seasonhud.bottomRight": "Bottom Right",
 
   "desc.seasonhud.spring": "Spring",
   "desc.seasonhud.early_spring": "Early Spring",
