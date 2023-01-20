@@ -19,12 +19,9 @@ import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.*;
-
-/*Todo
-    * Need to switch names over to translatable ones
- */
 
 public class JourneyMap {
 
@@ -33,7 +30,7 @@ public class JourneyMap {
     public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (journeymapLoaded() && enableMod.get()) {
+        if (journeymapLoaded() && enableMod.get() && calendar()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
 
 

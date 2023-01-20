@@ -13,6 +13,7 @@ import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
@@ -50,7 +51,7 @@ public class SeasonHUDOverlay {
                     "textures/season/" + getSeasonFileName() + ".png");
         }
 
-        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get()) {
+        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {

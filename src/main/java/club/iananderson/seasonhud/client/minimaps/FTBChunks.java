@@ -20,6 +20,7 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 import java.util.List;
 
+import static club.iananderson.seasonhud.client.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
 import static club.iananderson.seasonhud.data.CurrentSeason.isTropicalSeason;
@@ -34,7 +35,7 @@ public class FTBChunks {
     public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (ftbChunksLoaded() && enableMod.get()) {
+        if (ftbChunksLoaded() && enableMod.get() && calendar()) {
             MINIMAP_TEXT_LIST.clear();
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
