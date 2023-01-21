@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.5] - 2023-01-20
+
+### Added
+
+- Added support for Xaero's Minimap Fair-play
+
+
 ## [1.3.4] - 2023-01-19
 
 ### Added

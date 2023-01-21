@@ -20,7 +20,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = "1.3.4"
+version = "1.3.5"
 archivesBaseName = 'seasonhud-1.18.2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -134,7 +134,9 @@ dependencies {
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4075401")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135352")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4075401")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135352")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4060220")
