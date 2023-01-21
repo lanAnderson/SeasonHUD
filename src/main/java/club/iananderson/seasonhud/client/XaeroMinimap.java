@@ -27,7 +27,7 @@ import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
     public static boolean minimapLoaded(){
-        return ModList.get().isLoaded("xaerominimap");
+        return (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair"));
     }
 
     public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {

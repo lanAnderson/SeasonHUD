@@ -4,7 +4,7 @@ plugins {
 
 
 group = 'club.iananderson'
-version = '1.2.4'
+version = '1.2.5'
 
 java {
     archivesBaseName = 'seasonhud-1.17.1'
@@ -114,8 +114,9 @@ dependencies {
 
 /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4181103")
-
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135349")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4181103")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135349")
 
 
 /JourneyMap/
