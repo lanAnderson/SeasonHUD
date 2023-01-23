@@ -1,6 +1,5 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;
@@ -8,20 +7,20 @@ import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
-import journeymap.client.ui.minimap.MiniMap;
 import journeymap.client.ui.theme.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.SeasonHUD.MODID;
+import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
 
 /*Todo
     * Need to switch names over to translatable ones
@@ -32,23 +31,18 @@ public class JourneyMap {
     public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
 
     public static void renderJourneyMapHUD(Minecraft mc, MatrixStack seasonStack){
-        //Season Name
-        String seasonName = getSeasonName();
-        TranslationTextComponent MINIMAP_TEXT_SEASON = new TranslationTextComponent(seasonName);
-
-
-        if (journeymapLoaded()) {
+        if (journeymapLoaded() && enableMod.get() && calendar()) {
             Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
             JourneymapClient jm = JourneymapClient.getInstance();
             FontRenderer fontRenderer = mc.font;
-            MiniMap minimap = UIManager.INSTANCE.getMiniMap();
+            //MiniMap minimap = UIManager.INSTANCE.getMiniMap();
 
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-
+            ArrayList<TranslationTextComponent> MINIMAP_TEXT_SEASON= getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
@@ -57,7 +51,7 @@ public class JourneyMap {
             boolean fontShadow = label.shadow;
 
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON)*fontScale;
+            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int minimapHeight = jm.getActiveMiniMapProperties().getSize();
             int minimapWidth = vars.minimapWidth;
@@ -80,7 +74,7 @@ public class JourneyMap {
                 infoLabelCount++;
             }
 
-            int vPad = (int) (((labelHeight/fontScale) - 9) / 2.0);
+            int vPad = (int)(((labelHeight/fontScale) - 8) / 2.0);
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
 
 
@@ -89,8 +83,20 @@ public class JourneyMap {
             double labelPad = 1*fontScale;
             double totalIconSize = (iconDim+(labelPad));
 
-            ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonLower() + ".png");
 
+
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getSeasonFileName();
+                season = season.substring(season.length() - 3);
+
+                SEASON = new ResourceLocation(MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(MODID,
+                        "textures/season/" + getSeasonFileName() + ".png");
+            }
 
             //Values
             if (!mc.isPaused()) {
@@ -110,22 +116,19 @@ public class JourneyMap {
                 double iconRectX = (float)(textureX-Math.max(1.0,totalRectWidth)/2-(fontScale > 1.0 ? 0.0 : 0.5));
                 //basically half the label width from the center
 
-
+                //double labelIconX = textureX;
                 double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5));
-                    //half the label width
+                //half the label width
                 double labelIconY = labelY+(labelHeight/2)-(iconDim/2.0);
-                    //moves the icon to  the vertical center of the label
+                //moves the icon to  the vertical center of the label
 
-
-                DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON, labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                DrawUtil.drawLabel(seasonStack, MINIMAP_TEXT_SEASON.get(0), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                 //No touchy. Season label offset by icon+padding
-
 
                 DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
                     //Rectangle for the icon
 
                 //Icon
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                 mc.getTextureManager().bind(SEASON);
                 AbstractGui.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
                 mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
@@ -133,5 +136,5 @@ public class JourneyMap {
                 seasonStack.popPose();
             }
         }
-    };
+    }
 }

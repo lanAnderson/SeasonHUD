@@ -1,5 +1,5 @@
 //Hud w/ Xaero's Minimap installed
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -14,8 +14,12 @@ import net.minecraftforge.fml.ModList;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonLower;
-import static club.iananderson.seasonhud.CurrentSeason.getSeasonName;
+import java.util.ArrayList;
+
+import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.data.CurrentSeason.*;
+import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
 import static xaero.common.settings.ModOptions.modMain;
 ///* Todo
 //    * Need to switch names to translatable ones
@@ -28,15 +32,24 @@ public class XaeroMinimap {
     }
 
     public static void renderXaeroHUD(Minecraft mc, MatrixStack seasonStack){
-        //Season Name
-        String seasonName = getSeasonName();
-        TranslationTextComponent MINIMAP_TEXT_SEASON = new TranslationTextComponent(seasonName);
+        ArrayList<TranslationTextComponent> underText = getSeasonName();
 
-        //Icon chooser
-        ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonLower() + ".png");
+        if (minimapLoaded() && enableMod.get() && calendar()) {
+            //Icon chooser
+            ResourceLocation SEASON;
+            if (isTropicalSeason()){
+                //Tropical season haves no main season, convert here.
+                String season = getSeasonFileName();
+                season = season.substring(season.length() - 3);
+
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + season + ".png");
+            } else {
+                SEASON = new ResourceLocation(SeasonHUD.MODID,
+                        "textures/season/" + getSeasonFileName() + ".png");
+            }
 
 
-        if (minimapLoaded()) {
             //Data
             float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
 
@@ -74,9 +87,8 @@ public class XaeroMinimap {
 
 
             //Icon
-            float stringWidth = mc.font.width(MINIMAP_TEXT_SEASON);
+            float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight)+1;
-
 
             int iconDim = (int)stringHeight-1;
             int offsetDim = 1;
@@ -84,8 +96,7 @@ public class XaeroMinimap {
             float totalWidth = (stringWidth + iconDim + offsetDim);
 
             int align = XaeroMinimapCore.currentSession.getModMain().getSettings().minimapTextAlign;
-
-            float height = mc.getWindow().getHeight();
+            int height = mc.getWindow().getHeight();
             float scaledHeight = (int)((float)height * mapScale);
             boolean under = scaledY + mapSize / 2 < scaledHeight / 2;
 
@@ -93,21 +104,19 @@ public class XaeroMinimap {
             float left = 6 + iconDim;
             float right = (int)(mapSize+2+padding-stringWidth);
 
-
             float stringX = scaledX+(align == 0 ? center : (align == 1 ? left : right));
             float stringY = scaledY+(under ? mapSize+(2*padding) : -9)+(trueCount * stringHeight * (under ? 1 : -1));
-
 
             if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
                 seasonStack.scale(fontScale, fontScale, 1.0F);
+
                 RenderSystem.enableBlend();
                 RenderSystem.defaultBlendFunc();
 
                 //Font
-                mc.font.drawShadow (seasonStack, MINIMAP_TEXT_SEASON, stringX, stringY, -1);
-
+                mc.font.drawShadow (seasonStack, underText.get(0), stringX, stringY, -1);
 
                 //Icon
                 RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
