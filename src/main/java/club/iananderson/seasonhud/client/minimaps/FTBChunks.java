@@ -1,7 +1,7 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.data.CurrentSeason;
+import club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
@@ -20,10 +20,10 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
-import static club.iananderson.seasonhud.data.CurrentSeason.isTropicalSeason;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.isTropicalSeason;
 
 
 public class FTBChunks {

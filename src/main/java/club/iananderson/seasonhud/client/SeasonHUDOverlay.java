@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
-import club.iananderson.seasonhud.data.CurrentSeason;
+import club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -13,12 +13,12 @@ import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.data.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay {

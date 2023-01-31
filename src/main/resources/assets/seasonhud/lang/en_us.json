@@ -48,5 +48,7 @@
   "desc.seasonhud.late_dry": "Late Dry",
 
   "desc.seasonhud.detailed": "%s , Day %s",
-  "desc.seasonhud.summary": "%s"
+  "desc.seasonhud.summary": "%s",
+
+  "item.calendar.tooltip": "Slot: Charm"
 }
