@@ -1,10 +1,16 @@
-package club.iananderson.seasonhud.client;
+package club.iananderson.seasonhud.impl.sereneseasons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.ModList;
 import sereneseasons.api.SSItems;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+
+import java.util.List;
 
 import static club.iananderson.seasonhud.config.Config.needCalendar;
 
@@ -12,8 +18,14 @@ import static club.iananderson.seasonhud.config.Config.needCalendar;
 public class Calendar {
     public static boolean invCalendar;
 
+    public static boolean curiosLoaded() {
+        return ModList.get().isLoaded("curios");
+    }
+
+    public static ItemStack calendar = SSItems.calendar.getDefaultInstance();
+
+
     public static boolean calendar(){
-        ItemStack calendar = SSItems.calendar.getDefaultInstance(); // ???????
 
         if(needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();
@@ -21,18 +33,15 @@ public class Calendar {
 
             if (player != null) {
                 PlayerInventory inv = player.inventory;
-                int slot = findCalendar(inv, calendar);
+                int slot = findCalendar(inv, calendar) + findCuriosCalendar(player,calendar);
 
                 invCalendar = (slot >= 0);
-
-//                PoseStack seasonStack = new PoseStack();
-//                mc.font.drawShadow(seasonStack, String.valueOf(invCalendar), 50, 50, 0xffffffff);
 
             }
 
         }
         else invCalendar = true;
-//        System.out.println(invCalendar);
+
 
         return invCalendar;
     }
@@ -47,6 +56,14 @@ public class Calendar {
         return -1;
     }
 
-
+    private static int findCuriosCalendar(ClientPlayerEntity player, ItemStack item) {
+        if (curiosLoaded()) {
+            List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item.getItem());
+            return findCalendar.size();
+        }
+        else return 0;
+    }
 }
+
+
 

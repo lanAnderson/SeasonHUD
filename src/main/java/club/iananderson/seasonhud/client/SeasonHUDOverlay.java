@@ -12,14 +12,13 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
-//import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
 import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
 import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.config.Config.hudY;
-import static club.iananderson.seasonhud.data.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay{

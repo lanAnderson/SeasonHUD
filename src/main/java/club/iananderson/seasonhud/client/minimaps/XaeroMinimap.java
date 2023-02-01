@@ -16,16 +16,12 @@ import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.client.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.data.CurrentSeason.*;
-import static club.iananderson.seasonhud.data.CurrentSeason.getSeasonFileName;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
 import static xaero.common.settings.ModOptions.modMain;
-///* Todo
-//    * Need to switch names to translatable ones
-//    * Clean up code and improve the accuracy of the formulas
-// */
-//
+
 public class XaeroMinimap {
     public static boolean minimapLoaded() {
         return (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair"));

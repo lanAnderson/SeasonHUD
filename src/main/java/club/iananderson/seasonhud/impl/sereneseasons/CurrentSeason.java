@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.data;
+package club.iananderson.seasonhud.impl.sereneseasons;
 
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;

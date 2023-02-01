@@ -22,6 +22,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import top.theillusivec4.curios.api.SlotTypeMessage;
 
 import java.util.stream.Collectors;
 
@@ -53,6 +54,7 @@ public class SeasonHUD {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
                 "SeasonHUD-client.toml");
 
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueue);
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -64,6 +66,13 @@ public class SeasonHUD {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public void enqueue(InterModEnqueueEvent event) {
+        LOGGER.info("Talking to Curios");
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
+                .size(1)
+                .build());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
