@@ -40,6 +40,7 @@ public class FTBChunks {
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
+            boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
             int i = 0;
 
@@ -47,6 +48,9 @@ public class FTBChunks {
                 i++;
             }
             if(xyz){
+                i++;
+            }
+            if(claimed){
                 i++;
             }
 
