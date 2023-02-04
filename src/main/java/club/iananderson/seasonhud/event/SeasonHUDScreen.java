@@ -95,7 +95,7 @@ public class SeasonHUDScreen extends Screen{
                 new TranslatableComponent("menu.seasonhud.button.needCalendar"),
                 (b, Off) -> Config.setNeedCalendar(Off));
 
-        ExtendedButton doneButton = new ExtendedButton(this.width / 2 + PADDING, this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT,(new TranslatableComponent("gui.done")), b -> {
+        ExtendedButton doneButton = new ExtendedButton((this.width/2 - (BUTTON_WIDTH_FULL/2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, new TranslatableComponent("gui.done"), b -> {
             mc.options.save();
             mc.setScreen(this.lastScreen);
         });

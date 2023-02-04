@@ -13,10 +13,8 @@ import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
@@ -39,6 +37,7 @@ public class SeasonHUDOverlay {
         int stringWidth = mc.font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
 
         ResourceLocation SEASON;
+
         if (isTropicalSeason()){
             //Tropical season haves no main season, convert here.
             String season = getSeasonFileName();
@@ -51,7 +50,7 @@ public class SeasonHUDOverlay {
                     "textures/season/" + getSeasonFileName() + ".png");
         }
 
-        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get() && calendar()) {
+        if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
@@ -95,5 +94,4 @@ public class SeasonHUDOverlay {
             seasonStack.popPose();
         }
     };
-
 }

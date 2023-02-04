@@ -11,29 +11,23 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.fml.ModList;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 import static xaero.common.settings.ModOptions.modMain;
 
 
 public class XaeroMinimap {
-    public static boolean minimapLoaded(){
-        return (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair"));
-    }
-
     public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
         ArrayList<Component> underText = getSeasonName();
 
-        if (minimapLoaded() && enableMod.get() && calendar()) {
+        if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Icon chooser
             ResourceLocation SEASON;
             if (isTropicalSeason()){

@@ -15,22 +15,17 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class JourneyMap {
-
-    public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
-
     public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
 
-        if (journeymapLoaded() && enableMod.get() && calendar()) {
+        if (loadedMinimap("journeymap")) {
             Theme.LabelSpec label = new Theme.LabelSpec();
 
 
@@ -53,8 +48,6 @@ public class JourneyMap {
             double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int minimapHeight = minimap.getDisplayVars().minimapHeight;
-
-
             int halfHeight = minimapHeight / 2;
 
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
@@ -95,6 +88,7 @@ public class JourneyMap {
                         "textures/season/" + getSeasonFileName() + ".png");
             }
 
+
             //Values
             if (!mc.isPaused()) {
                 seasonStack.pushPose();
@@ -123,7 +117,6 @@ public class JourneyMap {
                     DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                     //No touchy. Season label offset by icon+padding
                 }
-
                 DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
                     //Rectangle for the icon
 

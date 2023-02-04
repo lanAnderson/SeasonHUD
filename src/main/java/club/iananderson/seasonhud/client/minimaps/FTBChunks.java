@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.SeasonHUD;
-import club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
@@ -18,28 +17,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.isTropicalSeason;
-
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class FTBChunks {
-    public static boolean ftbChunksLoaded() {
-        return ModList.get().isLoaded("ftbchunks");
-    }
-    private static final List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
-
     public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-
-        if (ftbChunksLoaded() && enableMod.get() && calendar()) {
-            MINIMAP_TEXT_LIST.clear();
+        if (loadedMinimap("ftbchunks")) {
+            List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
             MapDimension dim = MapDimension.getCurrent();
             ClaimedChunkManager chunkManager = dev.ftb.mods.ftbchunks.data.FTBChunksAPI.getManager();
 
@@ -47,7 +37,7 @@ public class FTBChunks {
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
-            ChunkDimPos chunk = new ChunkDimPos(mc.player);
+            ChunkDimPos chunk = new ChunkDimPos(Objects.requireNonNull(mc.player));
             ClaimedChunk playerChunk = chunkManager.getChunk(chunk);
 
 
@@ -65,8 +55,7 @@ public class FTBChunks {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(CurrentSeason.getSeasonName().get(0));
-
+            MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
             //Icon chooser
             ResourceLocation SEASON;
@@ -77,7 +66,8 @@ public class FTBChunks {
 
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
                         "textures/season/" + season + ".png");
-            } else {
+            }
+            else {
                 SEASON = new ResourceLocation(SeasonHUD.MODID,
                         "textures/season/" + getSeasonFileName() + ".png");
             }
@@ -86,6 +76,7 @@ public class FTBChunks {
                 double guiScale = mc.getWindow().getGuiScale();
                 int ww = mc.getWindow().getGuiScaledWidth();
                 int wh = mc.getWindow().getGuiScaledHeight();
+
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
                         MapDimension.updateCurrent();
@@ -108,23 +99,21 @@ public class FTBChunks {
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
-                        if (!MINIMAP_TEXT_LIST.isEmpty()) {
-                            seasonStack.pushPose();
-                            seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
-                            seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
+                        seasonStack.pushPose();
+                        seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
+                        seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
 
 
-                            FormattedCharSequence bs = MINIMAP_TEXT_LIST.get(0).getVisualOrderText();
-                            int bsw = mc.font.width(bs);
-                            int iconDim = mc.font.lineHeight;
+                        FormattedCharSequence bs = MINIMAP_TEXT_LIST.get(0).getVisualOrderText();
+                        int bsw = mc.font.width(bs);
+                        int iconDim = mc.font.lineHeight;
 
-                            mc.font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
+                        mc.font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
 
-                            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                            RenderSystem.setShaderTexture(0, SEASON);
-                            GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, i * 11, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                        }
+                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        RenderSystem.setShaderTexture(0, SEASON);
+                        GuiComponent.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, i * 11, 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.popPose();
                     }
                 }
