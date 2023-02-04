@@ -22,6 +22,9 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue showSubSeason;
     public static ForgeConfigSpec.BooleanValue showDay;
 
+    public static ForgeConfigSpec.BooleanValue showTropicalSeason;
+
+
 
     private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
         BUILDER.push("Configs for SeasonHUD");
@@ -55,6 +58,12 @@ public class Config {
                 .comment("Show the current day of the season/sub-season? \n (true/false)")
                 .define("enable_show_day",true);
 
+        showTropicalSeason = BUILDER
+                .comment("Show the Tropical seasons (Wet/Dry) in Tropical Biomes" +
+                        "\n Will not change the season behavior"+
+                        "\n (true/false)")
+                .define("enable_show_tropical_season",true);
+
         BUILDER.pop();
         BUILDER.pop();
     }
@@ -64,6 +73,9 @@ public class Config {
     }
     public static void setShowDay(boolean showDay) {
         Config.showDay.set(showDay);
+    }
+    public static void setShowTropicalSeason(boolean showTropicalSeason) {
+        Config.showTropicalSeason.set(showTropicalSeason);
     }
     public static void setHudX(int hudX) {
         Config.hudX.set(hudX);

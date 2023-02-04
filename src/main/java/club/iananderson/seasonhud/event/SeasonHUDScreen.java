@@ -85,8 +85,13 @@ public class SeasonHUDScreen extends Screen{
                 });
 
         row = 2;
+        CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason.get())
+                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row*y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        new TranslatableComponent("menu.seasonhud.button.showTropicalSeason"),
+                        (b, Off) -> Config.setShowTropicalSeason(Off));
+
         CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(needCalendar.get())
-            .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row*y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+            .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row*y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                 new TranslatableComponent("menu.seasonhud.button.needCalendar"),
                 (b, Off) -> Config.setNeedCalendar(Off));
 
@@ -104,6 +109,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(showDayButton);
         addRenderableWidget(showSubSeasonButton);
         addRenderableWidget(hudLocationButton);
+        addRenderableWidget(showTropicalSeasonButton);
 
         addRenderableWidget(doneButton);
         //addRenderableWidget(cancelButton);

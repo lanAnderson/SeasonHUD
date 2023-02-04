@@ -18,9 +18,13 @@ public class CurrentSeason {
 
     //Get the current season in Season type
     public static boolean isTropicalSeason(){
-        Minecraft mc = Minecraft.getInstance();
-        return SeasonHelper.usesTropicalSeasons(Objects.requireNonNull(mc.level).getBiome(Objects.requireNonNull(mc.player).getOnPos()));
+        if(Config.showTropicalSeason.get()) {
+            Minecraft mc = Minecraft.getInstance();
+            return SeasonHelper.usesTropicalSeasons(Objects.requireNonNull(mc.level).getBiome(Objects.requireNonNull(mc.player).getOnPos()));
+        }
+        else return false;
     }
+
 
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
