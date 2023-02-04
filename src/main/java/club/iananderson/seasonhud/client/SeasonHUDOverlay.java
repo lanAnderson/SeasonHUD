@@ -12,13 +12,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.config.Config.hudY;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay{
@@ -47,7 +45,7 @@ public class SeasonHUDOverlay{
         ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
 
 
-        if (!minimapLoaded() && !ftbChunksLoaded() && !journeymapLoaded() && enableMod.get() && calendar()) {
+        if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
             if (hudLoc == Location.TOP_LEFT){
                 x = offsetDim;

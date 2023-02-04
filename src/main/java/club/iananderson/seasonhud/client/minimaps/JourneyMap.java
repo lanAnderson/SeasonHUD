@@ -13,21 +13,16 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class JourneyMap {
-
-    public static boolean journeymapLoaded() {return ModList.get().isLoaded("journeymap");}
-
     public static void renderJourneyMapHUD(Minecraft mc, MatrixStack seasonStack){
-        if (journeymapLoaded() && enableMod.get() && calendar()) {
+        if (loadedMinimap("journeymap")) {
             Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 

@@ -2,9 +2,9 @@ package club.iananderson.seasonhud.event;
 
 
 import club.iananderson.seasonhud.SeasonHUD;
+import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
-import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
@@ -13,9 +13,10 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static club.iananderson.seasonhud.client.minimaps.FTBChunks.ftbChunksLoaded;
-import static club.iananderson.seasonhud.client.minimaps.JourneyMap.journeymapLoaded;
-import static club.iananderson.seasonhud.client.minimaps.XaeroMinimap.minimapLoaded;
+import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 
 @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
 public class ClientEvents{
@@ -25,16 +26,18 @@ public class ClientEvents{
             Minecraft mc = Minecraft.getInstance();
             MatrixStack seasonStack = event.getMatrixStack();
 
-            if (minimapLoaded()){
+            if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")){
                 XaeroMinimap.renderXaeroHUD(mc,seasonStack);
             }
-            else if(journeymapLoaded()){
+            else if(loadedMinimap("journeymap")){
                 JourneyMap.renderJourneyMapHUD(mc,seasonStack);
             }
-            else if(ftbChunksLoaded()){
+            else if(loadedMinimap("ftbchunks")){
                 FTBChunks.renderFtbHUD(mc,seasonStack);
             }
-            else SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
+            else if(noMinimap() && enableMod.get() && calendar()){
+                SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
+            }
         }
     }
 }

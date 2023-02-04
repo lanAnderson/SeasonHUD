@@ -15,26 +15,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class FTBChunks {
-    public static boolean ftbChunksLoaded() {
-        return ModList.get().isLoaded("ftbchunks");
-    }
-
-    private static final List<TranslationTextComponent> MINIMAP_TEXT_LIST = new ArrayList<>(3);
-
-
     public static void renderFtbHUD(Minecraft mc, MatrixStack seasonStack){
-        if (ftbChunksLoaded() && enableMod.get() && calendar()) {
-            MINIMAP_TEXT_LIST.clear();
+        if (loadedMinimap("ftbchunks")) {
+            List<TranslationTextComponent> MINIMAP_TEXT_LIST = new ArrayList<>(3);
             MapDimension dim = MapDimension.getCurrent();
             ClaimedChunkManager chunkManager = dev.ftb.mods.ftbchunks.data.FTBChunksAPI.getManager();
 
@@ -42,7 +34,7 @@ public class FTBChunks {
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
-            ChunkDimPos chunk = new ChunkDimPos(mc.player);
+            ChunkDimPos chunk = new ChunkDimPos(Objects.requireNonNull(mc.player));
             ClaimedChunk playerChunk = chunkManager.getChunk(chunk);
 
 
@@ -88,8 +80,8 @@ public class FTBChunks {
                         MapDimension.updateCurrent();
                     }
 
-                    if (!mc.options.renderDebug && (Boolean) FTBChunksClientConfig.MINIMAP_ENABLED.get() && (Integer) FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
-                        float scale = (float) ((Double) FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
+                    if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
+                        float scale = (float) (FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
                         int s = (int) (64.0 * (double) scale);
                         double s2d = (double) s / 2.0;
                         MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
@@ -121,6 +113,6 @@ public class FTBChunks {
                 }
             }
         }
-    };
+    }
 }
 

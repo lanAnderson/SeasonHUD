@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.4] - 2023-02-04
+
+### Added
+
+- If the player is not in the overworld, the HUD will disable itself
+
+### Changed
+
+- Some slight code cleanup.
+
+
 ## [1.4.3] - 2023-02-03
 
 ### Added

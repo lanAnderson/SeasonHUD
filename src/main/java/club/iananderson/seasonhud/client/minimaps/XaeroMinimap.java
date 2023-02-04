@@ -10,27 +10,20 @@ import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ModList;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
 import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
-    public static boolean minimapLoaded() {
-        return (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair"));
-    }
-
     public static void renderXaeroHUD(Minecraft mc, MatrixStack seasonStack){
         ArrayList<TranslationTextComponent> underText = getSeasonName();
 
-        if (minimapLoaded() && enableMod.get() && calendar()) {
+        if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Icon chooser
             ResourceLocation SEASON;
             if (isTropicalSeason()){
