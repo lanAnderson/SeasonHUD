@@ -49,6 +49,7 @@ ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
 # Here's another dependency
+
 [[dependencies.seasonhud]]
 modId = "minecraft"
 mandatory = true
@@ -56,3 +57,17 @@ mandatory = true
 versionRange = "[1.16.5,1.17)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "sereneseasons"
+mandatory = true
+versionRange = "[1.16.5-4.0.1.126,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "xaerominimap"
+mandatory = false
+versionRange = "[23.1.0,)"
+ordering = "AFTER"
+side = "CLIENT"

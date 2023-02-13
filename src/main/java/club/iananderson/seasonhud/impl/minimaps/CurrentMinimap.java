@@ -21,7 +21,7 @@ public class CurrentMinimap {
 
     public static boolean noMinimap(){
         if(!hideMinimap()) {
-            return !loadedMinimap("xaerominimap") && !loadedMinimap("xaerominimapfair")
+            return !loadedMinimap("xaerominimap") /* && !loadedMinimap("xaerominimapfair") */
                     && !loadedMinimap("journeymap") && !loadedMinimap("ftbchunks");
         }
         else return false;

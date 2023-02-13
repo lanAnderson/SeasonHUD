@@ -16,7 +16,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.4.4'
+version = '1.4.5'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'
@@ -165,9 +165,9 @@ dependencies {
     implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4127318")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135347") //Fairplay
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4127318")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
+//    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135347") //Fairplay
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4135347") // Fairplay
 
     /JourneyMap/
