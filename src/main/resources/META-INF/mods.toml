@@ -73,3 +73,10 @@ mandatory = true
 versionRange = "[1.18.2-7.0.0.13,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.seasonhud]]
+modId = "xaerominimap"
+mandatory = false
+versionRange = "[23.1.0,)"
+ordering = "AFTER"
+side = "CLIENT"

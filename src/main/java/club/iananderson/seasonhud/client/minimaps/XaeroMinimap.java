@@ -18,16 +18,15 @@ import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
+import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
-
 
 public class XaeroMinimap {
     public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
-
         ArrayList<Component> underText = getSeasonName();
 
-        if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
+        if (loadedMinimap("xaerominimap")){ //|| loadedMinimap("xaerominimapfair")) {
             //Icon chooser
             ResourceLocation SEASON;
             if (isTropicalSeason()){
@@ -60,23 +59,22 @@ public class XaeroMinimap {
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-
-            boolean xBiome = modMain.getSettings().showBiome;
-            boolean xDim = modMain.getSettings().showDimensionName;
-            boolean xCoords = modMain.getSettings().getShowCoords();
-            boolean xAngles = modMain.getSettings().showAngles;
-            int xLight = modMain.getSettings().showLightLevel;
-            int xTime = modMain.getSettings().showTime;
+            boolean xBiome = BIOME.getState(); //Xaero Alpha Changes
+            boolean xDim = DIMENSION.getState();
+            boolean xCoords = COORDINATES.getState();
+            boolean xAngles = ANGLES.getState();
+            boolean xWeather = WEATHER.getState();
+            int xLight = LIGHT_LEVEL.getState();
+            int xTime = TIME.getState();
 
             int trueCount = 0;
-
             if (xBiome) {trueCount++;}
             if (xDim) {trueCount++;}
             if (xCoords) {trueCount++;}
             if (xAngles) {trueCount++;}
+            if (xWeather) {trueCount++;}
             if (xLight > 0) {trueCount++;}
             if (xTime > 0) {trueCount++;}
-            if (mapSize < 61) {trueCount++;}
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
