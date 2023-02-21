@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -24,10 +23,10 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 public class JourneyMap {
     public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
+        ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
         if (loadedMinimap("journeymap")) {
             Theme.LabelSpec label = new Theme.LabelSpec();
-
 
             JourneymapClient jm = JourneymapClient.getInstance();
             Font fontRenderer = mc.font;
@@ -36,11 +35,9 @@ public class JourneyMap {
             String emptyLabel = "jm.theme.labelsource.blank";
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-            ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
-
 
             boolean fontShadow = label.shadow;
 
@@ -58,41 +55,21 @@ public class JourneyMap {
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
 
             int infoLabelCount = 0;
-            if (!info3Label.equals(emptyLabel)) {
-                infoLabelCount++;
-            }
-            if (!info4Label.equals(emptyLabel)) {
-                infoLabelCount++;
-            }
+            if (!info3Label.equals(emptyLabel)) {infoLabelCount++;}
+            if (!info4Label.equals(emptyLabel)) {infoLabelCount++;}
 
             int vPad = (int) (((labelHeight/fontScale) - 9) / 2.0);
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
-
-
-            //Icon chooser
-            int iconDim = (int) (mc.font.lineHeight*fontScale);
-            double labelPad = 1*fontScale;
-            double totalIconSize = (iconDim+(labelPad));
-
-
-            ResourceLocation SEASON;
-            if (isTropicalSeason()){
-                //Tropical season haves no main season, convert here.
-                String season = getSeasonFileName();
-                season = season.substring(season.length() - 3);
-
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + season + ".png");
-            } else {
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonFileName() + ".png");
-            }
-
 
             //Values
             if (!mc.isPaused()) {
                 seasonStack.pushPose();
                 seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
+
+                //Icon
+                int iconDim = (int) (mc.font.lineHeight*fontScale);
+                double labelPad = 1*fontScale;
+                double totalIconSize = (iconDim+(labelPad));
 
                 double textureX = minimap.getDisplayVars().centerPoint.getX();
                 double textureY = minimap.getDisplayVars().centerPoint.getY();
@@ -120,6 +97,7 @@ public class JourneyMap {
                 DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
                     //Rectangle for the icon
 
+                ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);

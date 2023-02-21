@@ -1,9 +1,11 @@
 package club.iananderson.seasonhud.impl.sereneseasons;
 
+import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 
@@ -91,6 +93,18 @@ public class CurrentSeason {
         else text.add(new TranslatableComponent("desc.seasonhud.summary" , new TranslatableComponent("desc.sereneseasons."+ getSeasonStateLower())));
 
         return text;
+    }
+
+    public static ResourceLocation getSeasonResource() {
+        if (isTropicalSeason()) {
+            //Tropical season haves no main season, convert here.
+            String season = getSeasonFileName().substring(getSeasonFileName().length() - 3);
+
+            return new ResourceLocation(SeasonHUD.MODID,"textures/season/" + season + ".png");
+        }
+        else {
+            return new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
+        }
     }
 }
 

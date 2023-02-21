@@ -1,8 +1,6 @@
 package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
-import club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -22,6 +20,8 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 public class SeasonHUDOverlay {
     public static final IIngameOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
+        ArrayList<Component> seasonName = getSeasonName();
+
         float guiSize = (float) mc.getWindow().getGuiScale();
 
         int xOffset = (int) (hudX.get()/guiSize);
@@ -33,22 +33,7 @@ public class SeasonHUDOverlay {
         int iconDim = stringHeight-1;
         int offsetDim = 2;
 
-        ArrayList<Component> seasonName = getSeasonName();
         int stringWidth = mc.font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
-
-        ResourceLocation SEASON;
-
-        if (isTropicalSeason()){
-            //Tropical season haves no main season, convert here.
-            String season = getSeasonFileName();
-            season = season.substring(season.length() - 3);
-
-            SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + season + ".png");
-        } else {
-            SEASON = new ResourceLocation(SeasonHUD.MODID,
-                    "textures/season/" + getSeasonFileName() + ".png");
-        }
 
         if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
@@ -83,10 +68,10 @@ public class SeasonHUDOverlay {
             int iconY = y + yOffset+offsetDim;
             float textX = (iconX + iconDim + offsetDim);
             float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
-            ForgeGui.getFont().draw(seasonStack, CurrentSeason.getSeasonName().get(0), textX, textY, 0xffffffff);
-
+            ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
             //Icon
+            ResourceLocation SEASON = getSeasonResource();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, SEASON);
