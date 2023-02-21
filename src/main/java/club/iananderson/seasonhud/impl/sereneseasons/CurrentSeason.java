@@ -1,7 +1,9 @@
 package club.iananderson.seasonhud.impl.sereneseasons;
 
+import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
@@ -14,7 +16,6 @@ import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
 
 
 public class CurrentSeason {
-
     //Get the current season in Season type
     public static boolean isTropicalSeason(){
         if(Config.showTropicalSeason.get()) {
@@ -24,7 +25,6 @@ public class CurrentSeason {
         }
         else return false;
     }
-
 
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
@@ -91,6 +91,17 @@ public class CurrentSeason {
         else text.add(new TranslationTextComponent("desc.seasonhud.summary",new TranslationTextComponent("desc.sereneseasons."+ getCurrentSeasonNameLower())));
 
         return text;
+    }
+    public static ResourceLocation getSeasonResource() {
+        if (isTropicalSeason()) {
+            //Tropical season haves no main season, convert here.
+            String season = getSeasonFileName().substring(getSeasonFileName().length() - 3);
+
+            return new ResourceLocation(SeasonHUD.MODID,"textures/season/" + season + ".png");
+        }
+        else {
+            return new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 //Hud w/ Xaero's Minimap installed
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -22,22 +21,8 @@ import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
     public static void renderXaeroHUD(Minecraft mc, MatrixStack seasonStack){
-        ArrayList<TranslationTextComponent> underText = getSeasonName();
-
         if (loadedMinimap("xaerominimap")){ //|| loadedMinimap("xaerominimapfair")) {
-            //Icon chooser
-            ResourceLocation SEASON;
-            if (isTropicalSeason()){
-                //Tropical season haves no main season, convert here.
-                String season = getSeasonFileName();
-                season = season.substring(season.length() - 3);
-
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + season + ".png");
-            } else {
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonFileName() + ".png");
-            }
+            ArrayList<TranslationTextComponent> underText = getSeasonName();
 
             //Data
             float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
@@ -107,6 +92,7 @@ public class XaeroMinimap {
                 mc.font.drawShadow (seasonStack, underText.get(0), stringX, stringY, -1);
 
                 //Icon
+                ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                 mc.getTextureManager().bind(SEASON);
                 AbstractGui.blit(seasonStack, (int)(stringX-iconDim-offsetDim), (int)stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);

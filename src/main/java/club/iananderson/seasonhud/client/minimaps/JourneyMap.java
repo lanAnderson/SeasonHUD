@@ -16,7 +16,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 
-import static club.iananderson.seasonhud.SeasonHUD.MODID;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
@@ -38,7 +37,6 @@ public class JourneyMap {
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
 
-
             boolean fontShadow = label.shadow;
 
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
@@ -58,47 +56,26 @@ public class JourneyMap {
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
 
             int infoLabelCount = 0;
-            if (!info3Label.equals(emptyLabel)) {
-                infoLabelCount++;
-            }
-            if (!info4Label.equals(emptyLabel)) {
-                infoLabelCount++;
-            }
+            if (!info3Label.equals(emptyLabel)) {infoLabelCount++;}
+            if (!info4Label.equals(emptyLabel)) {infoLabelCount++;}
 
             int vPad = (int)(((labelHeight/fontScale) - 8) / 2.0);
             double bgHeight = (labelHeight * infoLabelCount) + (vPad) + frameWidth;
-
-
-            //Icon chooser
-            int iconDim = (int) (mc.font.lineHeight*fontScale);
-            double labelPad = 1*fontScale;
-            double totalIconSize = (iconDim+(labelPad));
-
-
-
-            ResourceLocation SEASON;
-            if (isTropicalSeason()){
-                //Tropical season haves no main season, convert here.
-                String season = getSeasonFileName();
-                season = season.substring(season.length() - 3);
-
-                SEASON = new ResourceLocation(MODID,
-                        "textures/season/" + season + ".png");
-            } else {
-                SEASON = new ResourceLocation(MODID,
-                        "textures/season/" + getSeasonFileName() + ".png");
-            }
 
             //Values
             if (!mc.isPaused()) {
                 seasonStack.pushPose();
                 seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
+                //Icon chooser
+                int iconDim = (int) (mc.font.lineHeight*fontScale);
+                double labelPad = 1*fontScale;
+                double totalIconSize = (iconDim+(labelPad));
+
                 double textureX = vars.textureX+halfWidth;
                 double textureY = vars.textureY+halfHeight;
                 double translateX = (totalIconSize/2);
                 double translateY = halfHeight + bgHeight+(fontScale < 1.0 ? 0.5 : 0.0);
-
 
                 double labelX = (textureX + translateX);
                 double labelY = (textureY + translateY);
@@ -120,6 +97,7 @@ public class JourneyMap {
                     //Rectangle for the icon
 
                 //Icon
+                ResourceLocation SEASON = getSeasonResource();
                 mc.getTextureManager().bind(SEASON);
                 AbstractGui.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
                 mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);

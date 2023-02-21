@@ -16,7 +16,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.4.5'
+version = '1.4.6'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'
@@ -154,15 +154,15 @@ dependencies {
 
 
     /FTB Chunks/
-//    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
-//    compileOnly fg.deobf("curse.maven:architectury-api-419699:3857643")
-//    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
-//    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:3857643")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
-    implementation fg.deobf("curse.maven:architectury-api-419699:3857643")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
-    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:3857643")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381115")

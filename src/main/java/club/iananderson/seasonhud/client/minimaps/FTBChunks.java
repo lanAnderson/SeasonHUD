@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
@@ -22,6 +21,7 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class FTBChunks {
     public static void renderFtbHUD(Minecraft mc, MatrixStack seasonStack){
@@ -37,39 +37,14 @@ public class FTBChunks {
             ChunkDimPos chunk = new ChunkDimPos(Objects.requireNonNull(mc.player));
             ClaimedChunk playerChunk = chunkManager.getChunk(chunk);
 
-
             int i = 0;
 
-            if(biome){
-                i++;
-            }
-            if(xyz){
-                i++;
-            }
-
-            if(claimed && (playerChunk != null)) {
-                i++;
-            }
+            if(biome){i++;}
+            if(xyz){i++;}
+            if(claimed && (playerChunk != null)) {i++;}
 
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
-
-
-            //Icon chooser
-            ResourceLocation SEASON;
-
-            if (isTropicalSeason()){
-                //Tropical season haves no main season, convert here.
-                String season = getSeasonFileName();
-                season = season.substring(season.length() - 3);
-
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + season + ".png");
-            } else {
-                SEASON = new ResourceLocation(SeasonHUD.MODID,
-                        "textures/season/" + getSeasonFileName() + ".png");
-            }
-
 
             if (mc.player != null && mc.level != null && MapManager.inst != null) {
                 double guiScale = mc.getWindow().getGuiScale();
@@ -103,6 +78,7 @@ public class FTBChunks {
                         mc.font.drawShadow(seasonStack, MINIMAP_TEXT_LIST.get(0), (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
 
                         //Icon
+                        ResourceLocation SEASON = getSeasonResource();
                         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                         mc.getTextureManager().bind(SEASON);
                         AbstractGui.blit(seasonStack,(int)((-bsw) / 2.0F)-iconDim, (int)(i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);

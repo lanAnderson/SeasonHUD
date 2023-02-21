@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -15,13 +14,14 @@ import java.util.ArrayList;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonFileName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay{
 
     public static void renderSeasonHUD(Minecraft mc, MatrixStack seasonStack) {
+        ArrayList<TranslationTextComponent> seasonName = getSeasonName();
+
         float guiSize = (float) mc.getWindow().getGuiScale();
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
@@ -37,13 +37,7 @@ public class SeasonHUDOverlay{
         int offsetDim = 2;
 
         FontRenderer fontRenderer = mc.font;
-
-        ArrayList<TranslationTextComponent> seasonName = getSeasonName();
         int stringWidth = mc.font.width(seasonName.get(0)) + iconDim + offsetDim;// might need to take offsetDim out
-
-
-        ResourceLocation SEASON = new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
-
 
         if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
@@ -80,6 +74,7 @@ public class SeasonHUDOverlay{
             fontRenderer.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
             //Icon
+            ResourceLocation SEASON = getSeasonResource();
             mc.getTextureManager().bind(SEASON);
             AbstractGui.blit(seasonStack, offsetDim, offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
             mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
