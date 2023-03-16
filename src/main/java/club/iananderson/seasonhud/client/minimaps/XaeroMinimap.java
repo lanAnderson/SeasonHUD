@@ -21,7 +21,7 @@ import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
     public static void renderXaeroHUD(Minecraft mc, MatrixStack seasonStack){
-        if (loadedMinimap("xaerominimap")){ //|| loadedMinimap("xaerominimapfair")) {
+        if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             ArrayList<TranslationTextComponent> underText = getSeasonName();
 
             //Data
