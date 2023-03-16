@@ -25,7 +25,7 @@ public class XaeroMinimap {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
 
-        if (loadedMinimap("xaerominimap")){ //|| loadedMinimap("xaerominimapfair")) {
+        if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
             float mapSize = XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimapSize();//Minimap Size
 
