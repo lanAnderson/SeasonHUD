@@ -7,13 +7,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.data.CurrentLocale.getCurrentLocale;
 import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
-
 
 public class CurrentSeason {
     //Get the current season in Season type

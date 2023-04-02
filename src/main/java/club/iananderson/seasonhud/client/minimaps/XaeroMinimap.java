@@ -1,4 +1,3 @@
-//Hud w/ Xaero's Minimap installed
 package club.iananderson.seasonhud.client.minimaps;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -11,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
-
 import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;

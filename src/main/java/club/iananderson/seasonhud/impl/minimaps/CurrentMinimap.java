@@ -18,7 +18,6 @@ public class CurrentMinimap {
        }
        else return false;
     }
-
     public static boolean noMinimap(){
         if(!hideMinimap()) {
             return !loadedMinimap("xaerominimap") && !loadedMinimap("xaerominimapfair")
@@ -26,12 +25,10 @@ public class CurrentMinimap {
         }
         else return false;
     }
-
     public static boolean hideMinimap(){
         Minecraft mc = Minecraft.getInstance();
         RegistryKey<World> currentDim = Objects.requireNonNull(mc.level).dimension();
 
         return currentDim != OVERWORLD;
-
     }
 }

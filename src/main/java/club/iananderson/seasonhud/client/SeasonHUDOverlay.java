@@ -8,7 +8,6 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-
 import java.util.ArrayList;
 
 import static club.iananderson.seasonhud.config.Config.*;
@@ -16,9 +15,7 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
-//HUD w/ no minimap installed
 public class SeasonHUDOverlay{
-
     public static void renderSeasonHUD(Minecraft mc, MatrixStack seasonStack) {
         ArrayList<TranslationTextComponent> seasonName = getSeasonName();
 
@@ -82,5 +79,4 @@ public class SeasonHUDOverlay{
             seasonStack.popPose();
         }
     }
-
 }

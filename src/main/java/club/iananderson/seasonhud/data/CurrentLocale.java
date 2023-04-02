@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud.data;
 
 import net.minecraft.client.Minecraft;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,4 @@ public class CurrentLocale {
         language.add("zh_cn");
         return language;
     }
-
-
 }

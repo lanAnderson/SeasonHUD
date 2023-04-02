@@ -21,7 +21,6 @@ public final class Config {
 
     public static ForgeConfigSpec.ConfigValue<Boolean> showTropicalSeason;
 
-
     private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
         BUILDER.push("Configs for SeasonHUD");
         BUILDER.push("HUD:");
@@ -70,7 +69,6 @@ public final class Config {
     public static void setShowDay(boolean showDay) {
         Config.showDay.set(showDay);
     }
-
     public static void setShowTropicalSeason(boolean showTropicalSeason) {
         Config.showTropicalSeason.set(showTropicalSeason);
     }
@@ -83,8 +81,6 @@ public final class Config {
     public static void setHudLocation(Location location) {
         Config.hudLocation.set(location);
     }
-
-
     public static void setEnableMod(boolean enableMod) {
         Config.enableMod.set(enableMod);
     }

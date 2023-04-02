@@ -12,23 +12,17 @@ public enum Location {
     private final String hudLocationName;
     private final TranslationTextComponent locationName;
     private final int idNum;
-
-
     private Location(int id, String hudLocation){
         this.idNum = id;
         this.hudLocationName = hudLocation;
         this.locationName = new TranslationTextComponent("location.seasonhud."+ hudLocation);
     }
-
-
     public int getId(){
         return this.idNum;
     }
-
     public String getLocation(){
         return this.hudLocationName;
     }
-
     public TranslationTextComponent getLocationName(){
         return this.locationName;
     }

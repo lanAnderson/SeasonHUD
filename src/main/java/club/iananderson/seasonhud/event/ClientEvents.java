@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.event;
 
-
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;

@@ -3,17 +3,14 @@ package club.iananderson.seasonhud.impl.sereneseasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 import sereneseasons.api.SSItems;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
-
 import java.util.List;
 
 import static club.iananderson.seasonhud.config.Config.needCalendar;
-
 
 public class Calendar {
     public static boolean invCalendar;
@@ -23,7 +20,6 @@ public class Calendar {
     }
 
     public static ItemStack calendar = SSItems.calendar.getDefaultInstance();
-
 
     public static boolean calendar(){
 
@@ -38,10 +34,8 @@ public class Calendar {
                 invCalendar = (slot >= 0);
 
             }
-
         }
         else invCalendar = true;
-
 
         return invCalendar;
     }
