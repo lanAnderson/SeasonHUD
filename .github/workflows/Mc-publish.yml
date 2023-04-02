@@ -53,6 +53,14 @@ jobs:
           version-type: release
           changelog-file: CHANGELOG.md
 
+          dependencies: |
+            curios | recommends | *
+            ftb-chunks-forge | recommends | *
+            journeymap | recommends | *
+            xaeros-minimap | recommends | *
+            xaeros-minimap-fair-play-edition | recommends | *
+            serene-seasons | depends | *
+
           loaders: forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
