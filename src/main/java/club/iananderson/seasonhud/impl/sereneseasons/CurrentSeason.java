@@ -15,7 +15,6 @@ import java.util.Objects;
 import static club.iananderson.seasonhud.data.CurrentLocale.getCurrentLocale;
 import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
 
-
 public class CurrentSeason {
 
     //Get the current season in Season type
@@ -26,7 +25,6 @@ public class CurrentSeason {
         }
         else return false;
     }
-
 
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();

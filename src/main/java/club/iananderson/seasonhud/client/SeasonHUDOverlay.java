@@ -16,7 +16,6 @@ import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
-//HUD w/ no minimap installed
 public class SeasonHUDOverlay {
     public static final IIngameOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();

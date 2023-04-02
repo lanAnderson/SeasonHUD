@@ -14,8 +14,6 @@ import java.util.List;
 
 import static club.iananderson.seasonhud.config.Config.needCalendar;
 
-
-
 public class Calendar {
     public static boolean invCalendar;
 
