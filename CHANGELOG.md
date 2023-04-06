@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.10] - 2023-04-05
+
+### Fixed
+
+- Fixed alignment issue with JourneyMap on the bottom half the screen
+
+### Added
+
+- Added config option to display above the JourneyMap minimap
+
+
 ## [1.4.9] - 2023-04-02
 
 ### Changed

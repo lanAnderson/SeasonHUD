@@ -21,8 +21,8 @@ public class Config {
     public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
     public static ForgeConfigSpec.BooleanValue showSubSeason;
     public static ForgeConfigSpec.BooleanValue showDay;
-
     public static ForgeConfigSpec.BooleanValue showTropicalSeason;
+    public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
 
 
 
@@ -64,6 +64,10 @@ public class Config {
                         "\n (true/false)")
                 .define("enable_show_tropical_season",true);
 
+        journeyMapAboveMap = BUILDER
+                .comment("Show above the Journeymap map, instead of below. \n (true/false)")
+                .define("enable_above_map",false);
+
         BUILDER.pop();
         BUILDER.pop();
     }
@@ -94,4 +98,8 @@ public class Config {
     public static void setNeedCalendar(boolean needCalendar) {
         Config.needCalendar.set(needCalendar);
     }
+    public static void setJourneyMapAboveMap(boolean journeyMapAboveMap) {
+        Config.journeyMapAboveMap.set(journeyMapAboveMap);
+    }
+
 }

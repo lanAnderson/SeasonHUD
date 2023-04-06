@@ -25,6 +25,7 @@ public class SeasonHUDScreen extends Screen{
     private final Screen lastScreen;
 
     private static final Component title = new TranslatableComponent("menu.seasonhud.title");
+    private static final Component JOURNEYMAP = new TranslatableComponent("menu.seasonhud.journeymap");
 
     public SeasonHUDScreen(Screen seasonScreen){
         super(title);
@@ -42,14 +43,16 @@ public class SeasonHUDScreen extends Screen{
         this.renderDirtBackground(0);
         super.render(stack, mouseX, mouseY, partialTicks);
         drawCenteredString(stack, font, title, this.width / 2, PADDING, 16777215);
+        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (4 * (BUTTON_HEIGHT + PADDING)), 16777215);
+
     }
 
     public void init() {
         super.init();
         Minecraft mc = Minecraft.getInstance();
 
-        int BUTTON_START_X_LEFT = (this.width/2) - (BUTTON_WIDTH_HALF+PADDING);
-        int BUTTON_START_X_RIGHT = (this.width/2) + PADDING;
+        int BUTTON_START_X_LEFT = (this.width / 2) - (BUTTON_WIDTH_HALF + PADDING);
+        int BUTTON_START_X_RIGHT = (this.width / 2) + PADDING;
         int BUTTON_START_Y = MENU_PADDING_FULL;
         int y_OFFSET = BUTTON_HEIGHT + PADDING;
 
@@ -95,6 +98,13 @@ public class SeasonHUDScreen extends Screen{
                 new TranslatableComponent("menu.seasonhud.button.needCalendar"),
                 (b, Off) -> Config.setNeedCalendar(Off));
 
+        row = 5;
+        CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
+                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        new TranslatableComponent("menu.seasonhud.button.journeyMapAboveMap"),
+                        (b, Off) -> Config.setJourneyMapAboveMap(Off));
+
+
         ExtendedButton doneButton = new ExtendedButton((this.width/2 - (BUTTON_WIDTH_FULL/2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, new TranslatableComponent("gui.done"), b -> {
             mc.options.save();
             mc.setScreen(this.lastScreen);
@@ -110,6 +120,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(showSubSeasonButton);
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
+        addRenderableWidget(journeyMapAboveMapButton);
 
         addRenderableWidget(doneButton);
         //addRenderableWidget(cancelButton);
