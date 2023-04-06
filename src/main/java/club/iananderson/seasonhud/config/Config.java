@@ -20,6 +20,7 @@ public final class Config {
     public static ForgeConfigSpec.ConfigValue<Boolean> showDay;
 
     public static ForgeConfigSpec.ConfigValue<Boolean> showTropicalSeason;
+    public static ForgeConfigSpec.ConfigValue<Boolean>  journeyMapAboveMap;
 
     private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
         BUILDER.push("Configs for SeasonHUD");
@@ -59,6 +60,10 @@ public final class Config {
                         "\n (true/false)")
                 .define("enable_show_tropical_season",true);
 
+        journeyMapAboveMap = BUILDER
+                .comment("Show above the Journeymap map, instead of below. \n (true/false)")
+                .define("enable_above_map",false);
+
         BUILDER.pop();
         BUILDER.pop();
     }
@@ -86,5 +91,9 @@ public final class Config {
     }
     public static void setNeedCalendar(boolean needCalendar) {
         Config.needCalendar.set(needCalendar);
+    }
+
+    public static void setJourneyMapAboveMap(boolean journeyMapAboveMap) {
+        Config.journeyMapAboveMap.set(journeyMapAboveMap);
     }
 }

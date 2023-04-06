@@ -15,7 +15,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.4.9'
+version = '1.4.10'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'
@@ -100,10 +100,10 @@ dependencies {
     /Serene Seasons/
     implementation "curse.maven:serene-seasons-291874:3894514"
     implementation "curse.maven:serene-seasons-291874:3894516"
-    //compileOnly "curse.maven:serene-seasons-291874:3894517"
+//    compileOnly "curse.maven:serene-seasons-291874:3894517"
 
     /Curios/
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2:api")
 
 
