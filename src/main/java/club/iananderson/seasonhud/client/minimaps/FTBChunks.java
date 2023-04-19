@@ -7,12 +7,13 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
-import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
-import dev.ftb.mods.ftbchunks.data.ClaimedChunkManager;
-import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
+import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
+import dev.ftb.mods.ftblibrary.math.XZ;
+import dev.ftb.mods.ftbteams.data.ClientTeam;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
@@ -25,23 +26,28 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 
 public class FTBChunks {
     public static void renderFtbHUD(Minecraft mc, MatrixStack seasonStack){
+        List<TranslationTextComponent> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+        int i = 0;
+
         if (loadedMinimap("ftbchunks")) {
-            List<TranslationTextComponent> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+            ChunkPos currentPlayerPos = new ChunkPos(Objects.requireNonNull(mc.player).blockPosition());
             MapDimension dim = MapDimension.getCurrent();
-            ClaimedChunkManager chunkManager = dev.ftb.mods.ftbchunks.data.FTBChunksAPI.getManager();
+            MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
             boolean xyz = FTBChunksClientConfig.MINIMAP_XYZ.get();
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
-            ChunkDimPos chunk = new ChunkDimPos(Objects.requireNonNull(mc.player));
-            ClaimedChunk playerChunk = chunkManager.getChunk(chunk);
-
-            int i = 0;
+            if (data != null) {
+                ClientTeam team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam();
+                if (team != null && claimed) {
+                    i++;
+                }
+            }
 
             if(biome){i++;}
             if(xyz){i++;}
-            if(claimed && (playerChunk != null)) {i++;}
+
 
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
