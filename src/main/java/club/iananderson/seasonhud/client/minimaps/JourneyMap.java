@@ -5,7 +5,7 @@ import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
-import journeymap.client.ui.minimap.DisplayVars;
+import journeymap.client.ui.minimap.MiniMap;
 import journeymap.client.ui.theme.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -13,7 +13,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class JourneyMap {
-    public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
+    public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
@@ -44,7 +44,6 @@ public class JourneyMap {
 
             int minimapHeight = minimap.getDisplayVars().minimapHeight;
             int halfHeight = minimapHeight / 2;
-            //int halfWidth = minimapWidth / 2;
 
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
