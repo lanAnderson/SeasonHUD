@@ -21,28 +21,22 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.*;
 
 public class JourneyMap {
     public static void renderJourneyMapHUD(Minecraft mc, MatrixStack seasonStack){
+        ArrayList<TranslationTextComponent> MINIMAP_TEXT_SEASON= getSeasonName();
+
         if (loadedMinimap("journeymap")) {
-            Theme.LabelSpec label = new Theme.LabelSpec();
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
             JourneymapClient jm = JourneymapClient.getInstance();
             FontRenderer fontRenderer = mc.font;
-            //MiniMap minimap = UIManager.INSTANCE.getMiniMap();
 
             String emptyLabel = "jm.theme.labelsource.blank";
             String info1Label = jm.getActiveMiniMapProperties().info1Label.get();
             String info2Label = jm.getActiveMiniMapProperties().info2Label.get();
             String info3Label = jm.getActiveMiniMapProperties().info3Label.get();
             String info4Label = jm.getActiveMiniMapProperties().info4Label.get();
-            ArrayList<TranslationTextComponent> MINIMAP_TEXT_SEASON= getSeasonName();
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
             float guiSize = (float) mc.getWindow().getGuiScale();
-
-            boolean fontShadow = label.shadow;
-
-            double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int minimapHeight = jm.getActiveMiniMapProperties().getSize();
             int minimapWidth = vars.minimapWidth;
@@ -53,9 +47,14 @@ public class JourneyMap {
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
-            float labelAlpha = currentTheme.background.alpha;
+            float labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
             float textAlpha = currentTheme.foreground.alpha;
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
+
+            boolean fontShadow = currentTheme.shadow;
+
+            double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
+            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int infoLabelCount = 0;
             if (journeyMapAboveMap.get()){
@@ -84,7 +83,7 @@ public class JourneyMap {
                 seasonStack.pushPose();
                 seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
-                //Icon chooser
+                //Icon
                 int iconDim = (int) (mc.font.lineHeight*fontScale);
                 double labelPad = 1*fontScale;
                 double totalIconSize = (iconDim+(labelPad));
@@ -122,5 +121,5 @@ public class JourneyMap {
                 seasonStack.popPose();
             }
         }
-    }
+    };
 }
