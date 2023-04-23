@@ -1,6 +1,13 @@
 name: MC-Publish (CurseForge/Modrinth)
 
-on: [workflow_dispatch]
+on: 
+  workflow_run:
+    workflows: ["MC-Publish (CurseForge/Modrinth)"]
+    branches: 
+      - 1.16.5
+    types: 
+      - completed
+  
 
 env:                                              
   MINECRAFT_VERSION: 1.18.2
@@ -12,7 +19,8 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest                        
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
     steps:                                        
       - name: Check Environment Variables
         run: env
