@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.13] - 2023-04-26
+
+### Fixed
+
+- Fixed the HUD staying rendered while inventories are open, while using Journeymap or no minimap
+
+
 ## [1.4.12] - 2023-04-22
 
 ### Fixed
