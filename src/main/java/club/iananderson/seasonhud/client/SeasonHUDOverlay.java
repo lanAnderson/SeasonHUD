@@ -6,6 +6,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import java.util.ArrayList;
@@ -38,45 +40,44 @@ public class SeasonHUDOverlay{
 
         if (noMinimap() && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
-            if (hudLoc == Location.TOP_LEFT){
+            if (hudLoc == Location.TOP_LEFT) {
                 x = offsetDim;
-                y = 0; }
-            else if (hudLoc == Location.TOP_CENTER) {
+                y = 0;
+            } else if (hudLoc == Location.TOP_CENTER) {
                 x = screenWidth / 2 - stringWidth / 2;
                 y = 0;
-            }
-            else if (hudLoc == Location.TOP_RIGHT) {
+            } else if (hudLoc == Location.TOP_RIGHT) {
                 x = screenWidth - stringWidth - offsetDim;
                 y = 0;
-            }
-            else if (hudLoc == Location.BOTTOM_LEFT) {
+            } else if (hudLoc == Location.BOTTOM_LEFT) {
                 x = offsetDim;
-                y = screenHeight - iconDim - (2*offsetDim);
-            }
-            else if (hudLoc == Location.BOTTOM_RIGHT) {
+                y = screenHeight - iconDim - (2 * offsetDim);
+            } else if (hudLoc == Location.BOTTOM_RIGHT) {
                 x = screenWidth - stringWidth - offsetDim;
-                y = screenHeight - iconDim - (2*offsetDim);
+                y = screenHeight - iconDim - (2 * offsetDim);
             }
 
-            seasonStack.pushPose();
-            seasonStack.scale(1F, 1F, 1F);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.renderDebug) {
+                seasonStack.pushPose();
+                seasonStack.scale(1F, 1F, 1F);
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
 
-            //Text
-            int iconX = x + xOffset;
-            int iconY = y + yOffset+offsetDim;
-            float textX = (iconX + iconDim + offsetDim);
-            float textY = iconY;
-            fontRenderer.drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
+                //Text
+                int iconX = x + xOffset;
+                int iconY = y + yOffset + offsetDim;
+                float textX = (iconX + iconDim + offsetDim);
+                float textY = iconY;
+                fontRenderer.drawShadow(seasonStack, seasonName.get(0), textX, textY, 0xffffffff);
 
-            //Icon
-            ResourceLocation SEASON = getSeasonResource();
-            mc.getTextureManager().bind(SEASON);
-            AbstractGui.blit(seasonStack, offsetDim, offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
-            mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
-            RenderSystem.disableBlend();
-            seasonStack.popPose();
+                //Icon
+                ResourceLocation SEASON = getSeasonResource();
+                mc.getTextureManager().bind(SEASON);
+                AbstractGui.blit(seasonStack, offsetDim, offsetDim, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
+                RenderSystem.disableBlend();
+                seasonStack.popPose();
+            }
         }
     }
 }
