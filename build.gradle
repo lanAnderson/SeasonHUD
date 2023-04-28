@@ -15,7 +15,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.4.13'
+version = '1.4.14'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'
@@ -106,6 +106,14 @@ dependencies {
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2:api")
 
+    /Xaero's Minimap/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
+
+    /Xaero's Minimap Fair Play/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429583") //Fairplay
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429583") // Fairplay
+
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:3553840")
@@ -118,11 +126,6 @@ dependencies {
 //    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3535953")
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4135807")
 
-    /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429583") //Fairplay
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4381115")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429583") // Fairplay
 
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:4012858")
