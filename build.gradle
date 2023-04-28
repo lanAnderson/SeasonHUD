@@ -155,8 +155,8 @@ dependencies {
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4429588")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500809")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500809")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4060220")
