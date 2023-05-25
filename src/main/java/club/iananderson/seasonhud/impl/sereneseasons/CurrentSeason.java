@@ -8,6 +8,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
+import sereneseasons.config.ServerConfig;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -56,14 +57,15 @@ public class CurrentSeason {
     }
 
     //Get the current date of the season
-    public static int getDate(){
+    public static int getDate() {
         Minecraft mc = Minecraft.getInstance();
         ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
+        int subSeasonDuration = (Integer) ServerConfig.subSeasonDuration.get();
 
         int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
 
-        int seasonDate = (seasonDay % 24) + 1; //24 days in a season (8 days * 3 weeks)
-        int subDate = (seasonDay % 8) + 1; //8 days in each subSeason (1 week)
+        int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //24 days in a season (8 days * 3 weeks)
+        int subDate = (seasonDay % subSeasonDuration) + 1; //8 days in each subSeason (1 week)
         int subTropDate = ((seasonDay + 24) % 16) + 1; //16 days in each tropical "subSeason". Starts are "Early Dry" (Summer 1), so need to offset 24 days (Spring 1 -> Summer 1)
 
         if(isTropicalSeason()){
