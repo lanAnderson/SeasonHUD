@@ -79,7 +79,7 @@ public class XaeroMinimap {
             float stringY = scaledY+(under ? mapSize+(2*padding) : -9)+(trueCount * stringHeight * (under ? 1 : -1));
 
             if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-                    && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug)) {
+                    && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug) && modMain.getSettings().getMinimap()) {
                 seasonStack.pushPose();
                 seasonStack.scale(fontScale, fontScale, 1.0F);
 
