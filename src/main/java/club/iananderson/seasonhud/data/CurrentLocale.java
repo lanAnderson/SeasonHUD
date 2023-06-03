@@ -9,7 +9,7 @@ public class CurrentLocale {
     //Currently implemented languages
     public static String getCurrentLocale(){
         Minecraft mc = Minecraft.getInstance();
-        return mc.getLanguageManager().getSelected().toLowerCase();
+        return mc.getLanguageManager().getSelected().getJavaLocale().toString().toLowerCase();
     }
     //Improve later, will work for now
     public static List<String> supportedLanguages(){
