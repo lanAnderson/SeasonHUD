@@ -4,8 +4,8 @@ on: [workflow_dispatch]
 
 env:                                              
   MINECRAFT_VERSION: 1.19.3
-  MOD_VERSION: 1.4.16
-  JAVA_VERSION: 17                   
+  MOD_VERSION: 1.4.17
+  JAVA_VERSION: 17
 
 permissions:
   contents: write
