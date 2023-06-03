@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 env:                                              
   MINECRAFT_VERSION: 1.19.4
-  MOD_VERSION: 1.4.16
+  MOD_VERSION: 1.4.17
   JAVA_VERSION: 17                   
 
 permissions:
@@ -53,8 +53,6 @@ jobs:
           version-type: release
           changelog-file: CHANGELOG.md
 
-          loaders: forge
-          game-versions: "${{env.MINECRAFT_VERSION}}"
           dependencies: |
             curios | recommends | *
             ftb-chunks-forge | recommends | *
@@ -63,5 +61,7 @@ jobs:
             xaeros-minimap-fair-play-edition | recommends | *
             serene-seasons | depends | *
 
+          loaders: forge
+          game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
