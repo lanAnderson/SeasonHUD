@@ -4,11 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.18] - 2023-06-03
+
+### Added
+
+- Added an option to display the default SeasonHUD overlay if the minimap is hidden
+
+### Fixed
+
+- Will now disable if Journeymap is hidden
+
+
 ## [1.4.17] - 2023-06-02
 
 ### Fixed
 
 - Will now disable if Xaero's Minimap is hidden
+
 
 ## [1.4.16] - 2023-05-24
 
@@ -93,7 +105,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Slight code cleanup
-- Xaero's Minimap Fairplay still hasn't been updated to match the regular version, so continue using [1.4.4] if using it.
+- Xaero's Minimap Fairplay still hasn't been updated to match the regular version, so continue using [1.4.4] if using it
 
 
 ## [1.4.5] - 2023-02-12
@@ -141,7 +153,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Added optional support for CuriosAPI
-  - If CuriosAPI is loaded, then the Calendar item from SereneSeason can be equipped in the "Charm" slot.
+  - If CuriosAPI is loaded, then the Calendar item from SereneSeason can be equipped in the "Charm" slot
   - If the "Need Calendar" option is enabled, then a Calendar in the "Charm" slot will meet the requirement
 
 ## [1.3.6] - 2023-01-21
@@ -193,11 +205,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Added am in-game config screen and a keybind for it.
+- Added am in-game config screen and a keybind for it
   - Default key is 'H'
 
 
 ### Changed
 
 - Due to some changes from 1.19.2 -> 1.19.3, I had to change to separate builds for each, rather than a unified version
-- Fixed an issue with tropical season dates. Should be accurate now.
+- Fixed an issue with tropical season dates. Should be accurate now
