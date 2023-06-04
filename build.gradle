@@ -15,7 +15,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
 group = 'club.iananderson'
-version = '1.4.17'
+version = '1.4.18'
 
 java {
     archivesBaseName = 'seasonhud-1.16.5'

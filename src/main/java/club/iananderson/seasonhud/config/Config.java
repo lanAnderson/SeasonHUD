@@ -18,9 +18,10 @@ public final class Config {
     public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
     public static ForgeConfigSpec.ConfigValue<Boolean> showSubSeason;
     public static ForgeConfigSpec.ConfigValue<Boolean> showDay;
-
     public static ForgeConfigSpec.ConfigValue<Boolean> showTropicalSeason;
+    public static ForgeConfigSpec.ConfigValue<Boolean> showMinimapHidden;
     public static ForgeConfigSpec.ConfigValue<Boolean>  journeyMapAboveMap;
+
 
     private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
         BUILDER.push("Configs for SeasonHUD");
@@ -60,6 +61,10 @@ public final class Config {
                         "\n (true/false)")
                 .define("enable_show_tropical_season",true);
 
+        showMinimapHidden = BUILDER
+                .comment("Show the default SeasonHUD when the Minimap is hidden \n (true/false)")
+                .define("enable_show_minimap_hidden",false);
+
         journeyMapAboveMap = BUILDER
                 .comment("Show above the Journeymap map, instead of below. \n (true/false)")
                 .define("enable_above_map",false);
@@ -92,7 +97,9 @@ public final class Config {
     public static void setNeedCalendar(boolean needCalendar) {
         Config.needCalendar.set(needCalendar);
     }
-
+    public static void setShowMinimapHidden(boolean showMinimapHidden) {
+        Config.showMinimapHidden.set(showMinimapHidden);
+    }
     public static void setJourneyMapAboveMap(boolean journeyMapAboveMap) {
         Config.journeyMapAboveMap.set(journeyMapAboveMap);
     }
