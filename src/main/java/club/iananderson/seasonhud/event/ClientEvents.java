@@ -13,8 +13,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 
 @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
@@ -25,16 +27,16 @@ public class ClientEvents{
             Minecraft mc = Minecraft.getInstance();
             MatrixStack seasonStack = event.getMatrixStack();
 
-            if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")){
+            if ((loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) && (!minimapHidden() && showMinimapHidden.get())){
                 XaeroMinimap.renderXaeroHUD(mc,seasonStack);
             }
-            else if(loadedMinimap("journeymap")){
+            else if(loadedMinimap("journeymap") && (!minimapHidden() && showMinimapHidden.get())){
                 JourneyMap.renderJourneyMapHUD(mc,seasonStack);
             }
-            else if(loadedMinimap("ftbchunks")){
+            else if(loadedMinimap("ftbchunks") && (!minimapHidden() && showMinimapHidden.get())){
                 FTBChunks.renderFtbHUD(mc,seasonStack);
             }
-            else if(noMinimap() && enableMod.get() && calendar()){
+            else if((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()){
                 SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
             }
         }
