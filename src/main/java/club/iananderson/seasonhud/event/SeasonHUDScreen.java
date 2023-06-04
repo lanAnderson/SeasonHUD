@@ -20,7 +20,7 @@ public class SeasonHUDScreen extends Screen{
     private static final int MENU_PADDING_HALF = MENU_PADDING_FULL/2;
     private static final int PADDING = 4;
     private static final int BUTTON_WIDTH_FULL = 200;
-    private static final int BUTTON_WIDTH_HALF = 150;
+    private static final int BUTTON_WIDTH_HALF = 180;
     private static final int BUTTON_HEIGHT = 20;
     public static Screen seasonScreen;
 
@@ -42,7 +42,7 @@ public class SeasonHUDScreen extends Screen{
     public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(0);
         drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
-        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (4 * (BUTTON_HEIGHT + PADDING)), 16777215);
+        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
 
@@ -96,7 +96,13 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.needCalendar"),
                         (b, Off) -> Config.setNeedCalendar(Off));
 
-        row = 5;
+        row = 3;
+        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
+                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.showMinimapHidden"),
+                        (b, Off) -> Config.setShowMinimapHidden(Off));
+
+        row = 6;
         CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.journeyMapAboveMap"),
@@ -116,6 +122,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(showSubSeasonButton);
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
+        addRenderableWidget(showMinimapHiddenButton);
         addRenderableWidget(journeyMapAboveMapButton);
 
         addRenderableWidget(doneButton);

@@ -13,25 +13,24 @@ import static net.minecraft.world.level.Level.OVERWORLD;
 
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
-        if(enableMod.get() && calendar() && !hideMinimap()){
+        if(enableMod.get() && calendar() && !dimensionHideHUD()){
             return ModList.get().isLoaded(minimap);
         }
         else return false;
     }
 
     public static boolean noMinimap(){
-        if(!hideMinimap()) {
+        if(!dimensionHideHUD()) {
             return !loadedMinimap("xaerominimap")  && !loadedMinimap("xaerominimapfair")
                     && !loadedMinimap("journeymap") && !loadedMinimap("ftbchunks");
         }
         else return false;
     }
 
-    public static boolean hideMinimap(){
+    public static boolean dimensionHideHUD(){
         Minecraft mc = Minecraft.getInstance();
         ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
         return currentDim != OVERWORLD;
-
     }
 }
