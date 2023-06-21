@@ -1,0 +1,67 @@
+name: MC-Publish (CurseForge/Modrinth)
+
+on: [workflow_dispatch]
+
+env:                                              
+  MINECRAFT_VERSION: 1.20
+  MOD_VERSION: 1.4.18
+  JAVA_VERSION: 17                   
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest                        
+    steps:                                        
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Publish on Curseforge and Modrinth
+        uses: Kir-Antipov/mc-publish@v3.2
+        with:
+
+          modrinth-featured: true
+          modrinth-id: VNjUn3NA
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          curseforge-id: 690971
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+
+          files-primary: build/libs/!(*-@(dev|sources|javadoc)).jar
+
+          name: ""
+          version: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          dependencies: |
+            curios | recommends | *
+            ftb-chunks-forge | recommends | *
+            journeymap | recommends | *
+            xaeros-minimap | recommends | *
+            xaeros-minimap-fair-play-edition | recommends | *
+            serene-seasons | depends | *
+
+          loaders: forge
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
