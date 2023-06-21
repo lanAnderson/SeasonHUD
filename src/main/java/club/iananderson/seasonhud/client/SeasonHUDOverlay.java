@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.client;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -63,23 +62,23 @@ public class SeasonHUDOverlay {
             }
 
             if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.renderDebug) {
-                seasonStack.pushPose();
-                seasonStack.scale(1F, 1F, 1F);
+                seasonStack.pose().pushPose();
+                seasonStack.pose().scale(1F, 1F, 1F);
 
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
                 float textX = (iconX + iconDim + offsetDim);
                 float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
-                ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0), textX, textY, 0xffffffff);
+                seasonStack.drawString(mc.font, seasonName.get(0), textX, textY, 0xffffffff);
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                seasonStack.popPose();
+                seasonStack.blit(SEASON, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.pose().popPose();
             }
         }
     };

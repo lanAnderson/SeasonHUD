@@ -9,7 +9,6 @@ import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -85,8 +84,8 @@ public class JourneyMap {
 
             //Values
             if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get()) {
-                seasonStack.pushPose();
-                seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
+                seasonStack.pose().pushPose();
+                seasonStack.pose().scale(1 / guiSize, 1 / guiSize, 1.0F);
 
                 //Icon
                 int iconDim = (int) (mc.font.lineHeight*fontScale);
@@ -116,16 +115,16 @@ public class JourneyMap {
                     DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
                     //No touchy. Season label offset by icon+padding
                 }
-                DrawUtil.drawRectangle(seasonStack,iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
+                DrawUtil.drawRectangle(seasonStack.pose(),iconRectX-(2*labelPad),labelY,totalRectWidth-labelWidth,labelHeight,labelColor,labelAlpha);
                 //Rectangle for the icon
 
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
+                seasonStack.blit(SEASON,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
                 //DrawUtil.drawImage(seasonStack, 0,labelX,labelY,false,fontScale,0);
-                seasonStack.popPose();
+                seasonStack.pose().popPose();
             }
         }
     };

@@ -10,7 +10,6 @@ import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
 import dev.ftb.mods.ftblibrary.math.XZ;
 import dev.ftb.mods.ftbteams.data.ClientTeam;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -86,23 +85,23 @@ public class FTBChunks {
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
-                        seasonStack.pushPose();
-                        seasonStack.translate((double) x + s2d, (double) (y + s) + 3.0, 0.0);
-                        seasonStack.scale((float) (0.5 * (double) scale), (float) (0.5 * (double) scale), 1.0F);
+                        seasonStack.pose().pushPose();
+                        seasonStack.pose().translate((double) x + s2d, (double) (y + s) + 3.0, 0.0);
+                        seasonStack.pose().scale((float) (0.5 * (double) scale), (float) (0.5 * (double) scale), 1.0F);
 
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
                         int bsw = mc.font.width(bs);
                         int iconDim = mc.font.lineHeight;
 
-                        mc.font.drawShadow(seasonStack, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
+                        seasonStack.drawString(mc.font, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
 
                         ResourceLocation SEASON = getSeasonResource();
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.setShaderTexture(0, SEASON);
-                        GuiComponent.blit(seasonStack, (int) ((-bsw) / 2.0F) - iconDim, (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
-                        seasonStack.popPose();
+                        seasonStack.blit(SEASON, (int) ((-bsw) / 2.0F) - iconDim, (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                        seasonStack.pose().popPose();
                     }
                 }
             }

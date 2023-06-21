@@ -2,7 +2,6 @@ package club.iananderson.seasonhud.client.minimaps;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -93,12 +92,12 @@ public class XaeroMinimap {
 
             if ((!modMain.getSettings().hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modMain.getSettings().hideMinimapUnderF3 || !mc.options.renderDebug) && modMain.getSettings().getMinimap()) {
-                seasonStack.pushPose();
-                seasonStack.scale(fontScale, fontScale, 1.0F);
+                seasonStack.pose().pushPose();
+                seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 
                 //Font
                 for (Component s : underText) {
-                    mc.font.drawShadow(seasonStack, s, stringX, stringY, -1);
+                    seasonStack.drawString(mc.font, s.getString(), stringX, stringY, -1);
                 }
 
                 underText.clear();
@@ -108,8 +107,8 @@ public class XaeroMinimap {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX - iconDim - offsetDim), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                seasonStack.popPose();
+                seasonStack.blit(SEASON, (int) (stringX - iconDim - offsetDim), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.pose().popPose();
             }
         }
 
