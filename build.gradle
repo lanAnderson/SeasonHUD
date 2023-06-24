@@ -157,7 +157,9 @@ dependencies {
 
 
     /JourneyMap/
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4580627")
 //    implementation fg.deobf("curse.maven:journeymap-32274:4580627")
+
 }
 
 jar {
