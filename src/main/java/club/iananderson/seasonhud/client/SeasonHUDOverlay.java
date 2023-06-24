@@ -68,8 +68,8 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
-                float textX = (iconX + iconDim + offsetDim);
-                float textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
+                int textX = (iconX + iconDim + offsetDim);
+                int textY = iconY;//(iconY+(iconDim-stringHeight)); //double check this is exact
                 seasonStack.drawString(mc.font, seasonName.get(0), textX, textY, 0xffffffff);
 
                 //Icon

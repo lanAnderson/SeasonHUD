@@ -94,7 +94,7 @@ public class FTBChunks {
                         int bsw = mc.font.width(bs);
                         int iconDim = mc.font.lineHeight;
 
-                        seasonStack.drawString(mc.font, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
+                        seasonStack.drawString(mc.font, bs, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), -1);
 
                         ResourceLocation SEASON = getSeasonResource();
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);

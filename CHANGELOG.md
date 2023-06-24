@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added 1.20 support
 - Added an option to display the default SeasonHUD overlay if the minimap is hidden
 
 ### Fixed

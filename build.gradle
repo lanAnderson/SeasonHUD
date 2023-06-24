@@ -133,16 +133,16 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4578509")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4578509")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4593190")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4593190")
 
     /Xaero's Minimap Fair Play/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4586338")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4586338")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4578071")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4578071")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
@@ -157,7 +157,6 @@ dependencies {
 
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4580627")
 //    implementation fg.deobf("curse.maven:journeymap-32274:4580627")
 }
 
@@ -180,3 +179,4 @@ jar.finalizedBy('reobfJar')
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
+
