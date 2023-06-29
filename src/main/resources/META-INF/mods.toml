@@ -15,36 +15,36 @@ This is an addon for SereneSeasons that displays the current season on the HUD o
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.seasonhud]] #optional
-# the modid of the dependency
-modId = "forge" #mandatory
-# Does this dependency have to exist - if not, ordering below must be specified
-mandatory = true #mandatory
-# The version range of the dependency
-versionRange = "[43,)" #mandatory
-# An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
-ordering = "NONE"
-# Side this dependency is applied on - BOTH, CLIENT or SERVER
-side = "BOTH"
-# Here's another dependency
+    modId = "forge" #mandatory
+    mandatory = true #mandatory
+    versionRange = "[43,)" #mandatory
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.seasonhud]]
-modId = "minecraft"
-mandatory = true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange = "[1.19.2,1.20)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.19.2,1.20)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.seasonhud]]
-modId = "sereneseasons"
-mandatory = true
-versionRange = "[1.19-8.0.0.19,)"
-ordering = "AFTER"
-side = "BOTH"
+    modId = "sereneseasons"
+    mandatory = true
+    versionRange = "[1.19-8.0.0.19,)"
+    ordering = "AFTER"
+    side = "BOTH"
 
 [[dependencies.seasonhud]]
-modId = "xaerominimap"
-mandatory = false
-versionRange = "[23.3.3,)"
-ordering = "AFTER"
-side = "CLIENT"
+    modId = "xaerominimap"
+    mandatory = false
+    versionRange = "[23.3.3,)"
+    ordering = "AFTER"
+    side = "CLIENT"
+
+[[dependencies.seasonhud]]
+    modId = "ftbchunks"
+    mandatory = false
+    versionRange = "[1902.3.22-build.271,)"
+    ordering = "AFTER"
+    side = "CLIENT"
