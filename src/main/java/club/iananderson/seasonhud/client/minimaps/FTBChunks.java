@@ -72,6 +72,7 @@ public class FTBChunks {
                     if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale = (float) (FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
                         int s = (int) (64.0 * (double) scale);
+                        float s1 = Math.max(1.0F, (float)Math.round(scale)) / 2.0F;
                         double s2d = (double) s / 2.0;
                         MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
                         int x = minimapPosition.getX(ww, s);
@@ -81,14 +82,14 @@ public class FTBChunks {
 
                         MinimapPosition.MinimapOffsetConditional offsetConditional = FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
 
-                        if (offsetConditional.isNone() || offsetConditional.getPosition() == minimapPosition) {
+                        if (offsetConditional.test(minimapPosition)) {
                             x += minimapPosition.posX == 0 ? offsetX : -offsetX;
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
                         seasonStack.pushPose();
                         seasonStack.translate((double) x + s2d, (double) (y + s) + 3.0, 0.0);
-                        seasonStack.scale((float) (0.5 * (double) scale), (float) (0.5 * (double) scale), 1.0F);
+                        seasonStack.scale(s1, s1, 1.0F);
 
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
