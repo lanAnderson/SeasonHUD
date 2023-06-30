@@ -62,6 +62,6 @@ jobs:
             serene-seasons | depends | *
 
           loaders: forge
-          game-versions: [1.20,1.20.2)
+          game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
