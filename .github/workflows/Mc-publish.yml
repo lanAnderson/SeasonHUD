@@ -3,7 +3,7 @@ name: MC-Publish (CurseForge/Modrinth)
 on: [workflow_dispatch]
 
 env:                                              
-  MINECRAFT_VERSION: 1.20
+  MINECRAFT_VERSION: 1.20, 1.20.1
   MOD_VERSION: 1.4.19
   JAVA_VERSION: 17                   
 
@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew clean build
 
       - name: Publish on Curseforge and Modrinth
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
 
           modrinth-featured: true
@@ -62,6 +62,6 @@ jobs:
             serene-seasons | depends | *
 
           loaders: forge
-          game-versions: 1.20
+          game-versions: [1.20,1.20.2)
           java: "${{env.JAVA_VERSION}}"
 
