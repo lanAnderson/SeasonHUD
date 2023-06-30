@@ -54,12 +54,12 @@ jobs:
           changelog-file: CHANGELOG.md
 
           dependencies: |
-            curios | recommends | *
-            ftb-chunks-forge | recommends | *
-            journeymap | recommends | *
-            xaeros-minimap | recommends | *
-            xaeros-minimap-fair-play-edition | recommends | *
-            serene-seasons | depends | *
+            curios(recommended)
+            ftb-chunks-forge(recommended)
+            journeymap(recommended)
+            xaeros-minimap(recommended)
+            xaeros-minimap-fair-play-edition(recommended)
+            serene-seasons(required)
 
           loaders: forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
