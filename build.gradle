@@ -9,7 +9,6 @@ buildscript {
 }
 
 plugins {
-    id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
@@ -17,97 +16,71 @@ plugins {
 
 apply plugin: 'org.spongepowered.mixin'
 
-group = 'club.iananderson'
-version = '1.4.18'
+version = mod_version
+group = mod_group_id
 
 java {
-    archivesBaseName = 'seasonhud-1.20.0'
+    archivesBaseName = "${mod_id}-${minecraft_version}"
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.20'
+    mappings channel: mapping_channel, version: mapping_version
+
+    copyIdeResources = true
 
     runs {
-        client {
+        configureEach {
             workingDirectory project.file('run')
 
-            property 'forge.logging.markers', 'REGISTRIES'
+            ideaModule "${rootProject.name}.${project.name}.main"
 
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'seasonhud'
-            
             mods {
-                seasonhud {
+                "${mod_id}" {
                     source sourceSets.main
                 }
             }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-                        property 'forge.enabledGameTestNamespaces', 'seasonhud'
-            
-            mods {
-                seasonhud {
-                    source sourceSets.main
-                }
-            }
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
         }
 
         gameTestServer {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            property 'forge.enabledGameTestNamespaces', 'seasonhud'
-
-            mods {
-                seasonhud {
-                    source sourceSets.main
-                }
-            }
+            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         data {
-            workingDirectory project.file('run')
+            workingDirectory project.file('run-data')
 
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'seasonhud', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                seasonhud {
-                    source sourceSets.main
-                }
-            }
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
     }
 }
 
 mixin {
-    add sourceSets.main, "seasonhud.refmap.json"
+    add sourceSets.main, "${mod_id}.refmap.json"
 
-    config "seasonhud.mixins.json"
+    config "${mod_id}.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+
     maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
+
     maven {
         name = "CurseMaven"
         url "https://cursemaven.com"
@@ -115,6 +88,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
     maven {
         url = "https://maven.theillusivec4.top/"
     }
@@ -122,14 +96,14 @@ repositories {
 
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.20-46.0.14'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4577617"
-    implementation "curse.maven:serene-seasons-291874:4577618"
-//    compileOnly "curse.maven:serene-seasons-291874:4577619" //api
+    implementation "curse.maven:serene-seasons-291874:4611121"
+    implementation "curse.maven:serene-seasons-291874:4611122"
+//    compileOnly "curse.maven:serene-seasons-291874:4611123" //api
 
     /Curios/
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
@@ -148,15 +122,15 @@ dependencies {
 //    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4147353") //Architectury
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4123418") //FTB Teams
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4145659") //FTB Chunks
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4581905") //Architectury
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4616152") //FTB Teams
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4597016") //FTB Chunks
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4123392") //FTB Library
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4147353") //Architectury
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4123418") //FTB Teams
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4145659") //FTB Chunks
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4581905") //Architectury
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4616152") //FTB Teams
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4597016") //FTB Chunks
 
 
     /JourneyMap/
@@ -165,21 +139,39 @@ dependencies {
 
 }
 
-jar {
-    manifest {
-        attributes([
-                "Specification-Title": "seasonhud",
-                            //"Specification-Vendor": "seasonhud authors",
-                            "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.jar.archiveVersion,
-                            //"Implementation-Vendor": "seasonhud authors",
-                            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version, forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
     }
 }
 
-jar.finalizedBy('reobfJar')
+// Example for how to get properties into the manifest for reading at runtime.
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1', // We are version 1 of ourselves
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    // This is the preferred method to reobfuscate your jar file
+    finalizedBy 'reobfJar'
+}
+
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
