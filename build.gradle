@@ -118,24 +118,24 @@ dependencies {
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4586338")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4603080")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4627641")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4627641")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4581905") //Architectury
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4616152") //FTB Teams
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4597016") //FTB Chunks
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4633048") //Architectury
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4623116") //FTB Teams
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4630372") //FTB Chunks
 
 //    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4596511") //FTB Library
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4581905") //Architectury
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4616152") //FTB Teams
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4597016") //FTB Chunks
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4633048") //Architectury
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4623116") //FTB Teams
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4630372") //FTB Chunks
 
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4580627")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4580627")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4627235")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4627235")
 
 }
 

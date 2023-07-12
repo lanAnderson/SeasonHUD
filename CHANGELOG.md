@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.4.20] - 2023-07-12
+
+### Fixed
+
+- Fixed crash with latest version of FTBChunks
+
+
 ## [1.4.19] - 2023-06-29
 
 ### Added
