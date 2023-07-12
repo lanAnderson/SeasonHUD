@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.4.20] - 2023-07-12
 
+### Changed
+
+- Updated to Forge 47.1.0
+
 ### Fixed
 
 - Fixed crash with latest version of FTBChunks

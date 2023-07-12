@@ -132,7 +132,6 @@ dependencies {
 //    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4623116") //FTB Teams
 //    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4630372") //FTB Chunks
 
-
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:4627235")
 //    implementation fg.deobf("curse.maven:journeymap-32274:4627235")

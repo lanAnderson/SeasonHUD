@@ -8,6 +8,7 @@ import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
 import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
 import dev.ftb.mods.ftblibrary.math.XZ;
+import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbteams.api.Team;
 import dev.ftb.mods.ftbteams.data.ClientTeam;
 import net.minecraft.client.Minecraft;
@@ -18,9 +19,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
@@ -34,7 +33,7 @@ public class FTBChunks {
 
         if (loadedMinimap("ftbchunks")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
-            MapDimension dim = MapDimension.getCurrent();
+            MapDimension dim = MapDimension.getCurrent().get();
             MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
 
             boolean biome = FTBChunksClientConfig.MINIMAP_BIOME.get();
@@ -42,7 +41,7 @@ public class FTBChunks {
             boolean claimed = FTBChunksClientConfig.MINIMAP_ZONE.get();
 
             if (data != null) {
-                Team team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam();
+                Team team = Objects.requireNonNull(data).getChunk(XZ.of(currentPlayerPos)).getTeam().orElse((Team) null);
                 if (team != null && claimed) {
                     i++;
                 }
@@ -59,14 +58,14 @@ public class FTBChunks {
             //Season
             MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
 
-            if (mc.player != null && mc.level != null && MapManager.inst != null) {
+            if (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty()) {
                 double guiScale = mc.getWindow().getGuiScale();
                 int scaledWidth = mc.getWindow().getGuiScaledWidth();
                 int scaledHeight = mc.getWindow().getGuiScaledHeight();
 
                 if (dim != null) {
                     if (dim.dimension != mc.level.dimension()) {
-                        MapDimension.updateCurrent();
+                        MapDimension.getCurrent();
                     }
 
                     if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
