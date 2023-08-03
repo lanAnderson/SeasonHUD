@@ -46,7 +46,7 @@ jobs:
           curseforge-id: 690971
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: build/libs/!(*-@(dev|sources|javadoc)).jar
+          files: Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
 
           name: ""
           version: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
