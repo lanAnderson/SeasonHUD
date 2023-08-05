@@ -17,37 +17,23 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
+import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 
 
 //HUD w/ no minimap installed
 public class SeasonHUDOverlay implements HudRenderCallback{
 
     public static SeasonHUDOverlay HUD_INSTANCE;
-    private boolean needDisableBlend = false;
 
     public static void init()
     {
         HUD_INSTANCE = new SeasonHUDOverlay();
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
-    }
-
-    private void enableAlpha(float alpha)
-    {
-        needDisableBlend = !GL11.glIsEnabled(GL11.GL_BLEND);
-        RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-    }
-
-    private void disableAlpha(float alpha)
-    {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        if (needDisableBlend)
-            RenderSystem.disableBlend();
     }
 
     @Override
@@ -72,7 +58,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
         int iconDim = stringHeight;
 
-        if (noMinimap() && Config.enableMod.get() && calendar()) {
+        if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && Config.enableMod.get() && calendar()){
             Location hudLoc = Config.hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
@@ -98,7 +84,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
             }
 
             //Draw Text + Icon
-            enableAlpha(alpha);
             RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
             seasonStack.pushPose();
             seasonStack.scale(1F, 1F, 1F);
@@ -118,7 +103,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
             GuiComponent.blit(seasonStack, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
             seasonStack.popPose();
             RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
-            disableAlpha(alpha);
         }
     }
 }
