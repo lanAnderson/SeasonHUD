@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [1.5.0] - 2023-08-02
 
 ### Added
+- Updated to latest FabricSeasons
+- Added FabricSeasons Extras as a required dependency, as the Calendar item was moved there
+
+## [1.5.0] - 2023-08-02
+
+### Added
 - Added ability to change position of the season text when using Xaero's Minimap
   - Minimap Menu ('Y' by default) -> Information Settings -> Info Display Manager
 

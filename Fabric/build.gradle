@@ -18,7 +18,10 @@ dependencies {
     implementation project(":Common")
 
     /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:3841956"
+    modImplementation "curse.maven:fabric-seasons-413523:4560136"
+
+    /Fabric Seasons Extras/
+    modImplementation "curse.maven:fabric-seasons-extras-839878:4533744"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:4492931"
