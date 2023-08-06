@@ -58,6 +58,8 @@ jobs:
             xaeros-minimap-fair-play-edition(recommended)
             fabric-seasons(required)
             fabric-seasons-extras(required)
+            forge-config-api-port-fabric(required)
+
 
           loaders: fabric
           game-versions: "${{env.MINECRAFT_VERSION}}"

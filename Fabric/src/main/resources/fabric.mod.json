@@ -36,7 +36,9 @@
       "java": ">=17",
       "seasons": ">=2.0",
       "seasonsextras": "*",
-      "fabric-key-binding-api-v1": "*"
+      "fabric-key-binding-api-v1": "*",
+      "forgeconfigapiport": ">=4.2.0"
+
     },
 
     "suggests": {
