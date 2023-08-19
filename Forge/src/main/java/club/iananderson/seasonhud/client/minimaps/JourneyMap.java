@@ -58,7 +58,6 @@ public class JourneyMap {
             boolean fontShadow = currentTheme.shadow;
 
             double labelHeight = ((DrawUtil.getLabelHeight(fontRenderer, fontShadow)) * (fontScale));
-            double labelWidth = fontRenderer.width(MINIMAP_TEXT_SEASON.get(0))*fontScale;
 
             int infoLabelCount = 0;
             if (journeyMapAboveMap.get()){
