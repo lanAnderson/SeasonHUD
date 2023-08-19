@@ -46,8 +46,8 @@ dependencies {
 //    modImplementation "curse.maven:ftb-teams-fabric-438497:4477313"
 //    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
 
-    /JourneyMap/
-    modCompileOnly "curse.maven:journeymap-32274:4532890"
+//    /JourneyMap/
+//    modCompileOnly "curse.maven:journeymap-32274:4532890"
 //    modImplementation "curse.maven:journeymap-32274:4532890"
 
     /Trinkets/
@@ -64,8 +64,8 @@ dependencies {
 
     modImplementation "net.minecraftforge:forgeconfigapiport-fabric:4.2.11"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
-//    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
-//    modCompileOnly "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
+    modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
 }
 
 loom {

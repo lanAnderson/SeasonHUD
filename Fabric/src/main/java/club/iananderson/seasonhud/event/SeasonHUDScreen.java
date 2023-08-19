@@ -5,6 +5,7 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -27,7 +28,7 @@ public class SeasonHUDScreen extends Screen{
     private final Screen lastScreen;
 
     private static final Component TITLE = Component.translatable("menu.seasonhud.title");
-//    private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
+    private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
 
 
     public SeasonHUDScreen(Screen seasonScreen){
@@ -42,7 +43,7 @@ public class SeasonHUDScreen extends Screen{
     public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(0);
         drawCenteredString(stack, font, TITLE, this.width / 2, PADDING, 16777215);
-//        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
+        drawCenteredString(stack, font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
 
@@ -91,6 +92,11 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.showMinimapHidden"),
                         (b, Off) -> Config.setShowMinimapHidden(Off));
 
+        row = 6;
+        CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
+                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.journeyMapAboveMap"),
+                        (b, Off) -> Config.setJourneyMapAboveMap(Off));
 
 
         Button doneButton = new Button((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
@@ -98,17 +104,15 @@ public class SeasonHUDScreen extends Screen{
             mc.setScreen(this.lastScreen);
         });
 
-        //ExtendedButton cancelButton = new ExtendedButton((this.width / 2 - (PADDING + BUTTON_WIDTH_HALF)), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT, Component.translatable("gui.cancel"), b -> mc.setScreen(this.lastScreen));
-
         addRenderableWidget(enableModButton);
         addRenderableWidget(needCalendarButton);
         addRenderableWidget(showDayButton);
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showMinimapHiddenButton);
+        addRenderableWidget(journeyMapAboveMapButton);
 
 
         addRenderableWidget(doneButton);
-        //addRenderableWidget(cancelButton);
     }
 
     public static void open(){
