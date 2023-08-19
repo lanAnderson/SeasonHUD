@@ -1,17 +1,17 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
-import journeymap.client.ui.theme.ThemeLabelSource;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -37,7 +37,7 @@ public class JourneyMap implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(GuiGraphics seasonStack, float alpha) {
+    public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
@@ -57,7 +57,7 @@ public class JourneyMap implements HudRenderCallback{
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
-            float labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
+            float labelAlpha = currentTheme.background.alpha;
             float textAlpha = currentTheme.foreground.alpha;
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
             boolean fontShadow = currentTheme.shadow;
@@ -71,8 +71,8 @@ public class JourneyMap implements HudRenderCallback{
 
             //Values
             if (!minimapHidden() && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get())) {
-                seasonStack.pose().pushPose();
-                seasonStack.pose().scale(1 / guiSize, 1 / guiSize, 1.0F);
+                seasonStack.pushPose();
+                seasonStack.scale(1 / guiSize, 1 / guiSize, 1.0F);
 
                 //Icon
                 int iconDim = (int) (mc.font.lineHeight*fontScale);
@@ -93,17 +93,18 @@ public class JourneyMap implements HudRenderCallback{
                 double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)+(2*labelPad)); //half the label width
                 double labelIconY = labelY;
 
+                DrawUtil.drawRectangle(seasonStack,labelRectX,labelRectY,totalRectWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
+
                 for (Component s : MINIMAP_TEXT_SEASON) {
                     DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, 0, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
                 }
-                DrawUtil.drawRectangle(seasonStack.pose(),labelRectX,labelRectY,totalRectWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
 
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
-                seasonStack.pose().popPose();
+                GuiComponent.blit(seasonStack,(int)(labelIconX),(int)(labelIconY),0,0,iconDim,iconDim,iconDim,iconDim);
+                seasonStack.popPose();
             }
         }
     };
