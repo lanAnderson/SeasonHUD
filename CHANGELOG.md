@@ -4,22 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.3] - 2023-08-16
+
+### Added
+- Added JourneyMap support for Fabric
+
+### Fixed
+- Fixed label placement when using JourneyMap
+
+
 ## [1.5.2] - 2023-08-16
 
 ### Fixed
 - Fixed Simplified Chinese 
 
-## [1.5.1] - 2023-08-02
+
+## [1.5.1] - 2023-08-05
 
 ### Added
 - (Fabric) Updated to latest FabricSeasons
 - (Fabric) Added FabricSeasons Extras as a required dependency, as the Calendar item was moved there
+
 
 ## [1.5.0] - 2023-08-02
 
 ### Added
 - Added ability to change position of the season text when using Xaero's Minimap
   - Minimap Menu ('Y' by default) -> Information Settings -> Info Display Manager
+
 
 ## [1.4.19] - 2023-06-29
 
