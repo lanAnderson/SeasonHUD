@@ -86,11 +86,11 @@ public class JourneyMap implements HudRenderCallback{
                 double labelX = (textureX);
                 double labelY = (textureY + translateY);
 
-                double totalRectWidth = labelWidth + (labelPad);
-                double labelRectX = (float)(labelX-(Math.max(1.0,totalRectWidth)/2)-(fontScale > 1.0 ? 0.0 : 0.5)+(labelPad/2)); //basically half the label width from the center
+                double totalRectWidth = labelWidth + (2*labelPad);
+                double labelRectX = (float)(labelX-(Math.max(1.0,totalRectWidth)/2)-(fontScale > 1.0 ? 0.0 : 0.5)); //basically half the label width from the center
                 double labelRectY = labelY-(fontScale > 1.0 ? 0.0 : 0.5)-labelPad;
 
-                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)+(2*labelPad)); //half the label width
+                double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)+(1.5*labelPad)); //half the label width
                 double labelIconY = labelY;
 
                 DrawUtil.drawRectangle(seasonStack,labelRectX,labelRectY,totalRectWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
