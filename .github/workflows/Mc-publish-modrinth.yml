@@ -3,7 +3,7 @@ name: MC-Publish Multiloader (Modrinth)
 on: [workflow_dispatch]
 
 env:
-  MINECRAFT_VERSION: 1.19.4
+  MINECRAFT_VERSION: 1.19.2
   MOD_VERSION: 1.5.5
   JAVA_VERSION: 17
 
