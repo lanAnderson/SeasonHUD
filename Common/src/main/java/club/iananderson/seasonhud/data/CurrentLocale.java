@@ -15,6 +15,7 @@ public class CurrentLocale {
     public static List<String> supportedLanguages(){
         List<String> language = new ArrayList<>();
         language.add("english");
+        language.add("Русский");
         language.add("简体中文");
         return language;
     }
