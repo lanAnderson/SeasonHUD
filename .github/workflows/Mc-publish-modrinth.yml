@@ -1,9 +1,9 @@
-name: MC-Publish-Forge (CurseForge/Modrinth)
+name: MC-Publish Multiloader (Modrinth)
 
 on: [workflow_dispatch]
 
 env:
-  MINECRAFT_VERSION: 1.19.2
+  MINECRAFT_VERSION: 1.19.4
   MOD_VERSION: 1.5.5
   JAVA_VERSION: 17
 
@@ -35,16 +35,13 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
-      - name: Publish on Curseforge and Modrinth
+      - name: Publish on Modrinth (Forge)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
 
           modrinth-featured: true
           modrinth-id: VNjUn3NA
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-
-          curseforge-id: 690971
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
           files: Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
 
@@ -62,5 +59,35 @@ jobs:
             serene-seasons(required)
 
           loaders: forge
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+      - name: Publish on Modrinth (Fabric)
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+
+          modrinth-featured: true
+          modrinth-id: iDiIfZLX
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          files: Fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+
+          name: ""
+          version: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          dependencies: |
+            trinkets(recommended)
+            ftb-chunks-fabric(recommended)
+            journeymap(recommended)
+            xaeros-minimap(recommended)
+            xaeros-minimap-fair-play-edition(recommended)
+            fabric-seasons(required)
+            fabric-seasons-extras(required)
+            forge-config-api-port-fabric(required)
+
+
+          loaders: fabric
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"

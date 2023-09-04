@@ -1,0 +1,62 @@
+{
+  "key.categories.seasonhud": "Сезонный интерфейс",
+  "key.seasonhud.seasonhudOptions": "Настройки сезонного интерфейса",
+
+  "menu.seasonhud.title": "Настройки сезонного интерфейса",
+  "menu.seasonhud.journeymap": "JourneyMap",
+
+  "menu.seasonhud.button.enableMod": "Включить мод",
+  "menu.seasonhud.button.needCalendar": "Нужен календарь",
+  "menu.seasonhud.button.showDay": "Показать значение дня",
+  "menu.seasonhud.button.showSubSeason": "Показывать подсезон",
+  "menu.seasonhud.button.hudLocation": "Расположение интерфейса",
+  "menu.seasonhud.button.showTropicalSeason": "Показывать тропические сезоны",
+  "menu.seasonhud.button.showMinimapHidden": "Показывать, когда миникарта скрыта",
+  "menu.seasonhud.button.journeyMapAboveMap": "Показывать над миникартой",
+
+  "menu.seasonhud.infodisplay.season": "Сезон",
+
+  "menu.seasonhud.button.desc.showDay": "Отображение дня текущего сезона/подсезона на интерфейсе",
+  "menu.seasonhud.button.desc.showSubSeason": "Замените сезон текущим подсезоном",
+
+  "location.seasonhud.topLeft": "Сверху слева",
+  "location.seasonhud.topCenter": "Сверху по центру",
+  "location.seasonhud.topRight": "Сверху справа",
+  "location.seasonhud.bottomLeft": "Снизу слева",
+  "location.seasonhud.bottomRight": "Снизу справа",
+
+  "desc.seasonhud.spring": "Весна",
+  "desc.seasonhud.early_spring": "Ранняя весна",
+  "desc.seasonhud.mid_spring": "Середина весны",
+  "desc.seasonhud.late_spring": "Поздняя весна",
+
+  "desc.seasonhud.summer": "Лето",
+  "desc.seasonhud.early_summer": "Раннее лето",
+  "desc.seasonhud.mid_summer": "Середина лета",
+  "desc.seasonhud.late_summer": "Позднее лето",
+
+  "desc.seasonhud.autumn": "Осень",
+  "desc.seasonhud.early_autumn": "Ранняя осень",
+  "desc.seasonhud.mid_autumn": "Середина осени",
+  "desc.seasonhud.late_autumn": "Поздняя осень",
+
+  "desc.seasonhud.fall": "Осень",
+
+  "desc.seasonhud.winter": "Зима",
+  "desc.seasonhud.early_winter": "Ранняя зима",
+  "desc.seasonhud.mid_winter": "Середина зимы",
+  "desc.seasonhud.late_winter": "Поздняя зима",
+
+  "desc.seasonhud.early_wet": "Ранние паводки",
+  "desc.seasonhud.mid_wet": "Середина паводка",
+  "desc.seasonhud.late_wet": "Поздние паводки",
+
+  "desc.seasonhud.early_dry": "Ранняя засуха",
+  "desc.seasonhud.mid_dry": "Середина засухи",
+  "desc.seasonhud.late_dry": "Поздняя засуха",
+
+  "desc.seasonhud.detailed": "   %s, день %s",
+  "desc.seasonhud.summary": "   %s",
+
+  "item.calendar.tooltip": "Используется как Амулет"
+}

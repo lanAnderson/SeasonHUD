@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 env:
   MINECRAFT_VERSION: 1.19.2
-  MOD_VERSION: 1.5.4
+  MOD_VERSION: 1.5.5
   JAVA_VERSION: 17
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
           submodules: true
 
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           distribution: "temurin"
           java-version: 17
