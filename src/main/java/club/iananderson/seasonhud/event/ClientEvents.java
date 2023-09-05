@@ -27,16 +27,16 @@ public class ClientEvents{
             Minecraft mc = Minecraft.getInstance();
             MatrixStack seasonStack = event.getMatrixStack();
 
-            if ((loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) && (!minimapHidden() && showMinimapHidden.get())){
+            if ((loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) && (!minimapHidden() && !showMinimapHidden.get())){
                 XaeroMinimap.renderXaeroHUD(mc,seasonStack);
             }
-            else if(loadedMinimap("journeymap") && (!minimapHidden() && showMinimapHidden.get())){
+            else if(loadedMinimap("journeymap") && (!minimapHidden() && !showMinimapHidden.get())){
                 JourneyMap.renderJourneyMapHUD(mc,seasonStack);
             }
-            else if(loadedMinimap("ftbchunks") && (!minimapHidden() && showMinimapHidden.get())){
+            else if(loadedMinimap("ftbchunks") && (!minimapHidden() && !showMinimapHidden.get())){
                 FTBChunks.renderFtbHUD(mc,seasonStack);
             }
-            else if((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()){
+            else if((noMinimap() || (minimapHidden() && !showMinimapHidden.get())) && enableMod.get() && calendar()){
                 SeasonHUDOverlay.renderSeasonHUD(mc,seasonStack);
             }
         }
