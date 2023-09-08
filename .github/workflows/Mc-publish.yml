@@ -90,7 +90,7 @@ jobs:
             xaeros-minimap(recommended)
             xaeros-minimap-fair-play-edition(recommended)
             fabric-seasons(required)
-            fabric-seasons-extras(required)
+            fabric-seasons-extras(recommended)
             forge-config-api-port-fabric(required)
 
           loaders: fabric
