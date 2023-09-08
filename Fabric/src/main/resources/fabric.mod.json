@@ -35,14 +35,14 @@
       "minecraft": "1.19.x",
       "java": ">=17",
       "seasons": ">=2.0",
-      "seasonsextras": "*",
       "fabric-key-binding-api-v1": "*",
       "forgeconfigapiport": ">=4.2.0"
 
     },
 
     "suggests": {
-      "xaerominimap": ">=23.4.0s"
+      "xaerominimap": ">=23.4.0s",
+      "seasonsextras": "*"
     }
   }
   
