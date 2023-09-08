@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.6] - 2023-09-07
+
+### Changed
+- Removed requirement of FabricSeasons Extras and made it optional
+
+
 ## [1.5.5] - 2023-09-04
 
 ### Added
