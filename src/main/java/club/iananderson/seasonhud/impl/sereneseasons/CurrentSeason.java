@@ -12,9 +12,6 @@ import sereneseasons.api.season.SeasonHelper;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.data.CurrentLocale.getCurrentLocale;
-import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
-
 public class CurrentSeason {
     //Get the current season in Season type
     public static boolean isTropicalSeason(){
@@ -79,17 +76,11 @@ public class CurrentSeason {
     //Localized name for the hud
     public static ArrayList<TranslationTextComponent> getSeasonName() {
         ArrayList<TranslationTextComponent> text = new ArrayList<>();
-        if (supportedLanguages().contains(getCurrentLocale())) {
-            if (Config.showDay.get()) {
-                text.add(new TranslationTextComponent("desc.seasonhud.detailed", new TranslationTextComponent("desc.seasonhud." + getSeasonStateLower()), getDate()));
-            }
-            else text.add(new TranslationTextComponent("desc.seasonhud.summary", new TranslationTextComponent("desc.seasonhud." + getSeasonStateLower())));
-        }
 
-        else if(Config.showDay.get()) {
-            text.add(new TranslationTextComponent("desc.seasonhud.detailed", new TranslationTextComponent("desc.sereneseasons." + getCurrentSeasonNameLower()), getDate()));
+        if (Config.showDay.get()) {
+            text.add(new TranslationTextComponent("desc.seasonhud.detailed", new TranslationTextComponent("desc.seasonhud." + getSeasonStateLower()), getDate()));
         }
-        else text.add(new TranslationTextComponent("desc.seasonhud.summary",new TranslationTextComponent("desc.sereneseasons."+ getCurrentSeasonNameLower())));
+        else text.add(new TranslationTextComponent("desc.seasonhud.summary", new TranslationTextComponent("desc.seasonhud." + getSeasonStateLower())));
 
         return text;
     }
