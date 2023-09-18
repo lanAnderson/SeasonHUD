@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.7] - 2023-09-18
+
+### Added
+- Ported changes to localization made in 1.16.5 version
+
+### Fixed
+- Fixed incorrect calendar item name for FabricSeasons Extras
+
+
 ## [1.5.6] - 2023-09-07
 
 ### Changed
