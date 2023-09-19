@@ -10,8 +10,6 @@ import io.github.lucaargolo.seasons.FabricSeasons;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.data.CurrentLocale.getCurrentLocale;
-import static club.iananderson.seasonhud.data.CurrentLocale.supportedLanguages;
 import static io.github.lucaargolo.seasons.FabricSeasons.CONFIG;
 
 
@@ -53,16 +51,11 @@ public class CurrentSeason {
    //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
-        if (supportedLanguages().contains(getCurrentLocale())) {
-            if (Config.showDay.get()) {
-                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
-            } else
-                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+
+        if (Config.showDay.get()) {
+            text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
         }
-       else if(Config.showDay.get()) {
-            text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("tooltip.seasons." + getCurrentSeasonNameLower()), getDate()));
-        }
-        else text.add(Component.translatable("desc.seasonhud.summary",Component.translatable("tooltip.seasons."+ getCurrentSeasonNameLower())));
+        else text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
 
         return text;
     }
