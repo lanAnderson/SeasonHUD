@@ -13,4 +13,4 @@ pluginManagement {
 }
 
 rootProject.name = 'seasonhud'
-include("Common", "Fabric", "Forge")
+include("common", "fabric", "forge")
