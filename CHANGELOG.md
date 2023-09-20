@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.7] - 2023-09-19
+
+### Fixed
+- Fixed issue with the config screen when using InvMove
+
+
 ## [1.5.7] - 2023-09-18
 
 ### Added
@@ -11,7 +17,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Fixed incorrect calendar item name for FabricSeasons Extras
-- Fixed issue with the config screen when using InvMove
 
 
 ## [1.5.6] - 2023-09-07
