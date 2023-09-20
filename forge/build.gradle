@@ -1,0 +1,243 @@
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle'
+    id 'org.spongepowered.mixin'
+    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id "com.modrinth.minotaur" version "2.+"
+}
+
+version = mod_version
+group = mod_group
+
+base {
+    archivesName = mod_id + "-forge-" + minecraft_version
+}
+
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
+}
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    
+    if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
+        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+        project.logger.debug('Forge Access Transformers are enabled for this project.')
+    }
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            ideaModule "${rootProject.name}.${project.name}.main"
+
+            taskName 'Client'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                modClientRun {
+                    source sourceSets.main
+                    source project(":common").sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            ideaModule "${rootProject.name}.${project.name}.main"
+
+            taskName 'Server'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                modServerRun {
+                    source sourceSets.main
+                    source project(":common").sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            taskName 'Data'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                modDataRun {
+                    source sourceSets.main
+                    source project(":common").sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+repositories {
+    maven {
+        name = "CurseMaven"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    maven {
+        name = 'Sponge / Mixin'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly project(":common")
+
+    /Serene Seasons/
+    implementation "curse.maven:serene-seasons-291874:4037228"
+    implementation "curse.maven:serene-seasons-291874:4037230"
+//    compileOnly "curse.maven:serene-seasons-291874:4037231"
+
+    /Curios/
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+
+    /Xaero's Minimap/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+
+    /Xaero's Minimap Fair Play/
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
+
+    /Open Parties and Claims/
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+
+    /FTB Chunks/
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4541987")
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:4555749")
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4611938")
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4584683")
+
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4541987")
+//    implementation fg.deobf("curse.maven:architectury-api-419699:4555749")
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4611938")
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4584683")
+
+    /JourneyMap/
+    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
+//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
+
+}
+
+tasks.withType(JavaCompile) {
+    source(project(":common").sourceSets.main.allSource)
+}
+
+processResources {
+    from project(":common").sourceSets.main.resources
+}
+
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}
+
+String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
+
+modrinth {
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_forge_id
+    versionNumber = minecraft_version + "-" + version
+    versionName = base.archivesName.get() + "-" + mod_version
+    versionType = "release"
+    uploadFile = jar
+
+    List<String> mcVersions = modrinth_gameVersions.split(",")
+    gameVersions = mcVersions
+    loaders = ["forge"]
+
+    changelog = recentChangelogText
+
+    dependencies {
+        optional.project "curios"
+        optional.project "journeymap"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair"
+    }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_forge_id, jar)
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("Forge")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("serene-seasons")
+    mainFile.addOptional("curios")
+    mainFile.addOptional("ftb-chunks-forge")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
+}
