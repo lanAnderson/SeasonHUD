@@ -1,13 +1,67 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
-    id 'maven-publish'
+    id 'java'
     id 'idea'
+    id 'maven-publish'
+    id 'fabric-loom'
+    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 version = mod_version
 group = mod_group
 
-archivesBaseName = mod_id + "-fabric-" + minecraft_version
+base {
+    archivesName = mod_id + "-fabric-" + minecraft_version
+}
+
+repositories {
+    maven {
+        name = "CurseMaven"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    maven {
+        name = 'Sponge / Mixin'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+
+    maven {
+        name = "JourneyMap (Public)"
+        url = "https://jm.gserv.me/repository/maven-public/"
+    }
+
+    maven {
+        url "https://maven.shedaniel.me/"
+    }
+
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://maven.ladysnake.org/releases'
+    }
+
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -114,4 +168,65 @@ publishing {
             url "file://" + System.getenv("local_maven")
         }
     }
+}
+
+String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
+
+modrinth {
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_fabric_id
+    versionNumber = minecraft_version + "-" + version
+    versionName = base.archivesName.get() + "-" + version
+    versionType = "release"
+    uploadFile = remapJar
+
+    List<String> mcVersions = modrinth_gameVersions.split(",")
+    gameVersions = mcVersions
+    loaders = ["fabric"]
+
+    changelog = recentChangelogText
+
+    dependencies {
+        required.project "fabric-seasons"
+        optional.project "fabric-seasons-extras"
+        required.project "forge-config-api-port"
+        optional.project "journeymap"
+        optional.project "trinkets"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair"
+    }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_fabric_id, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("Fabric")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("fabric-seasons")
+    mainFile.addRequirement("forge-config-api-port-fabric")
+    mainFile.addOptional("fabric-seasons-extras")
+    mainFile.addOptional("ftb-chunks-fabric")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("trinkets")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
 }

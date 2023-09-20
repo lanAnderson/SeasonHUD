@@ -1,10 +1,13 @@
 plugins {
+    id 'idea'
     id 'java'
-    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
     id 'maven-publish'
+    id 'org.spongepowered.gradle.vanilla'
 }
 
-archivesBaseName = "${mod_name}-common-${minecraft_version}"
+base {
+    archivesName = mod_id + "-common-" + minecraft_version
+}
 
 minecraft {
     version(minecraft_version)
@@ -21,6 +24,12 @@ minecraft {
     }
 }
 
+repositories {
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
 
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'

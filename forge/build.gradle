@@ -1,34 +1,30 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle'
+    id 'org.spongepowered.mixin'
+    id 'net.darkhax.curseforgegradle' version '1.1.16'
+    id "com.modrinth.minotaur" version "2.+"
 }
-apply plugin: 'java'
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: 'org.spongepowered.mixin'
-
 
 version = mod_version
 group = mod_group
 
-archivesBaseName = mod_id + "-forge-" + minecraft_version
+base {
+    archivesName = mod_id + "-forge-" + minecraft_version
+}
 
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
+}
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
     
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
-        // This location is hardcoded in Forge and can not be changed.
-        // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
         project.logger.debug('Forge Access Transformers are enabled for this project.')
     }
@@ -85,13 +81,41 @@ minecraft {
     }
 }
 
-mixin {
-    add sourceSets.main, "seasonhud.refmap.json"
-
-    config "seasonhud.mixins.json"
-}
-
 sourceSets.main.resources.srcDir 'src/generated/resources'
+
+repositories {
+    maven {
+        name = "CurseMaven"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
+    maven {
+        name = 'Sponge / Mixin'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
@@ -160,4 +184,60 @@ publishing {
             url "file://" + System.getenv("local_maven")
         }
     }
+}
+
+String changelogText = projectDir.toPath().getParent().resolve("CHANGELOG.md").getText('UTF-8')
+
+modrinth {
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_forge_id
+    versionNumber = minecraft_version + "-" + version
+    versionName = base.archivesName.get() + "-" + mod_version
+    versionType = "release"
+    uploadFile = jar
+
+    List<String> mcVersions = modrinth_gameVersions.split(",")
+    gameVersions = mcVersions
+    loaders = ["forge"]
+
+    changelog = recentChangelogText
+
+    dependencies {
+        optional.project "curios"
+        optional.project "journeymap"
+        optional.project "xaeros-minimap"
+        optional.project "xaeros-minimap-fair"
+    }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge){
+    int firstHeading = changelogText.indexOf("## [")
+    int nextHeading = changelogText.indexOf("## [", firstHeading+1)
+    String recentChangelogText = changelogText.substring(firstHeading,nextHeading)
+
+    debugMode = false
+    disableVersionDetection()
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def mainFile = upload(curseforge_forge_id, jar)
+    mainFile.changelogType = "markdown"
+    mainFile.changelog = recentChangelogText
+    mainFile.releaseType = "release"
+
+    List<String> mcVersions = curseforge_gameVersions.split(",")
+    mainFile.gameVersions = mcVersions
+    mainFile.addGameVersion("Forge")
+    mainFile.addGameVersion("Java 17")
+
+    mainFile.addRequirement("serene-seasons")
+    mainFile.addOptional("curios")
+    mainFile.addOptional("ftb-chunks-forge")
+    mainFile.addOptional("journeymap")
+    mainFile.addOptional("xaeros-minimap")
+    mainFile.addOptional("xaeros-minimap-fair-play-edition")
 }
