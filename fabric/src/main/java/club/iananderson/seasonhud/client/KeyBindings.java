@@ -16,7 +16,7 @@ public class KeyBindings {
 
     public static void registerKeyInputs(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (seasonhudOptionsKeyMapping.isDown()) {
+            if (seasonhudOptionsKeyMapping.consumeClick()) {
                 SeasonHUDScreen.open();;
             }
         });
