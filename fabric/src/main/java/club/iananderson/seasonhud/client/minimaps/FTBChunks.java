@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 
 public class FTBChunks implements HudRenderCallback{
     public static FTBChunks HUD_INSTANCE;
-    private boolean needDisableBlend = false;
 
     public static void init()
     {
@@ -40,25 +38,9 @@ public class FTBChunks implements HudRenderCallback{
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
     }
 
-    private void enableAlpha(float alpha)
-    {
-        needDisableBlend = !GL11.glIsEnabled(GL11.GL_BLEND);
-        RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-    }
-
-    private void disableAlpha(float alpha)
-    {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        if (needDisableBlend)
-            RenderSystem.disableBlend();
-    }
     @Override
-    public void onHudRender(PoseStack seasonStack, float alpha)
-    {
+    public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-        Font font = mc.font;
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
         if (loadedMinimap("ftbchunks")) {
@@ -105,7 +87,6 @@ public class FTBChunks implements HudRenderCallback{
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
-                        enableAlpha(alpha);
                         RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
                         seasonStack.pushPose();
 
@@ -117,7 +98,7 @@ public class FTBChunks implements HudRenderCallback{
                         int bsw = mc.font.width(bs);
                         int iconDim = mc.font.lineHeight;
 
-                        font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
+                        mc.font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
 
                         //Icon
                         ResourceLocation SEASON = getSeasonResource();
@@ -127,11 +108,10 @@ public class FTBChunks implements HudRenderCallback{
                         GuiComponent.blit(seasonStack,(int)(((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.popPose();
                         RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
-                        disableAlpha(alpha);
                     }
                 }
             }
         }
-    };
+    }
 }
 
