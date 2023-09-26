@@ -71,8 +71,8 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
-                float textX = iconX;
-                float textY = iconY + 1;
+                int textX = iconX;
+                int textY = iconY + 1;
                 ForgeGui.getFont().drawShadow(seasonStack, seasonName.get(0),textX, textY, 0xffffffff);
 
                 //Icon
