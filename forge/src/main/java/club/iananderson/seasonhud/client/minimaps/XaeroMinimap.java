@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
+import xaero.common.interfaces.pushbox.PotionEffectsPushBox;
 import xaero.common.minimap.MinimapInterface;
 import xaero.common.minimap.MinimapProcessor;
 import xaero.common.minimap.info.InfoDisplayManager;
@@ -48,8 +49,8 @@ public class XaeroMinimap {
             MinimapProcessor minimapProcessor = XaeroMinimapCore.currentSession.getMinimapProcessor();
             InfoDisplayManager infoDisplayManager = minimapInterface.getInfoDisplayManager();
             WaypointsManager waypointsManager = XaeroMinimapCore.currentSession.getWaypointsManager();
+            PotionEffectsPushBox potionPushBox = modMain.getInterfaces().normalPotionEffectsPushBox;
             Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
-
 
             // Correct position if InfoDisplay is hidden
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
@@ -101,18 +102,21 @@ public class XaeroMinimap {
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
+            int potionY = 0;
+            int potionPushBoxHeight = potionPushBox.getH(width,height);
+            int potionPushBoxWidth = potionPushBox.getW(width,height);
+
+            if(potionPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
+                if(((y - potionPushBoxHeight) < 0) && ((x + mapSize) > width-potionPushBoxWidth)){
+                    scaledY = 0;
+                    potionY = (int) (potionPushBoxHeight * mapScale);
+                }
+            }
+
             boolean under = ((int) scaledY + size / 2) < scaledHeight / 2;
 
             int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1 : (align == 1 ? 6 : iconDim + size - stringWidth + framesize)));
             int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
-
-            int potionY = 0;
-
-            if(modMain.getInterfaces().normalPotionEffectsPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
-                if(mc.player.getActiveEffects().iterator().next().showIcon()){
-                    potionY = (int) (modMain.getInterfaces().normalPotionEffectsPushBox.getH(width,height) * mapScale);
-                }
-            }
 
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
@@ -131,5 +135,3 @@ public class XaeroMinimap {
         }
     };
 }
-
-
