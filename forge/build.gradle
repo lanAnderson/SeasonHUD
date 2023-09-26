@@ -131,7 +131,7 @@ dependencies {
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:263420:${project.xaeros_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
 
     /Xaero's Minimap Fair Play/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
