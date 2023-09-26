@@ -122,8 +122,8 @@ dependencies {
     compileOnly project(":common")
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}-deobf"
-
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}"
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}"
 
     /Curios/
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api)
