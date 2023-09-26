@@ -78,8 +78,6 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
-            float mapY = modMain.getInterfaces().getMinimapInterface().getY();
-
             //Icon
             double scale = mc.getWindow().getGuiScale();
 
@@ -119,7 +117,6 @@ public class XaeroMinimap {
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
-
                 seasonStack.pushPose();
                 seasonStack.scale(fontScale, fontScale, 1.0F);
 
