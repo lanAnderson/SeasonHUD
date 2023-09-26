@@ -9,3 +9,4 @@ Also includes optional support for the following minimap mods, to display under 
 
 
 https://www.curseforge.com/minecraft/mc-mods/seasonhud
+https://www.curseforge.com/minecraft/mc-mods/seasonhud-fabric/
