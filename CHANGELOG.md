@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Fixed incorrect calendar item name for FabricSeasons Extras
+- Fixed issue with the config screen when using InvMove
 
 
 ## [1.5.6] - 2023-09-07
