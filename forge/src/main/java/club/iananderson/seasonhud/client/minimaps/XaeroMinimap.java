@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.aboveSeason;
 import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
@@ -72,6 +73,12 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
+            float potionY = 0;
+            if(modMain.getInterfaces().normalPotionEffectsPushBox.isActive()){
+                potionY = modMain.getInterfaces().normalPotionEffectsPushBox.getH(width,height);
+            }
+            float mapY = modMain.getInterfaces().getMinimapInterface().getY();
+
             //Icon
             double scale = mc.getWindow().getGuiScale();
 
@@ -101,7 +108,7 @@ public class XaeroMinimap {
             int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
 
             //Icon Draw
-            if ((!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
+            if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
                 seasonStack.scale(fontScale, fontScale, 1.0F);
@@ -111,7 +118,7 @@ public class XaeroMinimap {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, (int) (stringX), (int) (stringY+potionY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }
