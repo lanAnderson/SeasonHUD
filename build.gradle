@@ -5,11 +5,10 @@ plugins {
     id('org.spongepowered.mixin') version '0.7.+' apply(false)
 }
 
-
 subprojects {
-    
     apply plugin: 'java'
-    
+    apply plugin: 'idea'
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
         
     jar {
@@ -58,6 +57,12 @@ subprojects {
     
         it.options.encoding = 'UTF-8'
         it.options.release = 17
+    }
+
+    processResources {
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'mods.toml', '*.mixins.json']) {
+            expand project.properties
+        }
     }
 
     // Disables Gradle's custom module metadata from being published to maven. The

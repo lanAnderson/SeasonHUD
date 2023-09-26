@@ -32,12 +32,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
-    compileOnly "net.minecraftforge:forgeconfigapiport-fabric:4.2.11"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    compileOnly "net.minecraftforge:forgeconfigapiport-fabric:${project.forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 }
 
 processResources {
@@ -59,7 +59,6 @@ publishing {
             from components.java
         }
     }
-
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
