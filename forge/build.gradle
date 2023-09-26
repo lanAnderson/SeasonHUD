@@ -23,7 +23,7 @@ mixin {
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
-    
+
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
         project.logger.debug('Forge Access Transformers are enabled for this project.')
@@ -122,40 +122,39 @@ dependencies {
     compileOnly project(":common")
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:4037228"
-    implementation "curse.maven:serene-seasons-291874:4037230"
-//    compileOnly "curse.maven:serene-seasons-291874:4037231"
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}-deobf"
+
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api)
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
 
     /Xaero's Minimap/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492932")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-263420:263420:${project.xaeros_forge_file_id}")
 
     /Xaero's Minimap Fair Play/
-    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
-//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:4503434")
+    compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 
     /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:4500812")
+    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
+//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 
     /FTB Chunks/
-    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:4541987")
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:4555749")
-    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:4611938")
-    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:4584683")
+    compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
+    compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
+    compileOnly fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
+    compileOnly fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
 
-//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4541987")
-//    implementation fg.deobf("curse.maven:architectury-api-419699:4555749")
-//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4611938")
-//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:4584683")
+//    implementation fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
+//    implementation fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
+//    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:${project.ftb_teams_forge_file_id}") //FTB Teams
+//    implementation fg.deobf("curse.maven:ftb-chunks-forge-314906:${project.ftb_chunks_forge_file_id}") //FTB Chunks
 
     /JourneyMap/
-    compileOnly fg.deobf("curse.maven:journeymap-32274:4097953")
-//    implementation fg.deobf("curse.maven:journeymap-32274:4097953")
+    compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
+//    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
 }
 

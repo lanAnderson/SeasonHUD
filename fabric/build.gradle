@@ -72,41 +72,37 @@ dependencies {
     implementation project(":common")
 
     /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:4560136"
+    modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
 
     /Fabric Seasons Extras/
-    modCompileOnly "curse.maven:fabric-seasons-extras-839878:4533744"
+    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
 
     /Xaero's Minimap/
-    modCompileOnly "curse.maven:xaeros-minimap-263420:4492931"
-//    modImplementation "curse.maven:xaeros-minimap-263420:4492931"
+    modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
+//    modImplementation "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}""
 
     /Xaero's Minimap Fair Play/
-    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
-//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:4503433"
+    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
+//    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 
     /Open Parties and Claims/
-    modCompileOnly "curse.maven:open-parties-and-claims-636608:4500810"
-//    modImplementation "curse.maven:open-parties-and-claims-636608:4500810"
+    modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
+//    modImplementation "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 
     /FTB Chunks/
-    modCompileOnly "curse.maven:ftb-library-fabric-438495:4478917"
-    modCompileOnly "curse.maven:architectury-api-419699:4476083"
-    modCompileOnly "curse.maven:ftb-teams-fabric-438497:4477313"
-    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:4478934"
+    modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
+    modCompileOnly "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
+    modCompileOnly "curse.maven:ftb-teams-fabric-438497:${ftb_teams_fabric_file_id}"
+    modCompileOnly "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
-//    modImplementation "curse.maven:ftb-library-fabric-438495:4478917"
-//    modImplementation "curse.maven:architectury-api-419699:4476083"
-//    modImplementation "curse.maven:ftb-teams-fabric-438497:4477313"
-//    modImplementation "curse.maven:ftb-chunks-fabric-472657:4478934"
-
-//    /JourneyMap/
-//    modCompileOnly "curse.maven:journeymap-32274:4532890"
-//    modImplementation "curse.maven:journeymap-32274:4532890"
+//    modImplementation "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
+//    modImplementation "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
+//    modImplementation "curse.maven:ftb-teams-fabric-438497:${ftb_teams_fabric_file_id}"
+//    modImplementation "curse.maven:ftb-chunks-fabric-472657:${ftb_chunks_fabric_file_id}"
 
     /Trinkets/
-    modCompileOnly "dev.emi:trinkets:3.4.1"
-//    modImplementation "dev.emi:trinkets:3.4.1"
+    modCompileOnly "dev.emi:trinkets:${project.trinkets_file_id}"
+//    modImplementation "dev.emi:trinkets:${project.trinkets_file_id}"
 
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
@@ -116,7 +112,7 @@ dependencies {
     implementation 'com.electronwill.night-config:core:3.6.3'
     implementation 'com.electronwill.night-config:toml:3.6.3'
 
-    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:4.2.11"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
     modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
