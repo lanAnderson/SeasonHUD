@@ -8,15 +8,17 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static net.minecraft.world.level.Level.OVERWORLD;
 
 
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
-       if(!dimensionHideHUD()){
-        return FabricLoader.getInstance().isModLoaded(minimap);
-       }
-       else return false;
+        if(enableMod.get() && calendar() && !dimensionHideHUD()){
+            return FabricLoader.getInstance().isModLoaded(minimap);
+        }
+        else return false;
     }
 
     public static boolean noMinimap(){
