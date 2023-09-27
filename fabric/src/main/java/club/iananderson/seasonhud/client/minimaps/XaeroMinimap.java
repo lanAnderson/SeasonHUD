@@ -140,7 +140,7 @@ public class XaeroMinimap implements HudRenderCallback {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, (int) (stringX), (int) (stringY+potionY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }
