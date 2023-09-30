@@ -118,7 +118,7 @@ public class XaeroMinimap {
 
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
-                    && (!modSettings.hideMinimapUnderF3 || !mc.options.hideGui)) {
+                    && (!modSettings.hideMinimapUnderF3 || !mc.getDebugOverlay().showDebugScreen())) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(fontScale, fontScale, 1.0F);
 

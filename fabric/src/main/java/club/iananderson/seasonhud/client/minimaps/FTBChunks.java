@@ -79,7 +79,7 @@ public class FTBChunks implements HudRenderCallback {
                         MapDimension.getCurrent();
                     }
 
-                    if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
+                    if (!mc.getDebugOverlay().showDebugScreen() && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale;
                         if ((Boolean) FTBChunksClientConfig.MINIMAP_PROPORTIONAL.get()) {
                             scale = (float) (4.0 / guiScale);
@@ -87,9 +87,8 @@ public class FTBChunks implements HudRenderCallback {
                         } else {
                             scale = (float) ((Double) FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
                         }
-
-                        float s1 = Math.max(1.0F, (float) Math.round(scale)) / 2.0F;
                         int s = (int) (64.0 * (double) scale);
+                        float s1 = Math.max(1.0F, (float) Math.round(scale)) / 2.0F;
                         double halfSizeD = (double) s / 2.0;
                         float halfSizeF = (float) s / 2.0F;
                         MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
@@ -116,7 +115,6 @@ public class FTBChunks implements HudRenderCallback {
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
                         int bsw = mc.font.width(bs);
-                        int bshw = -bsw / 2;
                         int iconDim = mc.font.lineHeight;
 
                         seasonStack.drawString(mc.font, bs, (int) ((float) ((-bsw) + iconDim / 2) / 2.0F), (int) (i * 11), -1);
