@@ -67,7 +67,7 @@ public class FTBChunks {
                         MapDimension.getCurrent();
                     }
 
-                    if (!mc.options.hideGui && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
+                    if (!mc.getDebugOverlay().showDebugScreen() && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale;
                         if ((Boolean)FTBChunksClientConfig.MINIMAP_PROPORTIONAL.get()) {
                             scale = (float)(4.0 / guiScale);
