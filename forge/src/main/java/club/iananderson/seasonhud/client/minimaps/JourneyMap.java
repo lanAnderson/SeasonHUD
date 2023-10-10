@@ -103,12 +103,13 @@ public class JourneyMap {
                 double labelRectY = labelY-(fontScale > 1.0 ? 0.0 : 0.5)-labelPad;
 
                 double labelIconX = (float)(textureX - totalRectWidth / 2.0 - (fontScale > 1.0 ? 0.0 : 0.5)+(1.5*labelPad)); //half the label width
-                double labelIconY = labelY;
+                double labelIconY = labelY+fontScale;
+
+                DrawUtil.drawRectangle(seasonStack,labelRectX,labelRectY,totalRectWidth,labelY-labelRectY,labelColor,labelAlpha); //Rectangle for the icon
 
                 for (Component s : MINIMAP_TEXT_SEASON) {
-                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, 0, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
+                    DrawUtil.drawLabel(seasonStack, s.getString(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
                 }
-                DrawUtil.drawRectangle(seasonStack,labelRectX,labelRectY,totalRectWidth,labelHeight,labelColor,labelAlpha); //Rectangle for the icon
 
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
