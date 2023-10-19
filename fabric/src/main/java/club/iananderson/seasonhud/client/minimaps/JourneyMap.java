@@ -57,7 +57,7 @@ public class JourneyMap implements HudRenderCallback{
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
-            float labelAlpha = currentTheme.background.alpha;
+            float labelAlpha = jm.getActiveMiniMapProperties().infoSlotAlpha.get();
             float textAlpha = currentTheme.foreground.alpha;
             int frameWidth = ThemeLoader.getCurrentTheme().minimap.square.right.width/2;
             boolean fontShadow = currentTheme.shadow;
