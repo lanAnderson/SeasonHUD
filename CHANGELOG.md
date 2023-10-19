@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.11] - 2023-10-18
+
+### Fixed
+- Fixed background transparency to match the JourneyMap setting
+
+
 ## [1.5.10] - 2023-10-09
 
 ### Fixed
