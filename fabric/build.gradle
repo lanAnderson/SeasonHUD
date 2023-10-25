@@ -89,6 +89,10 @@ dependencies {
     modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 //    modImplementation "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 
+    /Xaero's WorldMap/
+    modCompileOnly "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
+//    modImplementation "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
+
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
     modCompileOnly "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
