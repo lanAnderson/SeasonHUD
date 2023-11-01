@@ -16,7 +16,6 @@ import xaero.common.gui.IScreenBase;
 import xaero.common.interfaces.pushbox.PotionEffectsPushBox;
 import xaero.common.minimap.MinimapInterface;
 import xaero.common.minimap.MinimapProcessor;
-import xaero.common.minimap.info.InfoDisplay;
 import xaero.common.minimap.info.InfoDisplayManager;
 import xaero.common.minimap.waypoints.WaypointsManager;
 import xaero.common.settings.ModSettings;
@@ -24,7 +23,6 @@ import xaero.common.settings.ModSettings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
@@ -87,18 +85,16 @@ public class XaeroMinimap {
             int screenHeight = mc.getWindow().getScreenHeight();
 
             float minimapScale = modSettings.getMinimapScale();
-            int xaeroWidth = (int) (screenWidth/minimapScale);
 
             float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight);
 
             float mapScale = ((float) (scale / minimapScale));
             int minimapSize = modSettings.getMinimapSize();
-            double scaledMinimapSize = minimapSize * minimapScale;
 
             int iconDim = (int) stringHeight;
-            int minimapFrameSize = (int) (4);
-            int minimapPadding = (int) (5);
+            int minimapFrameSize = 4;
+            int minimapPadding = 5;
             int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
 
@@ -110,22 +106,11 @@ public class XaeroMinimap {
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-            int potionY = 0;
-            int potionPushBoxWidth = potionPushBox.getW(screenWidth,screenHeight);
+            int potionPushBoxWidth = (scale % 2 == 0) ? (potionPushBox.getW(screenWidth,screenHeight)) : (potionPushBox.getW(screenWidth, screenHeight)-1);
             int potionPushBoxHeight = 0;
 
             if(potionPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
                 potionPushBoxHeight = potionPushBox.getH(width,height);
-
-                //Todo
-                // ((scaledX + offset + minimapSize)* minimapScale) is correct
-                // -- ~2413 pixels until it moves
-                // (screenWidth-(potionPushBoxWidth*scale) is about 3 pixels off
-                // -- Reads ~2407 pixels when it moves
-                // -- Should be ~2410 so about 3 pixels off
-
-                //Todo #2
-                // Look into hidden effects and how to detect them
 
                 if((y <= potionPushBoxHeight) && (((scaledX + offset + minimapSize)* minimapScale) > (screenWidth-(potionPushBoxWidth*scale)))){
                     scaledY = potionPushBoxHeight * mapScale;
@@ -148,22 +133,7 @@ public class XaeroMinimap {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON, (int) (stringX), (int) (stringY+potionY), 0, 0, iconDim, iconDim, iconDim, iconDim);
-
-                seasonStack.drawString(mc.font,"minimapScale:" + minimapScale,10, (int) (30),0xffffffff);
-                seasonStack.drawString(mc.font,"potionPushBoxWidth:" + potionPushBoxWidth,10, (int) (30+stringHeight),0xffffffff);
-
-                seasonStack.drawString(mc.font,"((scaledX + offset + minimapSize)* minimapScale): " + ((scaledX + offset + minimapSize)* minimapScale),10,60,0xffffffff);
-                seasonStack.drawString(mc.font,"(screenWidth-(potionPushBoxWidth*scale)): " + (screenWidth-(potionPushBoxWidth*scale)),10,(int)(60+stringHeight),0xffffffff);
-
-                seasonStack.drawString(mc.font,"xaeroWidth:" + xaeroWidth,10,100,0xffffffff);
-                seasonStack.drawString(mc.font,"screenWidth:  " + (screenWidth),10,(int)(100+stringHeight),0xffffffff);
-
-                seasonStack.drawString(mc.font,"scaledX: " + (int)scaledX,(int) scaledX-minimapPadding, (int) scaledY,0xffffffff);
-                seasonStack.drawString(mc.font,"minimapScale: " + minimapScale, (int) (scaledX + totalOffsetY + minimapSize),(int) scaledY,0xffffffff);
-
-                seasonStack.drawString(mc.font,"scaledY: " + (int)scaledY, (int) scaledX-minimapPadding, (int) (scaledY + stringHeight),0xffffffff);
-                seasonStack.drawString(mc.font,"stringY: " + (int)(stringY+potionY),(int) (scaledX + totalOffsetY + minimapSize), (int) (scaledY + stringHeight),0xffffffff);
+                seasonStack.blit(SEASON, (stringX), (stringY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.pose().popPose();
             }
         }
