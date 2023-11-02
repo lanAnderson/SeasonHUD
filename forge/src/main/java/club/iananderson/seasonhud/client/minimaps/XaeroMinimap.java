@@ -53,6 +53,8 @@ public class XaeroMinimap {
             PotionEffectsPushBox potionPushBox = modMain.getInterfaces().normalPotionEffectsPushBox;
             Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
 
+            boolean showIcon = false;
+
             // Correct position if InfoDisplay is hidden
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
                     && mc.level.dimensionType().coordinateScale() == 1.0
@@ -110,10 +112,16 @@ public class XaeroMinimap {
             int potionPushBoxWidth = (scale % 2 == 0) ? (potionPushBox.getW(screenWidth,screenHeight)) : (potionPushBox.getW(screenWidth, screenHeight)-1);
             int potionPushBoxHeight = 0;
 
-            if(potionPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
-                potionPushBoxHeight = potionPushBox.getH(width,height);
+            if (potionEffect != null && !potionEffect.isEmpty()) {
+                for (MobEffectInstance effectInstance : potionEffect) {
+                    showIcon = effectInstance.showIcon();
+                }
+            }
 
-                if((y <= potionPushBoxHeight) && (((scaledX + offset + minimapSize)* minimapScale) > (screenWidth-(potionPushBoxWidth*scale)))){
+            if (potionPushBox.isActive() && mc.player != null && (!potionEffect.isEmpty() && showIcon)){
+                potionPushBoxHeight = potionPushBox.getH(width, height);
+
+                if ((y <= potionPushBoxHeight) && (((scaledX + offset + minimapSize) * minimapScale) > (screenWidth - (potionPushBoxWidth * scale)))) {
                     scaledY = potionPushBoxHeight * mapScale;
                 }
             }
