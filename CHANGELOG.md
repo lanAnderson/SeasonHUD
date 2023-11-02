@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.13] - 2023-11-01
+
+### Fixed
+- Adjusted math behind icon position
+- (Xaeros Minimap) Fixed icon adjusting when hidden potion effects are active
+
+
 ## [1.5.12] - 2023-10-22
 
 ### Fixed
