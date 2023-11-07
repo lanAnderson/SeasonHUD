@@ -154,6 +154,10 @@ dependencies {
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 //    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
+    /Map Atlases/
+//    compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
+    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
+
 }
 
 tasks.withType(JavaCompile) {
