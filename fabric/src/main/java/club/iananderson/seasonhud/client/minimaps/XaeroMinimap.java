@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import xaero.common.XaeroMinimapSession;
@@ -17,8 +18,10 @@ import xaero.common.gui.IScreenBase;
 import xaero.common.interfaces.pushbox.PotionEffectsPushBox;
 import xaero.common.minimap.MinimapInterface;
 import xaero.common.minimap.MinimapProcessor;
+import xaero.common.minimap.info.BuiltInInfoDisplays;
 import xaero.common.minimap.info.InfoDisplayManager;
 import xaero.common.minimap.waypoints.WaypointsManager;
+import xaero.common.misc.OptimizedMath;
 import xaero.common.settings.ModSettings;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.aboveSeason;
-import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
+import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.*;
 import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
 
@@ -46,6 +49,7 @@ public class XaeroMinimap implements HudRenderCallback {
     @Override
     public void onHudRender(GuiGraphics seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
+        ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
         ArrayList<Component> underText = getSeasonName();
 
         int height = mc.getWindow().getGuiScaledHeight();
@@ -53,8 +57,6 @@ public class XaeroMinimap implements HudRenderCallback {
 
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
-            ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
-
             ModSettings modSettings = modMain.getSettings();
             XaeroMinimapSession currentSession = XaeroMinimapCore.currentSession;
             MinimapInterface minimapInterface = modMain.getInterfaces().getMinimapInterface();
@@ -64,18 +66,44 @@ public class XaeroMinimap implements HudRenderCallback {
             PotionEffectsPushBox potionPushBox = modMain.getInterfaces().normalPotionEffectsPushBox;
             Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
 
+            //Minimap values
+            double scale = mc.getWindow().getGuiScale();
+            int screenWidth = mc.getWindow().getScreenWidth();
+            int screenHeight = mc.getWindow().getScreenHeight();
+
+            int minimapSize = minimapProcessor.getMinimapSize()/2;
+
+            float minimapScale = modSettings.getMinimapScale();
+            float mapScale = ((float) (scale / minimapScale));
+            int minimapFrameSize = 4;
+            int minimapPadding = 5;
+            int offset = (minimapFrameSize *2)+(minimapPadding*2);
+            int size = minimapSize + offset;
+
+            int playerBlockX = OptimizedMath.myFloor(mc.player.getX());
+            int playerBlockY = OptimizedMath.myFloor(mc.player.getY());
+            int playerBlockZ = OptimizedMath.myFloor(mc.player.getZ());
+
+            String coords = "" + playerBlockX + ", " + playerBlockY + ", " + playerBlockZ;
+
+            int playerChunkX = mc.player.chunkPosition().x;
+            int playerChunkZ = mc.player.chunkPosition().z;
+
+            MutableComponent claimToolTip = getClaimsTooltip(dim,playerChunkX, playerChunkZ);
+
+            boolean playerInClaim = inClaim(dim, playerChunkX, playerChunkZ);
             boolean showIcon = false;
 
             // Correct position if InfoDisplay is hidden
+            boolean coordState = BuiltInInfoDisplays.COORDINATES.getState()
+                    && !(mc.font.width(coords) >= size)
+                    && aboveSeason(COORDINATES);
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
                     && mc.level.dimensionType().coordinateScale() == 1.0
                     && aboveSeason(OVERWORLD_COORDINATES);
             boolean weatherState = WEATHER.getState()
                     && !(mc.level.isRaining() || mc.level.isThundering())
                     && aboveSeason(WEATHER);
-            boolean highlightsState = HIGHLIGHTS.getState()
-                    && !inClaim(dim, mc.player.chunkPosition().x, mc.player.chunkPosition().z)
-                    && aboveSeason(HIGHLIGHTS);
             boolean lightOverlayState = LIGHT_OVERLAY_INDICATOR.getState()
                     && (modSettings.lightOverlayType == 0)
                     && aboveSeason(LIGHT_OVERLAY_INDICATOR);
@@ -85,38 +113,38 @@ public class XaeroMinimap implements HudRenderCallback {
             boolean customSubWorldState = CUSTOM_SUB_WORLD.getState()
                     && !(waypointsManager.getCurrentWorld() != null && waypointsManager.getAutoWorld() != waypointsManager.getCurrentWorld())
                     && aboveSeason(CUSTOM_SUB_WORLD);
+            boolean highlightsState = HIGHLIGHTS.getState()
+                    && !playerInClaim
+                    && aboveSeason(HIGHLIGHTS);
 
-            boolean[] hiddenIndexes = {overworldCoordState, weatherState, highlightsState, lightOverlayState, manualCaveModeState, customSubWorldState};
+            boolean[] hiddenIndexes = {coordState,overworldCoordState, weatherState, lightOverlayState, manualCaveModeState, customSubWorldState,highlightsState};
 
             int filteredIndexSeason = infoDisplayManager.getStream()
                     .filter(s -> !s.getState().equals(0))
                     .filter(s -> !s.getState().equals(false))
-                    .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
+                    .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes) + Booleans.countTrue(BuiltInInfoDisplays.COORDINATES.getState() && aboveSeason(COORDINATES));
+
+            if(HIGHLIGHTS.getState() && playerInClaim && aboveSeason(HIGHLIGHTS)){
+                filteredIndexSeason += (claimOffset(claimToolTip,mc,size) - 1);
+            }
 
             //Icon
-            double scale = mc.getWindow().getGuiScale();
-            int screenWidth = mc.getWindow().getScreenWidth();
-            int screenHeight = mc.getWindow().getScreenHeight();
-
-            float minimapScale = modSettings.getMinimapScale();
-
             float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight);
 
-            float mapScale = ((float) (scale / minimapScale));
-            int minimapSize = modSettings.getMinimapSize();
-
             int iconDim = (int) stringHeight;
-            int minimapFrameSize = 4;
-            int minimapPadding = 5;
-            int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
 
-            int offset = (minimapFrameSize *2)+(minimapPadding*2);
-            int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 0.5)));
+            int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 1)));
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
+
+            if(minimapProcessor.isEnlargedMap() && modSettings.centeredEnlarged) {
+                x = (int)((width /2)-((minimapSize/mapScale)/2))- (float) iconDim /2;
+                y = (int)((height /2)-((minimapSize/mapScale)/2))- (float) iconDim /2;
+            }
+
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
@@ -137,10 +165,11 @@ public class XaeroMinimap implements HudRenderCallback {
                 }
             }
 
-            boolean under = ((int) scaledY + minimapSize / 2) < scaledHeight / 2;
+            boolean under = ((int)( y - iconDim - 8 + (minimapSize / 2)) < height / 2) && !(minimapProcessor.isEnlargedMap() && modSettings.centeredEnlarged);
 
-            int stringX = (int) (scaledX + (align == 0 ? minimapSize / 2 - stringWidth / 2 + iconDim + 0.5 : (align == 1 ? 6 : iconDim + minimapSize - stringWidth + minimapFrameSize)));
-            int stringY = (int) ((scaledY) + (under ? minimapSize+totalOffsetY : -totalOffsetY + 7));
+
+            int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 : (align == 1 ? 6 : iconDim + minimapSize - stringWidth + minimapFrameSize)));
+            int stringY = (int) ((scaledY) + (under ? minimapSize+totalOffsetY : -totalOffsetY+8));
 
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
@@ -151,6 +180,7 @@ public class XaeroMinimap implements HudRenderCallback {
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                seasonStack.pose().translate(1,-1,0);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
                 seasonStack.blit(SEASON, (stringX), (stringY), 0, 0, iconDim, iconDim, iconDim, iconDim);

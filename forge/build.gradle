@@ -15,10 +15,9 @@ base {
 }
 
 mixin {
-    add(sourceSets.main, "${mod_id}.refmap.json")
-
-    config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+    quiet
 }
 
 minecraft {
@@ -112,6 +111,7 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
@@ -150,6 +150,14 @@ dependencies {
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 //    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 
+    /Map Atlases/
+    compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
+    compileOnly fg.deobf("curse.maven:selene-499980:4871420")
+    compileOnly fg.deobf("curse.maven:supplementaries-412082:4865567")
+
+//    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
+//    implementation fg.deobf("curse.maven:selene-499980:4871420")
+//    implementation fg.deobf("curse.maven:supplementaries-412082:4865567")
 }
 
 tasks.withType(JavaCompile) {
@@ -205,6 +213,7 @@ modrinth {
         optional.project "journeymap"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
+        optional.project "map-atlases"
     }
 }
 
@@ -233,4 +242,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("journeymap")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("map-atlases-forge")
 }

@@ -65,6 +65,7 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
@@ -111,13 +112,18 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    implementation 'com.electronwill.night-config:core:3.6.3'
-    implementation 'com.electronwill.night-config:toml:3.6.3'
+    implementation ("com.electronwill.night-config:core:3.6.3")
+    implementation ("com.electronwill.night-config:toml:3.6.3")
 
     modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
+    /JourneyMap/
     modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
+
+    /Map Atlases/
+    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+//    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
 }
 
 loom {
@@ -140,6 +146,9 @@ loom {
             ideConfigGenerated(true)
             runDir("run")
         }
+    }
+    mixin{
+        defaultRefmapName = "seasonhud.refmap.json"
     }
 }
 
@@ -197,6 +206,7 @@ modrinth {
         optional.project "trinkets"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
+        optional.project "map-atlases"
     }
 }
 
@@ -227,4 +237,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("trinkets")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("map-atlases")
 }

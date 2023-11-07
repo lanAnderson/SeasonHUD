@@ -5,6 +5,7 @@ import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
+import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -13,6 +14,8 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 
 
 public class ClientEvents{
@@ -44,6 +47,12 @@ public class ClientEvents{
         @SubscribeEvent
         public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", JourneyMap.JOURNEYMAP_SEASON);
+        }
+
+        @SubscribeEvent
+        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
+            MapAtlases HUD = new MapAtlases();
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", HUD);
         }
 
         //Key Bindings
