@@ -19,13 +19,13 @@ public class CurrentSeason {
 
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
-        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).name();
+        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString();
     }
 
     //Convert Season to lower case (for file names)
     public static String getSeasonFileName(){
         Minecraft mc = Minecraft.getInstance();
-        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).name().toLowerCase();
+        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString().toLowerCase();
     }
 
     //Convert Season to lower case (for localized names)
@@ -35,7 +35,7 @@ public class CurrentSeason {
 
     public static String getCurrentSeasonNameLower(){
         Minecraft mc = Minecraft.getInstance();
-        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).name().toLowerCase();
+        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString().toLowerCase();
     }
 
     //Get the current date of the season

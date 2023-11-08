@@ -26,11 +26,11 @@ public class CurrentSeason {
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
         if (isTropicalSeason()) {
-            return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().name();
+            return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString();
         } else if (Config.showSubSeason.get()) {
-            return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().name();
+            return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().toString();
         }
-        else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name();
+        else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString();
     }
 
     //Convert Season to lower case (for file names)
@@ -39,7 +39,7 @@ public class CurrentSeason {
         if (isTropicalSeason() || !Config.showSubSeason.get()) {
             return getCurrentSeasonState().toLowerCase();
         }
-        else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name().toLowerCase();
+        else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
     }
 
     //Convert Season to lower case (for localized names)
@@ -49,7 +49,7 @@ public class CurrentSeason {
 
     public static String getCurrentSeasonNameLower(){
         Minecraft mc = Minecraft.getInstance();
-        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().name().toLowerCase();
+        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
     }
 
     //Get the current date of the season

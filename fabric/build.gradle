@@ -89,6 +89,10 @@ dependencies {
     modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 //    modImplementation "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 
+    /Xaero's WorldMap/
+    modCompileOnly "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
+//    modImplementation "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
+
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
     modCompileOnly "curse.maven:architectury-api-419699:${project.architectury_fabric_file_id}"
@@ -114,8 +118,13 @@ dependencies {
 
     modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
+    /JourneyMap/
     modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
+
+    /Map Atlases/
+//    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
 }
 
 loom {

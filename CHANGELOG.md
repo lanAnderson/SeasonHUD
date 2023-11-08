@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.5.13] - 2023-11-01
+
+### Fixed
+- Adjusted math behind icon position
+- (Xaeros Minimap) Fixed icon adjusting when hidden potion effects are active
+
+
+## [1.5.12] - 2023-10-22
+
+### Fixed
+- Fixed a potential error with season names, if system language is not english
+
+
+## [1.5.11] - 2023-10-18
+
+### Fixed
+- Fixed background transparency to match the JourneyMap setting
+
+
+## [1.5.10] - 2023-10-09
+
+### Fixed
+- Fixed layering issue with newest JourneyMap
+
+
 ## [1.5.9] - 2023-09-25
 
 ### Fixed

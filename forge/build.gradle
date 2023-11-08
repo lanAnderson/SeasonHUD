@@ -135,6 +135,10 @@ dependencies {
     compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 //    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 
+    /Xaero's WorldMap/
+    compileOnly fg.deobf("curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_forge_file_id}")
+//    implementation fg.deobf("curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_forge_file_id}")
+
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
     compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
@@ -149,6 +153,10 @@ dependencies {
     /JourneyMap/
     compileOnly fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
 //    implementation fg.deobf("curse.maven:journeymap-32274:${project.journeymap_forge_file_id}")
+
+    /Map Atlases/
+//    compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
+    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
 
 }
 

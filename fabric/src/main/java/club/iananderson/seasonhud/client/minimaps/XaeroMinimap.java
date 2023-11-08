@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
+import xaero.common.XaeroMinimapSession;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
 import xaero.common.interfaces.pushbox.PotionEffectsPushBox;
@@ -56,12 +57,15 @@ public class XaeroMinimap implements HudRenderCallback {
             ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
 
             ModSettings modSettings = modMain.getSettings();
+            XaeroMinimapSession currentSession = XaeroMinimapCore.currentSession;
             MinimapInterface minimapInterface = modMain.getInterfaces().getMinimapInterface();
-            MinimapProcessor minimapProcessor = XaeroMinimapCore.currentSession.getMinimapProcessor();
+            MinimapProcessor minimapProcessor = currentSession.getMinimapProcessor();
             InfoDisplayManager infoDisplayManager = minimapInterface.getInfoDisplayManager();
-            WaypointsManager waypointsManager = XaeroMinimapCore.currentSession.getWaypointsManager();
+            WaypointsManager waypointsManager = currentSession.getWaypointsManager();
             PotionEffectsPushBox potionPushBox = modMain.getInterfaces().normalPotionEffectsPushBox;
             Collection<MobEffectInstance> potionEffect = Objects.requireNonNull(mc.player).getActiveEffects();
+
+            boolean showIcon = false;
 
             // Correct position if InfoDisplay is hidden
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
@@ -92,55 +96,65 @@ public class XaeroMinimap implements HudRenderCallback {
 
             //Icon
             double scale = mc.getWindow().getGuiScale();
+            int screenWidth = mc.getWindow().getScreenWidth();
+            int screenHeight = mc.getWindow().getScreenHeight();
+
+            float minimapScale = modSettings.getMinimapScale();
 
             float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight);
-            float mapSize = modSettings.getMinimapSize();
 
-            float minimapScale = modSettings.getMinimapScale();
-            float mapScale = ((float) (scale / (double) minimapScale));
-            float fontScale = 1 / mapScale;
+            float mapScale = ((float) (scale / minimapScale));
+            int minimapSize = modSettings.getMinimapSize();
 
             int iconDim = (int) stringHeight;
-            int size = (int) mapSize;
-            int framesize = 4;
+            int minimapFrameSize = 4;
+            int minimapPadding = 5;
             int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
-            int yOffset = (int) (((framesize * 2) + 9) + (filteredIndexSeason * (stringHeight + 1)));
+
+            int offset = (minimapFrameSize *2)+(minimapPadding*2);
+            int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 0.5)));
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
-            int potionY = 0;
-            int potionPushBoxHeight = potionPushBox.getH(width,height);
-            int potionPushBoxWidth = potionPushBox.getW(width,height);
+            int potionPushBoxWidth = (scale % 2 == 0) ? (potionPushBox.getW(screenWidth,screenHeight)) : (potionPushBox.getW(screenWidth, screenHeight)-1);
+            int potionPushBoxHeight = 0;
 
-            if(potionPushBox.isActive() && mc.player != null && !potionEffect.isEmpty()){
-                if(((y - potionPushBoxHeight) < 0) && ((x + mapSize) > width-potionPushBoxWidth)){
-                    scaledY = 0;
-                    potionY = (int) (potionPushBoxHeight * mapScale);
+            if (potionEffect != null && !potionEffect.isEmpty()) {
+                for (MobEffectInstance effectInstance : potionEffect) {
+                    showIcon = effectInstance.showIcon();
                 }
             }
 
-            boolean under = ((int) scaledY + size / 2) < scaledHeight / 2;
+            if (potionPushBox.isActive() && mc.player != null && (!potionEffect.isEmpty() && showIcon)){
+                potionPushBoxHeight = potionPushBox.getH(width, height);
 
-            int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 + iconDim + 1 : (align == 1 ? 6 : iconDim + size - stringWidth + framesize)));
-            int stringY = (int) ((scaledY) + (under ? size + yOffset : -yOffset + 7));
+                if ((y <= potionPushBoxHeight) && (((scaledX + offset + minimapSize) * minimapScale) > (screenWidth - (potionPushBoxWidth * scale)))) {
+                    scaledY = potionPushBoxHeight * mapScale;
+                }
+            }
+
+            boolean under = ((int) scaledY + minimapSize / 2) < scaledHeight / 2;
+
+            int stringX = (int) (scaledX + (align == 0 ? minimapSize / 2 - stringWidth / 2 + iconDim + 0.5 : (align == 1 ? 6 : iconDim + minimapSize - stringWidth + minimapFrameSize)));
+            int stringY = (int) ((scaledY) + (under ? minimapSize+totalOffsetY : -totalOffsetY + 7));
 
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
-                seasonStack.scale(fontScale, fontScale, 1.0F);
+                seasonStack.scale(1.0F / mapScale, 1.0F / mapScale, 1.0F);
 
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(seasonStack, (int) (stringX), (int) stringY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                GuiComponent.blit(seasonStack, (stringX), (stringY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.popPose();
             }
         }
