@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.mixin;
 
-import club.iananderson.seasonhud.platform.FabricPlatformHelper;
+import club.iananderson.seasonhud.platform.ForgePlatformHelper;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -14,7 +14,7 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     }
 
-    FabricPlatformHelper helper = new FabricPlatformHelper();
+    ForgePlatformHelper helper = new ForgePlatformHelper();
 
     private final boolean hasXaeroMinimap = (helper.isModLoaded("xaerominimap") || helper.isModLoaded("xaerominimapfair"));
     private final boolean hasJourneyMap = helper.isModLoaded("journeymap");
@@ -38,6 +38,10 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
         }
         if(mixinClassName.contains("Xaero")){
             return hasXaeroMinimap;
+        }
+
+        if (mixinClassName.contains("MapAtlases")) {
+           return hasMapAtlases;
         }
         return true;
     }
