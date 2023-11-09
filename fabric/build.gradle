@@ -123,8 +123,8 @@ dependencies {
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
 
     /Map Atlases/
-//    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+//    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
 }
 
 loom {
