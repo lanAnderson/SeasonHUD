@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.Anchoring;
+import pepjebs.mapatlases.client.ui.MapAtlasesHUD;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 import java.util.ArrayList;
@@ -25,10 +26,17 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 
-public class MapAtlases {
+public class MapAtlases extends MapAtlasesHUD {
+
+    public static void drawMapComponentSeason(PoseStack context, Font font, int x, int y, int targetWidth, float textScaling) {
+        if (loadedMinimap("map_atlases")) {
+            float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
+            String seasonToDisplay = getSeasonName().get(0).getString();
+            drawScaledComponent(context, font, x, y, seasonToDisplay, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
+        }
+    }
 
     //TODO - Look into Mixins instead
-
     public static final IGuiOverlay MAP_ATLASES_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> underText = getSeasonName();
@@ -131,12 +139,4 @@ public class MapAtlases {
             }
         }
     };
-
-    public static void drawMapComponentSeason(PoseStack context, Font font, int x, int y, int targetWidth, float textScaling) {
-        if (loadedMinimap("map_atlases")) {
-            float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
-            String seasonToDisplay = getSeasonName().get(0).getString();
-            drawScaledComponent(context, font, x, y, seasonToDisplay, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
-        }
-    }
 }
