@@ -39,10 +39,6 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
         if(mixinClassName.contains("Xaero")){
             return hasXaeroMinimap;
         }
-
-        if (mixinClassName.contains("MapAtlases")) {
-           return hasMapAtlases;
-        }
         return true;
     }
 

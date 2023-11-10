@@ -46,10 +46,20 @@ public class ClientEvents{
         public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", JourneyMap.JOURNEYMAP_SEASON);
         }
+        public static MapAtlases HUD;
+
         @SubscribeEvent
-        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", MapAtlases.MAP_ATLASES_SEASON);
+        public static void registerOverlay(RegisterGuiOverlaysEvent event) {
+            HUD = new MapAtlases();
+            event.registerBelow(VanillaGuiOverlay.DEBUG_TEXT.id(), "mapatlas", HUD);
         }
+
+
+//        @SubscribeEvent
+//        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
+//            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", MapAtlases.MAP_ATLASES_SEASON);
+//        }
+
 
         //Key Bindings
         @SubscribeEvent
