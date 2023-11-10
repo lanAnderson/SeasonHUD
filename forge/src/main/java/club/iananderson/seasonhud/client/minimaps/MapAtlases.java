@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -73,67 +74,89 @@ public class MapAtlases extends AbstractAtlasWidget implements IGuiOverlay{
             if (mc.options.renderDebug) return;
             if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) return;
 
-            float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
+            if (!MapAtlasesClientConfig.hideWhenInHand.get()
+                    || !this.mc.player.getMainHandItem().is((Item)MapAtlasesMod.MAP_ATLAS.get())
+                    && !this.mc.player.getOffhandItem().is((Item)MapAtlasesMod.MAP_ATLAS.get())) {
 
-            int textHeightOffset = 0;
-            float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
-            int actualBgSize = (int) (BG_SIZE * globalScale);
+                float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
-            ClientLevel level = mc.level;
-            LocalPlayer player = mc.player;
+                int textHeightOffset = 0;
+                float globalScale = (float) (double) MapAtlasesClientConfig.miniMapScale.get();
+                int actualBgSize = (int) (BG_SIZE * globalScale);
 
-            poseStack.pushPose();
-            poseStack.scale(globalScale, globalScale, 1);
+                ClientLevel level = mc.level;
+                LocalPlayer player = mc.player;
 
-            int mapWidgetSize = (int) (BG_SIZE * (116 / 128f));
-            // Draw map background
-            Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
-            int x = anchorLocation.isLeft ? 0 :  (int) (screenWidth / globalScale) - BG_SIZE;
-            int y = anchorLocation.isUp ? 0 : (int) (screenHeight / globalScale) - BG_SIZE;
-            x += MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale ;
-            y += MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale;
+                poseStack.pushPose();
+                poseStack.scale(globalScale, globalScale, 1);
 
-            if (anchorLocation.isUp && !anchorLocation.isLeft) {
-                boolean hasBeneficial = false;
-                boolean hasNegative = false;
-                for (var e : player.getActiveEffects()) {
-                    MobEffect effect = e.getEffect();
-                    if (effect.isBeneficial()) {
-                        hasBeneficial = true;
-                    } else {
-                        hasNegative = true;
+                int mapWidgetSize = (int) (BG_SIZE * (116 / 128f));
+                // Draw map background
+                Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
+                int x = anchorLocation.isLeft ? 0 : (int) (screenWidth / globalScale) - BG_SIZE;
+                int y = anchorLocation.isUp ? 0 : (int) (screenHeight / globalScale) - BG_SIZE;
+                x += MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale;
+                y += MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale;
+
+                if (anchorLocation.isUp && !anchorLocation.isLeft) {
+                    boolean hasBeneficial = false;
+                    boolean hasNegative = false;
+                    for (var e : player.getActiveEffects()) {
+                        MobEffect effect = e.getEffect();
+                        if (effect.isBeneficial()) {
+                            hasBeneficial = true;
+                        } else {
+                            hasNegative = true;
+                        }
+                    }
+                    int offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
+                    if (hasNegative && y < 2 * offsetForEffects) {
+                        y += (2 * offsetForEffects - y);
+                    } else if (hasBeneficial && y < offsetForEffects) {
+                        y += (offsetForEffects - y);
                     }
                 }
-                int offsetForEffects = MapAtlasesClientConfig.activePotionVerticalOffset.get();
-                if (hasNegative && y < 2 * offsetForEffects) {
-                    y += (2 * offsetForEffects - y);
-                } else if (hasBeneficial && y < offsetForEffects) {
-                    y += (offsetForEffects - y);
+                Font font = mc.font;
+
+                String seasonToDisplay = getSeasonName().get(0).getString();
+
+                if (Config.enableMod.get()) {
+                    if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
+                        textHeightOffset += (10 * textScaling);
+                    }
+
+                    if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
+                        textHeightOffset += (10 * textScaling);
+                    }
+
+                    float stringHeight = (font.lineHeight);
+                    float textWidth = (float)font.width(seasonToDisplay);
+                    int iconDim = (int) ((stringHeight) * (textScaling/globalScale));
+
+                    float scale = Math.min(1.0F, (float)actualBgSize * textScaling / textWidth);
+                    scale *= textScaling;
+
+                    float centerX = (float)x + (float)actualBgSize / 2.0F;
+
+                    drawMapComponentSeason(poseStack, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+
+                    /*TODO Improvements from last night. Icon scale seems good when the text isn't automatically scaled down due to text width
+                    *  Once it starts to scale down, icon shifts up. Need to do the math to see why the y value of the icon isn't scaling w/ the text*/
+
+                    poseStack.pushPose();
+                    poseStack.translate((double)centerX, (double)(y+4), 5.0);
+                    poseStack.scale(scale, scale, 1.0F);
+                    poseStack.translate((double)(-textWidth / 2.0F), -4.0, 0.0);
+                    ResourceLocation SEASON = getSeasonResource();
+                    RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                    RenderSystem.setShaderTexture(0, SEASON);
+                    GuiComponent.blit(poseStack, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                    poseStack.popPose();
                 }
+
+                poseStack.popPose();
             }
-            Font font = mc.font;
-
-            if(Config.enableMod.get()){
-                if(MapAtlasesClientConfig.drawMinimapCoords.get()){
-                    textHeightOffset += (10 * textScaling);
-                }
-
-                if(MapAtlasesClientConfig.drawMinimapBiome.get()){
-                    textHeightOffset += (10 * textScaling);
-                }
-
-                float stringHeight = (font.lineHeight);
-                int iconDim = (int) (stringHeight);
-
-                drawMapComponentSeason(poseStack, font, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
-                ResourceLocation SEASON = getSeasonResource();
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.setShaderTexture(0, SEASON);
-                GuiComponent.blit(poseStack, x, (int) (y + BG_SIZE + (textHeightOffset / globalScale)), 0, 0, iconDim, iconDim, iconDim, iconDim);
-            }
-
-            poseStack.popPose();
         }
     }
 }

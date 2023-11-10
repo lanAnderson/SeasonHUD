@@ -1,12 +1,15 @@
 package club.iananderson.seasonhud.mixin;
 
-import club.iananderson.seasonhud.platform.ForgePlatformHelper;
+import com.google.common.collect.ImmutableMap;
+import net.minecraftforge.fml.ModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
@@ -14,12 +17,12 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     }
 
-    ForgePlatformHelper helper = new ForgePlatformHelper();
+//    private static final Supplier<Boolean> TRUE = () -> true;
 
-    private final boolean hasXaeroMinimap = (helper.isModLoaded("xaerominimap") || helper.isModLoaded("xaerominimapfair"));
-    private final boolean hasJourneyMap = helper.isModLoaded("journeymap");
-    private final boolean hasFTBChunks = helper.isModLoaded("ftbchunks");
-    private final boolean hasMapAtlases = helper.isModLoaded("map_atlases");
+//    private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
+//            "club.iananderson.seasonhud.mixin.XaeroBuiltInInfoDisplays", () -> (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair")),
+//            "club.iananderson.seasonhud.mixin.MapAtlasesHUDMixin", () -> (ModList.get().isLoaded("map_atlases"))
+//    );
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -33,12 +36,6 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if(!hasXaeroMinimap && targetClassName.startsWith("xaero")){
-            return false;
-        }
-        if(mixinClassName.contains("Xaero")){
-            return hasXaeroMinimap;
-        }
         return true;
     }
 
