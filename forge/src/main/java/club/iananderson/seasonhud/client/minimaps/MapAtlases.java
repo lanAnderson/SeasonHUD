@@ -27,11 +27,11 @@ public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
     private final Minecraft mc = Minecraft.getInstance();
 
-    public static void drawMapComponentSeason(PoseStack context, Font font, int x, int y, int targetWidth, float textScaling) {
+    public static void drawMapComponentSeason(PoseStack poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             String seasonToDisplay = getSeasonName().get(0).getString();
-            drawScaledComponent(context, font, x, y, seasonToDisplay, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
+            drawScaledComponent(poseStack, font, x, y, seasonToDisplay, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }
     }
 
