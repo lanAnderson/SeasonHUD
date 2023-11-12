@@ -15,6 +15,8 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
+
 
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
@@ -46,20 +48,12 @@ public class ClientEvents{
         public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", JourneyMap.JOURNEYMAP_SEASON);
         }
-        public static MapAtlases HUD;
 
         @SubscribeEvent
-        public static void registerOverlay(RegisterGuiOverlaysEvent event) {
-            HUD = new MapAtlases();
-            event.registerBelow(VanillaGuiOverlay.DEBUG_TEXT.id(), "mapatlas", HUD);
+        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
+            MapAtlases HUD = new MapAtlases();
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", HUD);
         }
-
-
-//        @SubscribeEvent
-//        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-//            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", MapAtlases.MAP_ATLASES_SEASON);
-//        }
-
 
         //Key Bindings
         @SubscribeEvent

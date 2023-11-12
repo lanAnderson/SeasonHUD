@@ -6,42 +6,28 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import org.jetbrains.annotations.Nullable;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import pepjebs.mapatlases.MapAtlasesMod;
-import pepjebs.mapatlases.client.AbstractAtlasWidget;
 import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
-import pepjebs.mapatlases.utils.MapDataHolder;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 
-public class MapAtlases extends AbstractAtlasWidget implements IGuiOverlay{
+public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
-    private final Minecraft mc;
-
-    @Nullable
-    @Override
-    public MapDataHolder getMapWithCenter(int centerX, int centerZ) {
-        return null;
-    }
-
-    public MapAtlases(){
-        super(1);
-        this.mc = Minecraft.getInstance();
-    }
+    private final Minecraft mc = Minecraft.getInstance();
 
     public static void drawMapComponentSeason(PoseStack context, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {

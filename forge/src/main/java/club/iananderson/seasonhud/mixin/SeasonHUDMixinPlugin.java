@@ -1,28 +1,17 @@
 package club.iananderson.seasonhud.mixin;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraftforge.fml.ModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     public SeasonHUDMixinPlugin(){
 
     }
-
-//    private static final Supplier<Boolean> TRUE = () -> true;
-
-//    private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-//            "club.iananderson.seasonhud.mixin.XaeroBuiltInInfoDisplays", () -> (ModList.get().isLoaded("xaerominimap") || ModList.get().isLoaded("xaerominimapfair")),
-//            "club.iananderson.seasonhud.mixin.MapAtlasesHUDMixin", () -> (ModList.get().isLoaded("map_atlases"))
-//    );
 
     @Override
     public void onLoad(String mixinPackage) {
