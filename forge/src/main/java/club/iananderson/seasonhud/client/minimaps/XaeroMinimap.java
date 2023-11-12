@@ -82,6 +82,12 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
+            boolean smallMap = (modSettings.getMinimapSize() < 61);
+
+            if (smallMap){
+                filteredIndexSeason += 1;
+            }
+
             //Icon
             double scale = mc.getWindow().getGuiScale();
             int screenWidth = mc.getWindow().getScreenWidth();
@@ -103,6 +109,10 @@ public class XaeroMinimap {
 
             int offset = (minimapFrameSize *2)+(minimapPadding*2);
             int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 0.5)));
+            if (smallMap){
+                totalOffsetY += 1;
+            }
+
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
@@ -136,7 +146,7 @@ public class XaeroMinimap {
                     && (!modSettings.hideMinimapUnderF3 || !mc.options.renderDebug)) {
                 seasonStack.pushPose();
                 seasonStack.scale(1.0F / mapScale, 1.0F / mapScale, 1.0F);
-
+                mc.font.draw(seasonStack, String.valueOf(modSettings.getMinimapSize()),10,10,0xffffffff);
                 //Icon
                 ResourceLocation SEASON = getSeasonResource();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);

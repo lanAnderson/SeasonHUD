@@ -94,6 +94,12 @@ public class XaeroMinimap implements HudRenderCallback {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
 
+            boolean smallMap = (modSettings.getMinimapSize() < 61);
+
+            if (smallMap){
+                filteredIndexSeason += 1;
+            }
+
             //Icon
             double scale = mc.getWindow().getGuiScale();
             int screenWidth = mc.getWindow().getScreenWidth();
@@ -115,6 +121,9 @@ public class XaeroMinimap implements HudRenderCallback {
 
             int offset = (minimapFrameSize *2)+(minimapPadding*2);
             int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 0.5)));
+            if (smallMap){
+                totalOffsetY += 1;
+            }
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
