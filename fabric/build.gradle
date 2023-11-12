@@ -207,6 +207,7 @@ modrinth {
         optional.project "trinkets"
         optional.project "xaeros-minimap"
         optional.project "xaeros-minimap-fair"
+        optional.project "map-atlases"
     }
 }
 
@@ -237,4 +238,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addOptional("trinkets")
     mainFile.addOptional("xaeros-minimap")
     mainFile.addOptional("xaeros-minimap-fair-play-edition")
+    mainFile.addOptional("map-atlases")
 }
