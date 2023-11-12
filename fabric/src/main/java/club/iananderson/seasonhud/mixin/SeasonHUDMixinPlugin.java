@@ -1,22 +1,18 @@
 package club.iananderson.seasonhud.mixin;
 
-import club.iananderson.seasonhud.platform.FabricPlatformHelper;
-import com.google.common.collect.ImmutableMap;
-import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     public SeasonHUDMixinPlugin(){
 
     }
+
     @Override
     public void onLoad(String mixinPackage) {
 
