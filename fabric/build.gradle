@@ -65,10 +65,11 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    include implementation (group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1')
     implementation project(":common")
 
     /Fabric Seasons/
@@ -113,8 +114,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    implementation 'com.electronwill.night-config:core:3.6.3'
-    implementation 'com.electronwill.night-config:toml:3.6.3'
+    include implementation ("com.electronwill.night-config:core:3.6.3")
+    include implementation ("com.electronwill.night-config:toml:3.6.3")
 
     modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
@@ -142,7 +143,7 @@ loom {
             runDir("run")
         }
     }
-    mixin {
+    mixin{
         defaultRefmapName = "seasonhud.refmap.json"
     }
 }

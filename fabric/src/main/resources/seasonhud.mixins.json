@@ -9,6 +9,7 @@
   "client": [
     "XaeroBuiltInInfoDisplays"
   ],
+  "plugin": "club.iananderson.seasonhud.mixin.SeasonHUDMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }
