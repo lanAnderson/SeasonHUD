@@ -90,7 +90,7 @@ public class XaeroMinimap implements HudRenderCallback {
 
             // Correct position if InfoDisplay is hidden
             boolean coordState = BuiltInInfoDisplays.COORDINATES.getState()
-                    && (mc.font.width(coords) >= size)
+                    && !(mc.font.width(coords) >= size)
                     && aboveSeason(COORDINATES);
             boolean overworldCoordState = OVERWORLD_COORDINATES.getState()
                     && mc.level.dimensionType().coordinateScale() == 1.0
@@ -116,7 +116,7 @@ public class XaeroMinimap implements HudRenderCallback {
             int filteredIndexSeason = infoDisplayManager.getStream()
                     .filter(s -> !s.getState().equals(0))
                     .filter(s -> !s.getState().equals(false))
-                    .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes);
+                    .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes) + Booleans.countTrue(BuiltInInfoDisplays.COORDINATES.getState() && aboveSeason(COORDINATES));
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
@@ -126,7 +126,7 @@ public class XaeroMinimap implements HudRenderCallback {
             int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
 
-            int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 0.5)));
+            int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 1)));
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
