@@ -86,6 +86,10 @@ public class XaeroMinimap {
             boolean weatherState = WEATHER.getState()
                     && !(mc.level.isRaining() || mc.level.isThundering())
                     && aboveSeason(WEATHER);
+
+            //TODO Need to account for a long claim name overflowing to next line
+            // Check out xaero.common.mods.pac.highlight, it shows the line being constructed
+            // Maybe use similar logic to the Coords overflowing?
             boolean highlightsState = HIGHLIGHTS.getState()
                     && !inClaim(dim, mc.player.chunkPosition().x, mc.player.chunkPosition().z)
                     && aboveSeason(HIGHLIGHTS);
