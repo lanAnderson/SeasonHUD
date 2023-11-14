@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.6.0] - 2023-11-12
+## [1.6.0] - 2023-11-14
 
 ### Added
 - Added support for the MapAtlases mod
@@ -13,7 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Changed Mixins to only attempt to load if the appropriate minimap mod is loaded
 
 ### Fixed
-- Fixed icon alignment if XaeroMinimap's size is less than 61
+- Fixed icon alignment if XaeroMinimap's size is chunk coordinate size is wider than the minimap size
+- Generally improved XaeroMinimap's season icon placement
 
 ## [1.5.13] - 2023-11-01
 

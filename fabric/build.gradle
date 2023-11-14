@@ -69,7 +69,7 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    include implementation (group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1')
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
 
     /Fabric Seasons/
@@ -114,8 +114,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    include implementation ("com.electronwill.night-config:core:3.6.3")
-    include implementation ("com.electronwill.night-config:toml:3.6.3")
+    implementation ("com.electronwill.night-config:core:3.6.3")
+    implementation ("com.electronwill.night-config:toml:3.6.3")
 
     modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
 
@@ -124,8 +124,8 @@ dependencies {
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
 
     /Map Atlases/
-//    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+    modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+//    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
 }
 
 loom {
