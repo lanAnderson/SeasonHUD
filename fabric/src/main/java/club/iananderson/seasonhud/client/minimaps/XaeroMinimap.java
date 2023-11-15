@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import xaero.common.XaeroMinimapSession;
@@ -34,7 +35,7 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.SEASON;
 import static club.iananderson.seasonhud.impl.minimaps.XaeroInfoDisplays.aboveSeason;
-import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.inClaim;
+import static club.iananderson.seasonhud.impl.opac.OpenPartiesAndClaims.*;
 import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
 
@@ -49,6 +50,7 @@ public class XaeroMinimap implements HudRenderCallback {
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
+        ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
         ArrayList<Component> underText = getSeasonName();
 
         int height = mc.getWindow().getGuiScaledHeight();
@@ -56,8 +58,6 @@ public class XaeroMinimap implements HudRenderCallback {
 
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
             //Data
-            ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
-
             ModSettings modSettings = modMain.getSettings();
             XaeroMinimapSession currentSession = XaeroMinimapCore.currentSession;
             MinimapInterface minimapInterface = modMain.getInterfaces().getMinimapInterface();
@@ -73,19 +73,29 @@ public class XaeroMinimap implements HudRenderCallback {
             int screenHeight = mc.getWindow().getScreenHeight();
 
             int minimapSize = modSettings.getMinimapSize();
+            boolean enlargedMap = minimapProcessor.isEnlargedMap();
+//            if (enlargedMap){
+//            }
+
             float minimapScale = modSettings.getMinimapScale();
             float mapScale = ((float) (scale / minimapScale));
             int minimapFrameSize = 4;
             int minimapPadding = 5;
             int offset = (minimapFrameSize *2)+(minimapPadding*2);
+            int size = minimapSize + offset;
 
             int playerBlockX = OptimizedMath.myFloor(mc.player.getX());
             int playerBlockY = OptimizedMath.myFloor(mc.player.getY());
             int playerBlockZ = OptimizedMath.myFloor(mc.player.getZ());
 
             String coords = "" + playerBlockX + ", " + playerBlockY + ", " + playerBlockZ;
-            int size = minimapSize + offset;
 
+            int playerChunkX = mc.player.chunkPosition().x;
+            int playerChunkZ = mc.player.chunkPosition().z;
+
+            MutableComponent claimToolTip = getClaimsTooltip(dim,playerChunkX, playerChunkZ);
+
+            boolean playerInClaim = inClaim(dim, playerChunkX, playerChunkZ);
             boolean showIcon = false;
 
             // Correct position if InfoDisplay is hidden
@@ -98,9 +108,6 @@ public class XaeroMinimap implements HudRenderCallback {
             boolean weatherState = WEATHER.getState()
                     && !(mc.level.isRaining() || mc.level.isThundering())
                     && aboveSeason(WEATHER);
-            boolean highlightsState = HIGHLIGHTS.getState()
-                    && !inClaim(dim, mc.player.chunkPosition().x, mc.player.chunkPosition().z)
-                    && aboveSeason(HIGHLIGHTS);
             boolean lightOverlayState = LIGHT_OVERLAY_INDICATOR.getState()
                     && (modSettings.lightOverlayType == 0)
                     && aboveSeason(LIGHT_OVERLAY_INDICATOR);
@@ -110,13 +117,20 @@ public class XaeroMinimap implements HudRenderCallback {
             boolean customSubWorldState = CUSTOM_SUB_WORLD.getState()
                     && !(waypointsManager.getCurrentWorld() != null && waypointsManager.getAutoWorld() != waypointsManager.getCurrentWorld())
                     && aboveSeason(CUSTOM_SUB_WORLD);
+            boolean highlightsState = HIGHLIGHTS.getState()
+                    && !playerInClaim
+                    && aboveSeason(HIGHLIGHTS);
 
-            boolean[] hiddenIndexes = {coordState,overworldCoordState, weatherState, highlightsState, lightOverlayState, manualCaveModeState, customSubWorldState};
+            boolean[] hiddenIndexes = {coordState,overworldCoordState, weatherState, lightOverlayState, manualCaveModeState, customSubWorldState,highlightsState};
 
             int filteredIndexSeason = infoDisplayManager.getStream()
                     .filter(s -> !s.getState().equals(0))
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes) + Booleans.countTrue(BuiltInInfoDisplays.COORDINATES.getState() && aboveSeason(COORDINATES));
+
+            if(HIGHLIGHTS.getState() && playerInClaim && aboveSeason(HIGHLIGHTS)){
+                filteredIndexSeason += (claimOffset(claimToolTip,mc,size) - 1);
+            }
 
             //Icon
             float stringWidth = mc.font.width(underText.get(0));

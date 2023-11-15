@@ -14,7 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Fixed icon alignment if XaeroMinimap's size is chunk coordinate size is wider than the minimap size
+- Fixed icon alignment if using OpenPartiesAndClaims, and the claim name splits into more than one line.
 - Generally improved XaeroMinimap's season icon placement
+
 
 ## [1.5.13] - 2023-11-01
 
