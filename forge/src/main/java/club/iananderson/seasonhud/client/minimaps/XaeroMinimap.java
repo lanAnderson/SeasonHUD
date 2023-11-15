@@ -60,10 +60,7 @@ public class XaeroMinimap {
             int screenWidth = mc.getWindow().getScreenWidth();
             int screenHeight = mc.getWindow().getScreenHeight();
 
-            int minimapSize = modSettings.getMinimapSize();
-            boolean enlargedMap = minimapProcessor.isEnlargedMap();
-//            if (enlargedMap){
-//            }
+            int minimapSize = minimapProcessor.getMinimapSize()/2;
 
             float minimapScale = modSettings.getMinimapScale();
             float mapScale = ((float) (scale / minimapScale));
@@ -125,13 +122,18 @@ public class XaeroMinimap {
             float stringHeight = (mc.font.lineHeight);
 
             int iconDim = (int) stringHeight;
-            int scaledHeight = (int) ((float) height * mapScale);
             int align = modSettings.minimapTextAlign;
 
             int totalOffsetY = (int) (offset + (filteredIndexSeason * (stringHeight + 1)));
 
             float x = minimapInterface.getX();
             float y = minimapInterface.getY();
+
+            if(minimapProcessor.isEnlargedMap() && modSettings.centeredEnlarged) {
+                x = (int)((width /2)-((minimapSize/mapScale)/2))- (float) iconDim /2;
+                y = (int)((height /2)-((minimapSize/mapScale)/2))- (float) iconDim /2;
+            }
+
             float scaledX = (x * mapScale);
             float scaledY = (y * mapScale);
 
@@ -152,10 +154,11 @@ public class XaeroMinimap {
                 }
             }
 
-            boolean under = ((int) scaledY + minimapSize / 2) < scaledHeight / 2;
+            boolean under = ((int)( y - iconDim - 8 + (minimapSize / 2)) < height / 2) && !(minimapProcessor.isEnlargedMap() && modSettings.centeredEnlarged);
+
 
             int stringX = (int) (scaledX + (align == 0 ? size / 2 - stringWidth / 2 : (align == 1 ? 6 : iconDim + minimapSize - stringWidth + minimapFrameSize)));
-            int stringY = (int) ((scaledY) + (under ? minimapSize+totalOffsetY : -totalOffsetY + 7));
+            int stringY = (int) ((scaledY) + (under ? minimapSize+totalOffsetY : -totalOffsetY+8));
 
             //Icon Draw
             if (!minimapHidden() && (!modSettings.hideMinimapUnderScreen || mc.screen == null || mc.screen instanceof IScreenBase || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen)
