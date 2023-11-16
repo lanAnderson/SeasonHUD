@@ -43,7 +43,7 @@ public class MapAtlases implements HudRenderCallback {
                 return false;
             } else if (MapAtlasesMod.CONFIG != null && !MapAtlasesMod.CONFIG.drawMiniMapHUD) {
                 return false;
-            } else if (mc.options.renderDebug) {
+            } else if (mc.getDebugOverlay().showDebugScreen()) {
                 return false;
             } else {
                 ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
