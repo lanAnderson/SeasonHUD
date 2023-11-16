@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.6.0] - 2023-11-14
+## [1.6.0] - 2023-11-15
 
 ### Added
 - Added support for the MapAtlases mod
