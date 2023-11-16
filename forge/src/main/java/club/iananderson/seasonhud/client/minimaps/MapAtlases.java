@@ -41,7 +41,7 @@ public class MapAtlases implements IGuiOverlay{
                 return;
             }
 
-            if (mc.options.renderDebug) {
+            if (mc.getDebugOverlay().showDebugScreen()) {
                 return;
             }
 
