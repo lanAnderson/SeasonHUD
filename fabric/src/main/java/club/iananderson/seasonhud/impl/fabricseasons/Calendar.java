@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.impl.fabricseasons;
 import club.iananderson.seasonhud.config.Config;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,18 +12,10 @@ import net.minecraft.world.item.Item;
 import java.util.Optional;
 
 import static io.github.lucaargolo.seasonsextras.FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
+import static club.iananderson.seasonhud.SeasonHUD.*;
 
 public class Calendar {
     public static boolean invCalendar;
-
-    public static boolean curiosLoaded() {
-        return FabricLoader.getInstance().isModLoaded("trinkets");
-    }
-
-    public static boolean extrasLoaded() {
-        return FabricLoader.getInstance().isModLoaded("seasonsextras");
-    }
-
     public static Item calendar;
 
     public static boolean calendar() {
@@ -44,7 +35,6 @@ public class Calendar {
                 invCalendar = (slot >= 0);
 
             }
-
         }
         else invCalendar = true;
 
@@ -62,7 +52,7 @@ public class Calendar {
     }
 
     private static int findCuriosCalendar(Player player, Item item) {
-        if (curiosLoaded()) {
+        if (curiosLoaded() && extrasLoaded()) {
             Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
             if(findCalendar.get().isEquipped(item)){
                 return 1;

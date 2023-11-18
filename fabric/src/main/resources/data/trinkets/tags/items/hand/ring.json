@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "seasonsextras:season_calendar"
+    {"id": "seasonsextras:season_calendar", "required": false}
   ]
 }
