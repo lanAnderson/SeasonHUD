@@ -103,9 +103,9 @@ public class MapAtlases implements IGuiOverlay{
                     textHeightOffset += (10 * textScaling);
                 }
 
-                if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
-                    textHeightOffset += (10 * textScaling);
-                }
+//                if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
+//                    textHeightOffset += (10 * textScaling);
+//                }
 
                 if (MapAtlasesClientConfig.drawMinimapBiome.get()) {
                     textHeightOffset += (10 * textScaling);
