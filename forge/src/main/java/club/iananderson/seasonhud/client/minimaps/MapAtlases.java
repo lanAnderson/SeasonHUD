@@ -73,8 +73,8 @@ public class MapAtlases implements IGuiOverlay{
             Anchoring anchorLocation = MapAtlasesClientConfig.miniMapAnchoring.get();
             int x = anchorLocation.isLeft ? 0 : (int) (screenWidth / globalScale) - BG_SIZE;
             int y = anchorLocation.isUp ? 0 : (int) (screenHeight / globalScale) - BG_SIZE;
-            x += MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale;
-            y += MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale;
+            x += (int) (MapAtlasesClientConfig.miniMapHorizontalOffset.get() / globalScale);
+            y += (int) (MapAtlasesClientConfig.miniMapVerticalOffset.get() / globalScale);
 
             if (anchorLocation.isUp && !anchorLocation.isLeft) {
                 boolean hasBeneficial = false;
@@ -100,6 +100,10 @@ public class MapAtlases implements IGuiOverlay{
 
             if (Config.enableMod.get()) {
                 if (MapAtlasesClientConfig.drawMinimapCoords.get()) {
+                    textHeightOffset += (10 * textScaling);
+                }
+
+                if (MapAtlasesClientConfig.drawMinimapChunkCoords.get()) {
                     textHeightOffset += (10 * textScaling);
                 }
 
