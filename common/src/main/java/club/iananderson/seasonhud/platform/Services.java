@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.platform;
 
-import club.iananderson.seasonhud.Constants;
+import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -14,7 +14,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        Common.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }
