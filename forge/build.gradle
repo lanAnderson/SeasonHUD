@@ -1,6 +1,7 @@
 plugins {
     id 'idea'
     id 'maven-publish'
+    id 'org.parchmentmc.librarian.forgegradle'
     id 'net.minecraftforge.gradle'
     id 'org.spongepowered.mixin'
     id 'net.darkhax.curseforgegradle' version '1.1.16'
@@ -21,7 +22,7 @@ mixin {
 }
 
 minecraft {
-    mappings channel: mapping_channel, version: mapping_version
+    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
 
     if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
