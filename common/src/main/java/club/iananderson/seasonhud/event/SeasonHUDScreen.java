@@ -16,16 +16,14 @@ import static club.iananderson.seasonhud.config.Config.*;
 
 public class SeasonHUDScreen extends Screen{
     //private static final int COLUMNS = 2;
-    private static final int MENU_PADDING_FULL = 50;
-    private static final int MENU_PADDING_HALF = MENU_PADDING_FULL/2;
-    private static final int PADDING = 4;
-    private static final int BUTTON_WIDTH_FULL = 200;
-    private static final int BUTTON_WIDTH_HALF = 180;
-    private static final int BUTTON_HEIGHT = 20;
+    public static final int MENU_PADDING_FULL = 50;
+    public static final int MENU_PADDING_HALF = MENU_PADDING_FULL/2;
+    public static final int PADDING = 4;
+    public static final int BUTTON_WIDTH_FULL = 200;
+    public static final int BUTTON_WIDTH_HALF = 180;
+    public static final int BUTTON_HEIGHT = 20;
     public static Screen seasonScreen;
-
-    private final Screen lastScreen;
-
+    public final Screen lastScreen;
     private static final Component TITLE = Component.translatable("menu.seasonhud.title");
     private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
 
@@ -67,7 +65,6 @@ public class SeasonHUDScreen extends Screen{
         Location defaultLocation = hudLocation.get();
 
         //Buttons
-
         int row = 0;
         CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -117,10 +114,15 @@ public class SeasonHUDScreen extends Screen{
             addRenderableWidget(journeyMapAboveMapButton);
         }
 
-        Button doneButton = new Button((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
-            mc.options.save();
-            mc.setScreen(this.lastScreen);
-        });
+        CycleButton<StupidButtonWorkAround> doneButton = CycleButton.builder(StupidButtonWorkAround::getSoDumb)
+                .withValues(StupidButtonWorkAround.DUMB)
+                .withInitialValue(StupidButtonWorkAround.DUMB)
+                .create((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
+                        Component.translatable("gui.done"),
+                        (b,loc) -> {
+                            mc.options.save();
+                            mc.setScreen(this.lastScreen);
+                        });
 
         addRenderableWidget(enableModButton);
         addRenderableWidget(needCalendarButton);
@@ -129,7 +131,6 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
         addRenderableWidget(showMinimapHiddenButton);
-
         addRenderableWidget(doneButton);
     }
     public static void open(){
