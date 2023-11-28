@@ -11,7 +11,6 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class SeasonHUD implements ModInitializer {
     public static final String MOD_ID = "seasonhud";
-    public static FabricPlatformHelper platformHelper = new FabricPlatformHelper();
     private static boolean curiosLoaded;
     private static boolean extrasLoaded;
 
