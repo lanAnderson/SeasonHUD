@@ -3,15 +3,15 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
+import club.iananderson.seasonhud.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.gui.widget.ExtendedButton;
 import org.jetbrains.annotations.NotNull;
-
 
 import static club.iananderson.seasonhud.config.Config.*;
 
@@ -43,7 +43,9 @@ public class SeasonHUDScreen extends Screen{
     public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks){
         this.renderDirtBackground(stack);
         stack.drawCenteredString(font, TITLE, this.width / 2, PADDING, 16777215);
-        stack.drawCenteredString(font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
+        if(Services.PLATFORM.isModLoaded("journeymap")) {
+            stack.drawCenteredString(font, JOURNEYMAP, this.width / 2, MENU_PADDING_FULL + (5 * (BUTTON_HEIGHT + PADDING)), 16777215);
+        }
         super.render(stack, mouseX, mouseY, partialTicks);
     }
 
@@ -74,7 +76,6 @@ public class SeasonHUDScreen extends Screen{
                         Component.translatable("menu.seasonhud.button.hudLocation"),
                         (b, location) -> Config.setHudLocation(location));
 
-
         row = 1;
         CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -102,20 +103,21 @@ public class SeasonHUDScreen extends Screen{
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showMinimapHidden"),
                         (b, Off) -> Config.setShowMinimapHidden(Off));
+        if(Services.PLATFORM.isModLoaded("journeymap")) {
+            row = 6;
+            CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
+                    .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                            Component.translatable("menu.seasonhud.button.journeyMapAboveMap"),
+                            (b, Off) -> Config.setJourneyMapAboveMap(Off));
+            addRenderableWidget(journeyMapAboveMapButton);
+        }
 
-        row = 6;
-        CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
-                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        Component.translatable("menu.seasonhud.button.journeyMapAboveMap"),
-                        (b, Off) -> Config.setJourneyMapAboveMap(Off));
-
-
-        ExtendedButton doneButton = new ExtendedButton((this.width / 2 - (BUTTON_WIDTH_FULL / 2)), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT, Component.translatable("gui.done"), b -> {
-            mc.options.save();
-            mc.setScreen(this.lastScreen);
-        });
-
-        //ExtendedButton cancelButton = new ExtendedButton((this.width / 2 - (PADDING + BUTTON_WIDTH_HALF)), this.height - MENU_PADDING_HALF, BUTTON_WIDTH_HALF, BUTTON_HEIGHT, Component.translatable("gui.cancel"), b -> mc.setScreen(this.lastScreen));
+        Button doneButton = Button.builder(Component.translatable("gui.done"), button -> {
+                    mc.options.save();
+                    mc.setScreen(this.lastScreen);
+                })
+                .bounds(this.width / 2 - (BUTTON_WIDTH_FULL / 2), (this.height - BUTTON_HEIGHT - PADDING),BUTTON_WIDTH_FULL, BUTTON_HEIGHT)
+                .build();
 
         addRenderableWidget(enableModButton);
         addRenderableWidget(needCalendarButton);
@@ -124,14 +126,10 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
         addRenderableWidget(showMinimapHiddenButton);
-        addRenderableWidget(journeyMapAboveMapButton);
 
         addRenderableWidget(doneButton);
-        //addRenderableWidget(cancelButton);
     }
-
     public static void open(){
         Minecraft.getInstance().setScreen(new SeasonHUDScreen(seasonScreen));
     }
-
 }
