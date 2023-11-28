@@ -15,8 +15,6 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-
 
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
