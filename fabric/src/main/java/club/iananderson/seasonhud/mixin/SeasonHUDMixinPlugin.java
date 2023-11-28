@@ -1,6 +1,6 @@
 package club.iananderson.seasonhud.mixin;
 
-import club.iananderson.seasonhud.platform.FabricPlatformHelper;
+import club.iananderson.seasonhud.platform.CommonPlatformHelper;
 import com.google.common.collect.ImmutableMap;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -11,18 +11,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static club.iananderson.seasonhud.SeasonHUD.platformHelper;
+
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
 
     public SeasonHUDMixinPlugin(){
 
     }
 
-    private static final FabricPlatformHelper fabricPlatformHelper = new FabricPlatformHelper();
-
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "club.iananderson.seasonhud.mixin.XaeroBuiltInInfoDisplays", () -> (fabricPlatformHelper.isModLoaded("xaerominimap") || fabricPlatformHelper.isModLoaded("xaerominimapfair"))
+            "club.iananderson.seasonhud.mixin.XaeroBuiltInInfoDisplays", () -> (platformHelper.isModLoaded("xaerominimap") || platformHelper.isModLoaded("xaerominimapfair"))
     );
 
     @Override
