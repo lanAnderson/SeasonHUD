@@ -26,7 +26,6 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 public class  SeasonHUD{
 
     public static final String MODID = "seasonhud";
-    public static ForgePlatformHelper platformHelper = new ForgePlatformHelper();
     public static final Logger LOGGER = LogManager.getLogger("seasonhud");
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
