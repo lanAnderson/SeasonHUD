@@ -1,22 +1,20 @@
 package club.iananderson.seasonhud.platform;
 
 import club.iananderson.seasonhud.platform.services.IPlatformHelper;
-import net.fabricmc.loader.api.FabricLoader;
 
-public class FabricPlatformHelper implements IPlatformHelper {
-
+public class CommonPlatformHelper implements IPlatformHelper {
     @Override
     public String getPlatformName() {
-        return "Fabric";
+        return "Common";
     }
 
     @Override
     public boolean isModLoaded(String modId) {
-        return FabricLoader.getInstance().isModLoaded(modId);
+        return false;
     }
 
     @Override
     public boolean isDevelopmentEnvironment() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
+        return false;
     }
 }

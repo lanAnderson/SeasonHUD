@@ -1,10 +1,9 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
-import net.minecraft.client.Minecraft;
+import club.iananderson.seasonhud.platform.ForgePlatformHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,6 +26,7 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 public class  SeasonHUD{
 
     public static final String MODID = "seasonhud";
+    public static ForgePlatformHelper platformHelper = new ForgePlatformHelper();
     public static final Logger LOGGER = LogManager.getLogger("seasonhud");
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
