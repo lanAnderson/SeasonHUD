@@ -2,6 +2,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle'
+    id 'org.parchmentmc.librarian.forgegradle'
     id 'org.spongepowered.mixin'
     id 'net.darkhax.curseforgegradle' version '1.1.16'
     id "com.modrinth.minotaur" version "2.+"
@@ -21,7 +22,7 @@ mixin {
 }
 
 minecraft {
-    mappings channel: mapping_channel, version: mapping_version
+    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
 
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
