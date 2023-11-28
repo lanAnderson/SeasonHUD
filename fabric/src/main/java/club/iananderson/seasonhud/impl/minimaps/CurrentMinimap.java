@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
+import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -7,7 +8,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.SeasonHUD.platformHelper;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static net.minecraft.world.level.Level.OVERWORLD;
@@ -16,7 +16,7 @@ import static net.minecraft.world.level.Level.OVERWORLD;
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
         if(enableMod.get() && calendar() && !dimensionHideHUD()){
-            return platformHelper.isModLoaded(minimap);
+            return Services.PLATFORM.isModLoaded(minimap);
         }
         else return false;
     }

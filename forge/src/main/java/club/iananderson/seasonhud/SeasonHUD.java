@@ -1,7 +1,6 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
-import club.iananderson.seasonhud.platform.ForgePlatformHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;

@@ -5,7 +5,6 @@ import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
-import club.iananderson.seasonhud.platform.FabricPlatformHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
