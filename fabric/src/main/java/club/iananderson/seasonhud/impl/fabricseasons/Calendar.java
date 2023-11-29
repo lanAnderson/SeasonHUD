@@ -5,26 +5,22 @@ import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 import java.util.Optional;
 
-import static io.github.lucaargolo.seasonsextras.FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
 import static club.iananderson.seasonhud.SeasonHUD.*;
 
 public class Calendar {
     public static boolean invCalendar;
-    public static Item calendar;
+    public static Item calendar = Registry.ITEM.get(new ResourceLocation("seasons","season_calendar"));
 
     public static boolean calendar() {
-        if(extrasLoaded()){
-            calendar = SEASON_CALENDAR_ITEM;
-        }
-        else calendar = null;
-
-        if (Config.needCalendar.get() & extrasLoaded()) {
+        if (Config.needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
@@ -62,5 +58,3 @@ public class Calendar {
         else return 0;
     }
 }
-
-

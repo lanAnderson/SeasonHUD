@@ -6,6 +6,7 @@ Also includes optional support for the following minimap mods, to display under 
 - Xaero's Minimap
 - FTB Chunks
 - JourneyMap
+- MapAtlases
 
 
 https://www.curseforge.com/minecraft/mc-mods/seasonhud

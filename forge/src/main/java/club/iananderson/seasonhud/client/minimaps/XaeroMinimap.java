@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.IIngameOverlay;
 import xaero.common.XaeroMinimapSession;
 import xaero.common.core.XaeroMinimapCore;
 import xaero.common.gui.IScreenBase;
@@ -39,7 +39,7 @@ import static xaero.common.minimap.info.BuiltInInfoDisplays.*;
 import static xaero.common.settings.ModOptions.modMain;
 
 public class XaeroMinimap {
-    public static final IGuiOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+    public static final IIngameOverlay XAERO_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         ResourceLocation dim = Objects.requireNonNull(mc.level).dimension().location();
         ArrayList<Component> underText = getSeasonName();

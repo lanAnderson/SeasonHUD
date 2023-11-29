@@ -15,7 +15,7 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class JourneyMap {
-    public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
+    public static final IIngameOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 

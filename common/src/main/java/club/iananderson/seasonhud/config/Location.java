@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.config;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public enum Location {
     TOP_LEFT(0,"topLeft"),
@@ -17,7 +18,7 @@ public enum Location {
     private Location(int id,String hudLocation){
         this.idNum = id;
         this.hudLocationName = hudLocation;
-        this.locationName = Component.translatable("location.seasonhud."+ hudLocation);
+        this.locationName = new TranslatableComponent("location.seasonhud."+ hudLocation);
     }
 
 

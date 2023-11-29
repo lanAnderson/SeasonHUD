@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import xaero.common.settings.ModOptions;
 import xaero.common.settings.ModSettings;
@@ -67,40 +69,44 @@ public class OpenPartiesAndClaims {
                 int actualClaimsColor = getClaimsColor(currentClaim, claimInfo);
                 int claimsColor = actualClaimsColor | 0xFF000000;
 
-                tooltip = Component.literal("□ ").withStyle(s -> s.withColor(claimsColor));
+                tooltip = new TextComponent("□ ").withStyle(s -> s.withColor(claimsColor));
                 if (Objects.equals(currentClaimId, PlayerConfig.SERVER_CLAIM_UUID)) {
                     tooltip.getSiblings()
                             .add(
-                                    Component.translatable(
-                                                    "gui.xaero_pac_server_claim_tooltip",
-                                                    new Object[]{currentClaim.isForceloadable() ? Component.translatable("gui.xaero_pac_marked_for_forceload") : ""}
-                                            )
+                                    new TranslatableComponent(
+                                            "gui.xaero_pac_server_claim_tooltip",
+                                            new Object[]{currentClaim.isForceloadable() ? new TranslatableComponent("gui.xaero_pac_marked_for_forceload") : ""}
+                                    )
                                             .withStyle(ChatFormatting.WHITE)
                             );
                 } else if (Objects.equals(currentClaimId, PlayerConfig.EXPIRED_CLAIM_UUID)) {
                     tooltip.getSiblings()
-                            .add(Component.translatable("gui.xaero_pac_expired_claim_tooltip",
-                                            new Object[]{currentClaim.isForceloadable() ? Component.translatable("gui.xaero_pac_marked_for_forceload") : ""})
-                                    .withStyle(ChatFormatting.WHITE)
+                            .add(
+                                    new TranslatableComponent(
+                                            "gui.xaero_pac_expired_claim_tooltip",
+                                            new Object[]{currentClaim.isForceloadable() ? new TranslatableComponent("gui.xaero_pac_marked_for_forceload") : ""}
+                                    ).withStyle(ChatFormatting.WHITE)
                             );
                 } else {
                     tooltip.getSiblings()
-                            .add(Component.translatable("gui.xaero_pac_claim_tooltip",
-                                            new Object[]{claimInfo.getPlayerUsername(), currentClaim.isForceloadable() ? Component.translatable("gui.xaero_pac_marked_for_forceload") : ""})
-                                    .withStyle(ChatFormatting.WHITE)
+                            .add(
+                                    new TranslatableComponent(
+                                            "gui.xaero_pac_claim_tooltip",
+                                            new Object[]{
+                                                    claimInfo.getPlayerUsername(),
+                                                    currentClaim.isForceloadable() ? new TranslatableComponent("gui.xaero_pac_marked_for_forceload") : ""
+                                            }
+                                    ).withStyle(ChatFormatting.WHITE)
                             );
                 }
 
                 if (!customName.isEmpty()) {
-                    tooltip.getSiblings()
-                            .add(0, Component.literal(I18n.get(customName, new Object[0]) + " - ")
-                                    .withStyle(ChatFormatting.WHITE)
-                            );
+                    tooltip.getSiblings().add(0, new TextComponent(I18n.get(customName, new Object[0]) + " - ").withStyle(ChatFormatting.WHITE));
                 }
                 return tooltip;
             }
         }
-        else tooltip = Component.literal("-").withStyle(ChatFormatting.WHITE);
+        else tooltip = new TextComponent("-").withStyle(ChatFormatting.WHITE);
         return tooltip;
     }
 
@@ -120,13 +126,13 @@ public class OpenPartiesAndClaims {
                 int lineWidth = mc.font.width(lineBuilder.toString());
                 if (lineWidth > size) {
                     lineBuilder.delete(wordStart, lineBuilder.length());
-                    compiledLines.add(Component.literal(lineBuilder.toString()));
+                    compiledLines.add(new TextComponent(lineBuilder.toString()));
                     lineBuilder.delete(0, lineBuilder.length());
                     lineBuilder.append(words[i]);
                 }
             }
         }
-        compiledLines.add(Component.literal(lineBuilder.toString()));
+        compiledLines.add(new TextComponent(lineBuilder.toString()));
 
         return compiledLines.size();
     }

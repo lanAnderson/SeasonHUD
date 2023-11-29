@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - (1.19.2) Rewrote the options screen to allow for the 1.19.2 version to be used in 1.19.4 as well
 - (1.19.x) Going forward, only one 1.19 version will be uploaded and will be marked as compatible with both versions
 - Rewrote some code to allow for more common classes to be used
+- Ported 1.19+ changes to 1.18.2 and ported that to Fabric as well
+- 
 
 
 ## [1.6.2] - 2023-11-26

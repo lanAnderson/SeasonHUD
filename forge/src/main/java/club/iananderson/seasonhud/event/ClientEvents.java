@@ -11,16 +11,20 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
 
 
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
-        public static void onKeyInput(InputEvent.Key Event) {
+        public static void onKeyInput(InputEvent.KeyInputEvent event) {
             if (KeyBindings.seasonhudOptionsKeyMapping.consumeClick()) {
                 SeasonHUDScreen.open();
             }
@@ -31,32 +35,15 @@ public class ClientEvents{
     public static class ClientModBusEvents {
         //Overlays
         @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"season", SeasonHUDOverlay.HUD_SEASON);
-        }
-        @SubscribeEvent
-        public static void registerXaeroOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"xaero", XaeroMinimap.XAERO_SEASON);
-        }
-        @SubscribeEvent
-        public static void registerFTBChunksOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
-        }
-        @SubscribeEvent
-        public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", JourneyMap.JOURNEYMAP_SEASON);
-        }
-
-        @SubscribeEvent
-        public static void registerMapAtlasesOverlay(RegisterGuiOverlaysEvent event) {
-            MapAtlases HUD = new MapAtlases();
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"mapatlases", HUD);
-        }
-
-        //Key Bindings
-        @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event){
-            event.register(KeyBindings.seasonhudOptionsKeyMapping);
+        public static void init() {
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", SeasonHUDOverlay.HUD_SEASON);
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "xaero", XaeroMinimap.XAERO_SEASON);
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", JourneyMap.JOURNEYMAP_SEASON);
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "mapatlases", new MapAtlases());
+            MinecraftForge.EVENT_BUS.addListener(ClientForgeEvents::onKeyInput);
+            KeyBindings.init();
         }
     }
 }
+

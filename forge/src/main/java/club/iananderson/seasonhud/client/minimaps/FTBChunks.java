@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class FTBChunks {
-    public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+    public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
 
@@ -67,7 +67,7 @@ public class FTBChunks {
 
                     if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale;
-                        if ((Boolean)FTBChunksClientConfig.MINIMAP_PROPORTIONAL.get()) {
+                        if ((Boolean)FTBChunksClientConfig.SQUARE_MINIMAP.get()) {
                             scale = (float)(4.0 / guiScale);
                             scale = (float)((double)scale * (double)((float)ww / 10.0F) / ((double)scale * 64.0) * (Double)FTBChunksClientConfig.MINIMAP_SCALE.get());
                         } else {
@@ -89,7 +89,7 @@ public class FTBChunks {
 
                         MinimapPosition.MinimapOffsetConditional offsetConditional = FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
 
-                        if (offsetConditional.test(minimapPosition)) {
+                        if (offsetConditional.getPosition() == (minimapPosition)) {
                             x += minimapPosition.posX == 0 ? offsetX : -offsetX;
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
