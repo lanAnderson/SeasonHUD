@@ -83,8 +83,8 @@ dependencies {
     /Fabric Seasons/
     modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
 
-    /Fabric Seasons Extras/
-    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
+//    /Fabric Seasons Extras/
+//    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
@@ -97,10 +97,6 @@ dependencies {
     /Open Parties and Claims/
     modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 //    modImplementation "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
-
-    /Xaero's WorldMap/
-    modCompileOnly "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
-//    modImplementation "curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_fabric_file_id}"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
@@ -125,7 +121,7 @@ dependencies {
     implementation ("com.electronwill.night-config:core:3.6.3")
     implementation ("com.electronwill.night-config:toml:3.6.3")
 
-    modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_file_id}"
 
     /JourneyMap/
     modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
