@@ -14,8 +14,6 @@ import java.util.List;
 
 import static club.iananderson.seasonhud.config.Config.needCalendar;
 
-
-
 public class Calendar {
     public static boolean invCalendar;
 
@@ -23,7 +21,7 @@ public class Calendar {
         return ModList.get().isLoaded("curios");
     }
 
-    public static Item calendar = SSItems.CALENDAR.get();
+    public static Item calendar = SSItems.calendar;
 
     public static boolean calendar() {
         if (needCalendar.get()) {

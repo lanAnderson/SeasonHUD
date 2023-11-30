@@ -32,17 +32,16 @@
     "depends": {
       "fabricloader": ">=0.14",
       "fabric": "*",
-      "minecraft": "1.19.x",
+      "minecraft": "1.18.x",
       "java": ">=17",
-      "seasons": ">=2.0",
+      "seasons": "*",
       "fabric-key-binding-api-v1": "*",
-      "forgeconfigapiport": ">=4.2.0"
+      "forgeconfigapiport": ">=3.2.0"
 
     },
 
     "suggests": {
-      "xaerominimap": ">=23.4.0s",
-      "seasonsextras": "*"
+      "xaerominimap": ">=23.4.0s"
     }
   }
   

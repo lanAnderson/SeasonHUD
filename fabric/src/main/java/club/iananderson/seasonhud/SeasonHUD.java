@@ -3,7 +3,6 @@ package club.iananderson.seasonhud;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
 import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
-import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import club.iananderson.seasonhud.client.minimaps.XaeroMinimap;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -27,7 +26,6 @@ public class SeasonHUD implements ModInitializer {
         XaeroMinimap.init();
         FTBChunks.init();
         JourneyMap.init();
-        MapAtlases.init();
     }
 
     public static boolean curiosLoaded() {
