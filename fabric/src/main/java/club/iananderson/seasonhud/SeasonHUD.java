@@ -10,11 +10,9 @@ import net.fabricmc.loader.api.FabricLoader;
 public class SeasonHUD implements ModInitializer {
     public static final String MOD_ID = "seasonhud";
     private static boolean curiosLoaded;
-    private static boolean extrasLoaded;
 
     public SeasonHUD(){
         curiosLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
-        extrasLoaded = FabricLoader.getInstance().isModLoaded("seasonsextras");
     }
 
     /**
@@ -30,9 +28,5 @@ public class SeasonHUD implements ModInitializer {
 
     public static boolean curiosLoaded() {
         return curiosLoaded;
-    }
-
-    public static boolean extrasLoaded() {
-        return extrasLoaded;
     }
 }

@@ -48,7 +48,7 @@ public class Calendar {
     }
 
     private static int findCuriosCalendar(Player player, Item item) {
-        if (curiosLoaded() && extrasLoaded()) {
+        if (curiosLoaded()) {
             Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
             if(findCalendar.get().isEquipped(item)){
                 return 1;
