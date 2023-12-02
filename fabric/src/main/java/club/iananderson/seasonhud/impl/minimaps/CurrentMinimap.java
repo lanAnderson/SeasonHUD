@@ -24,7 +24,7 @@ public class CurrentMinimap {
     public static boolean noMinimap(){
         if(!dimensionHideHUD()) {
             return !loadedMinimap("xaerominimap")  && !loadedMinimap("xaerominimapfair")
-                    && !loadedMinimap("journeymap")
+                    && !loadedMinimap("journeymap-fabric")
                     && !loadedMinimap("ftbchunks")
                     && !loadedMinimap("map_atlases");
         }

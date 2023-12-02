@@ -5,7 +5,6 @@ import journeymap.client.JourneymapClient;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.event.ClientEvent;
-import journeymap.client.api.option.OptionCategory;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;

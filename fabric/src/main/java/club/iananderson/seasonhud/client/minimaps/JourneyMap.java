@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import club.iananderson.seasonhud.impl.minimaps.JourneyMapAPI;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
@@ -41,7 +42,7 @@ public class JourneyMap implements HudRenderCallback{
         Minecraft mc = Minecraft.getInstance();
         ArrayList<Component> MINIMAP_TEXT_SEASON= getSeasonName();
 
-        if (loadedMinimap("journeymap")) {
+        if (loadedMinimap("journeymap-fabric")) {
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
 
             JourneymapClient jm = JourneymapClient.getInstance();

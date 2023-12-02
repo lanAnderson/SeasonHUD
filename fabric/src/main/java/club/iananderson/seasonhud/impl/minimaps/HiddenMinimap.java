@@ -8,7 +8,7 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 
 public class HiddenMinimap {
     public static boolean minimapHidden(){
-        if (loadedMinimap("journeymap")) {
+        if (loadedMinimap("journeymap-fabric")) {
             return !JourneymapClient.getInstance().getActiveMiniMapProperties().enabled.get();
         }
         if (loadedMinimap("ftbchunks")) {
