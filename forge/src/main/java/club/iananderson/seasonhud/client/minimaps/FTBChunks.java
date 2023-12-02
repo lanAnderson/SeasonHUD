@@ -3,10 +3,12 @@ package club.iananderson.seasonhud.client.minimaps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
+import dev.ftb.mods.ftbchunks.client.MapType;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
 import dev.ftb.mods.ftbchunks.client.map.MapDimension;
 import dev.ftb.mods.ftbchunks.client.map.MapManager;
 import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
+import dev.ftb.mods.ftbchunks.integration.MapIcon;
 import dev.ftb.mods.ftblibrary.math.XZ;
 import dev.ftb.mods.ftbteams.data.ClientTeam;
 import net.minecraft.client.Minecraft;
@@ -66,38 +68,26 @@ public class FTBChunks {
                     }
 
                     if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
-                        float scale;
-                        if ((Boolean)FTBChunksClientConfig.SQUARE_MINIMAP.get()) {
-                            scale = (float)(4.0 / guiScale);
-                            scale = (float)((double)scale * (double)((float)ww / 10.0F) / ((double)scale * 64.0) * (Double)FTBChunksClientConfig.MINIMAP_SCALE.get());
-                        } else {
-                            scale = (float)((Double)FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
-                        }
-                        int s = (int) (64.0 * (double) scale);
-                        float s1 = Math.max(1.0F, (float)Math.round(scale)) / 2.0F;
-                        double halfSizeD = (double) s / 2.0;
-                        float halfSizeF = (float)s / 2.0F;
-                        MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
+                        float scale = (float)((Double)FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
+                        int s = (int)(64.0 * (double)scale);
+                        double s2d = (double)s / 2.0;
+                        MinimapPosition minimapPosition = (MinimapPosition)FTBChunksClientConfig.MINIMAP_POSITION.get();
                         int x = minimapPosition.getX(ww, s);
                         int y = minimapPosition.getY(wh, s);
-                        int offsetX = FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
-                        int offsetY = FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
+                        int z = 0;
+                        int offsetX = (Integer)FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
+                        int offsetY = (Integer)FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
 
-                        float textHeight = (float)(9 + 2) * i+1 * s1;
-                        float yOff = (float)(y + s) + textHeight >= (float)wh ? -textHeight : (float)s + 2.0F;
+                        MinimapPosition.MinimapOffsetConditional offsetConditional = (MinimapPosition.MinimapOffsetConditional)FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
 
-
-                        MinimapPosition.MinimapOffsetConditional offsetConditional = FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
-
-                        if (offsetConditional.getPosition() == (minimapPosition)) {
+                        if (offsetConditional.isNone() || offsetConditional.getPosition() == minimapPosition) {
                             x += minimapPosition.posX == 0 ? offsetX : -offsetX;
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
                         seasonStack.pushPose();
-                        seasonStack.translate((double)x + halfSizeD, (double)((float)y + yOff), 0.0);
-                        seasonStack.scale(s1, s1, 1.0F);
-
+                        seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
+                        seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
                         int bsw = mc.font.width(bs);

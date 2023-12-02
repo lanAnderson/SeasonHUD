@@ -67,45 +67,45 @@ public class FTBChunks implements HudRenderCallback{
                 int wh = mc.getWindow().getGuiScaledHeight();
 
                 if (dim != null) {
+                    if (dim.dimension != mc.level.dimension()) {
+                        MapDimension.updateCurrent();
+                    }
 
-                    if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() &&FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
-                        float scale = (float) ( FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
-                        int s = (int) (64.0 * (double) scale);
-                        double s2d = (double) s / 2.0;
-                        MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
+                    if (!mc.options.renderDebug && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
+                        float scale = (float)((Double)FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
+                        int s = (int)(64.0 * (double)scale);
+                        double s2d = (double)s / 2.0;
+                        MinimapPosition minimapPosition = (MinimapPosition)FTBChunksClientConfig.MINIMAP_POSITION.get();
                         int x = minimapPosition.getX(ww, s);
                         int y = minimapPosition.getY(wh, s);
-                        int offsetX = FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
-                        int offsetY = FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
+                        int z = 0;
+                        int offsetX = (Integer)FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
+                        int offsetY = (Integer)FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
 
-                        MinimapPosition.MinimapOffsetConditional offsetConditional = FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
+                        MinimapPosition.MinimapOffsetConditional offsetConditional = (MinimapPosition.MinimapOffsetConditional)FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
 
                         if (offsetConditional.isNone() || offsetConditional.getPosition() == minimapPosition) {
                             x += minimapPosition.posX == 0 ? offsetX : -offsetX;
                             y -= minimapPosition.posY > 1 ? offsetY : -offsetY;
                         }
 
-                        RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
                         seasonStack.pushPose();
-
                         seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
                         seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
-
 
                         FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
                         int bsw = mc.font.width(bs);
                         int iconDim = mc.font.lineHeight;
 
-                        mc.font.drawShadow(seasonStack, bs, (float)((-bsw) + iconDim/2)/ 2.0F, (float)(i * 11), -1);
+                        mc.font.drawShadow(seasonStack, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
 
                         //Icon
                         ResourceLocation SEASON = getSeasonResource();
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.setShaderTexture(0, SEASON);
-                        GuiComponent.blit(seasonStack,(int)(((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
+                        GuiComponent.blit(seasonStack, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.popPose();
-                        RenderSystem.setShaderTexture(0, Screen.GUI_ICONS_LOCATION);
                     }
                 }
             }
