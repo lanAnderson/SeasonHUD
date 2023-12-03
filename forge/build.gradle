@@ -1,8 +1,8 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'org.parchmentmc.librarian.forgegradle'
     id 'net.minecraftforge.gradle'
+    id 'org.parchmentmc.librarian.forgegradle'
     id 'org.spongepowered.mixin'
     id 'net.darkhax.curseforgegradle' version '1.1.16'
     id "com.modrinth.minotaur" version "2.+"
@@ -235,6 +235,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
+    mainFile.addGameVersion("NeoForge")
     mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
