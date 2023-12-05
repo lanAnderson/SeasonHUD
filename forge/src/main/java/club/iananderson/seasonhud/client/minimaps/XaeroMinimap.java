@@ -113,10 +113,6 @@ public class XaeroMinimap {
                     .filter(s -> !s.getState().equals(false))
                     .toList().indexOf(SEASON) - Booleans.countTrue(hiddenIndexes) + Booleans.countTrue(BuiltInInfoDisplays.COORDINATES.getState() && aboveSeason(COORDINATES));
 
-            if(HIGHLIGHTS.getState() && playerInClaim && aboveSeason(HIGHLIGHTS)){
-                filteredIndexSeason += (claimOffset(claimToolTip,mc,size) - 1);
-            }
-
             //Icon
             float stringWidth = mc.font.width(underText.get(0));
             float stringHeight = (mc.font.lineHeight);

@@ -5,9 +5,13 @@ import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
 import club.iananderson.seasonhud.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.BooleanOption;
+import net.minecraft.client.CycleOption;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.OptionButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -67,17 +71,17 @@ public class SeasonHUDScreen extends Screen{
 
         //Buttons
         int row = 0;
-        CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
-                .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        new TranslatableComponent("menu.seasonhud.button.enableMod"),
-                        (b, Off) -> Config.setEnableMod(Off));
+        Button enableModButton = new Button(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.enableMod"),
+                (b) -> Config.setEnableMod(enableMod.get()));
 
-        CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
+
+        Button hudLocationButton = new Button(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                new TranslatableComponent("menu.seasonhud.button.hudLocation"),
+                (b) -> Config.setHudLocation(hudLocation.get()));
+
                 .withValues(Location.TOP_LEFT, Location.TOP_CENTER, Location.TOP_RIGHT, Location.BOTTOM_LEFT, Location.BOTTOM_RIGHT)
                 .withInitialValue(defaultLocation)
-                .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        new TranslatableComponent("menu.seasonhud.button.hudLocation"),
-                        (b, location) -> Config.setHudLocation(location));
 
         row = 1;
         CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
@@ -122,14 +126,14 @@ public class SeasonHUDScreen extends Screen{
                     mc.setScreen(this.lastScreen);
                 });
 
-        addRenderableWidget(enableModButton);
-        addRenderableWidget(needCalendarButton);
-        addRenderableWidget(showDayButton);
-        addRenderableWidget(showSubSeasonButton);
-        addRenderableWidget(hudLocationButton);
-        addRenderableWidget(showTropicalSeasonButton);
-        addRenderableWidget(showMinimapHiddenButton);
-        addRenderableWidget(doneButton);
+        addButton(enableModButton);
+        addButton(needCalendarButton);
+        addButton(showDayButton);
+        addButton(showSubSeasonButton);
+        addButton(hudLocationButton);
+        addButton(showTropicalSeasonButton);
+        addButton(showMinimapHiddenButton);
+        addButton(doneButton);
     }
     public static void open(){
         Minecraft.getInstance().setScreen(new SeasonHUDScreen(seasonScreen));
