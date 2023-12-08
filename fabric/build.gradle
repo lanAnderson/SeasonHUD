@@ -11,7 +11,7 @@ version = mod_version
 group = mod_group
 
 base {
-    archivesName = mod_id + "-fabric-" + minecraft_version
+    archivesName = mod_id + "-fabric-" + "1.19.x"
 }
 
 repositories {

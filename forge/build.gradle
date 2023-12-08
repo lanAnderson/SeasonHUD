@@ -12,7 +12,7 @@ version = mod_version
 group = mod_group
 
 base {
-    archivesName = mod_id + "-forge-" + minecraft_version
+    archivesName = mod_id + "-forge-" + "1.19.x"
 }
 
 mixin {
