@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.6.4] - 2023-12-08
+
+### Changed
+- (1.20.2) Updated to autumn icon to the new design from SereneSeasons
+- Added SereneSeasons as a required dependency on Mondrinth, now that is uploaded there as well
+- Slight cleanup
+
+
 ## [1.6.3] - 2023-12-03
 
 ### Changed
@@ -64,7 +72,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed layering issue with newest JourneyMap
 
 
-## [1.5.9] - 2023-09-25
+## [1.5.9] - 2023-09-30
+
+### Added
+- (1.20.2) Ported to 1.20.2
 
 ### Fixed
 - Fixed season icon being misaligned when potion effects shift Xaero's Minimap
