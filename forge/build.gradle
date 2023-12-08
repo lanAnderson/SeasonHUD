@@ -136,10 +136,6 @@ dependencies {
     compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 //    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 
-    /Xaero's WorldMap/
-    compileOnly fg.deobf("curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_forge_file_id}")
-//    implementation fg.deobf("curse.maven:xaeros-world-map-317780:${project.xaeros_worldmap_forge_file_id}")
-
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
     compileOnly fg.deobf("curse.maven:architectury-api-419699:${project.architectury_forge_file_id}") //Architectury
@@ -214,6 +210,7 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
+        required.project "serene-seasons"
         optional.project "curios"
         optional.project "journeymap"
         optional.project "xaeros-minimap"
