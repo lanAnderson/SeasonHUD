@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - (1.20.2) Updated to autumn icon to the new design from SereneSeasons
+- Added SereneSeasons as a required dependency on Mondrinth, now that is uploaded there as well
 
 
 ## [1.6.3] - 2023-12-03

@@ -210,6 +210,7 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
+        required.project "serene-seasons"
         optional.project "curios"
         optional.project "journeymap"
         optional.project "xaeros-minimap"
