@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.6.4] - 2023-12-08
+
+### Changed
+- (1.20.2) Updated to autumn icon to the new design from SereneSeasons
+
+
 ## [1.6.3] - 2023-12-03
 
 ### Changed
