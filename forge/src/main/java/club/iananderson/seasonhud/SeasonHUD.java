@@ -1,6 +1,8 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;

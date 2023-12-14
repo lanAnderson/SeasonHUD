@@ -12,7 +12,10 @@ public class HiddenMinimap {
         if (loadedMinimap("journeymap")) {
             return !JourneymapClient.getInstance().getActiveMiniMapProperties().enabled.get();
         }
-        if (loadedMinimap("ftbchunks")) {
+        if (loadedMinimap("ftbchunks")
+                && !loadedMinimap("journeymap")
+                && !(loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair"))
+                && !loadedMinimap("map_atlases")) {
             return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
         }
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
