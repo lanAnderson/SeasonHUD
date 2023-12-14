@@ -4,15 +4,53 @@ import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+
 public class CurrentSeason {
+
+    public enum SeasonList{
+        SPRING(0,"spring","\uEA00"),
+        SUMMER(1,"summer","\uEA01"),
+        AUTUMN(2,"autumn","\uEA02"),
+        FALL(3,"fall","\uEA03"),
+        WINTER(4,"winter","\uEA04"),
+        DRY(5,"dry","\uEA05"),
+        WET(6,"wet","\uEA05");
+
+        private final int idNum;
+        private final String seasonFileName;
+        private final String seasonIconChar;
+        private SeasonList(int id,String fileName,String iconChar){
+            this.idNum = id;
+            this.seasonFileName = fileName;
+            this.seasonIconChar = iconChar;
+        }
+
+        public int getId() {
+            return this.idNum;
+        }
+
+        public String getFileName(){
+            return this.seasonFileName;
+        }
+
+        public String getIconChar(){
+            return this.seasonIconChar;
+        }
+
+    }
 
     //Get the current season in Season type
     public static boolean isTropicalSeason(){
@@ -73,29 +111,29 @@ public class CurrentSeason {
         else return seasonDate;
     }
 
+    public static String getSeasonIcon(String seasonFileName){
+        for(SeasonList season : SeasonList.values()){
+            if(Objects.equals(season.getFileName(), seasonFileName)){
+                return season.seasonIconChar;
+            }
+        }
+        return null;
+    }
+
     //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
 
         if (Config.showDay.get()) {
-            text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
+            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+            text.add(Component.translatable("desc.seasonhud.detailed",Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
         }
-        else text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        else {
+            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+            text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        }
 
         return text;
     }
-
-    public static ResourceLocation getSeasonResource() {
-        if (isTropicalSeason()) {
-            //Tropical season haves no main season, convert here.
-            String season = getSeasonFileName().substring(getSeasonFileName().length() - 3);
-
-            return new ResourceLocation(SeasonHUD.MODID,"textures/season/" + season + ".png");
-        }
-        else {
-            return new ResourceLocation(SeasonHUD.MODID, "textures/season/" + getSeasonFileName() + ".png");
-        }
-    }
 }
-
 

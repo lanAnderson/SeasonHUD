@@ -1,29 +1,29 @@
 package club.iananderson.seasonhud.client;
 
 import club.iananderson.seasonhud.config.Location;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.ArrayList;
-
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
+import static club.iananderson.seasonhud.SeasonHUD.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
-        ArrayList<Component> seasonName = getSeasonName();
+
+        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+        MutableComponent seasonName = getSeasonName().get(1).copy();
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
 
         float guiSize = (float) mc.getWindow().getGuiScale();
 
@@ -34,9 +34,7 @@ public class SeasonHUDOverlay {
         int offsetDim = 2;
 
         Font font = mc.font;
-        int stringHeight = (font.lineHeight);
-        int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
-        int iconDim = stringHeight;
+        int stringWidth = font.width(seasonCombined);
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
             Location hudLoc = hudLocation.get();
@@ -55,11 +53,11 @@ public class SeasonHUDOverlay {
                 }
                 case BOTTOM_LEFT -> {
                     x = offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - (2*offsetDim);
                 }
                 case BOTTOM_RIGHT -> {
                     x = screenWidth - stringWidth - offsetDim;
-                    y = screenHeight - iconDim - (2*offsetDim);
+                    y = screenHeight - (2*offsetDim);
                 }
             }
 
@@ -70,16 +68,8 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
-                int textX = iconX;
-                int textY = iconY + 1;
-                seasonStack.drawString(mc.font, seasonName.get(0), textX, textY, 0xffffffff);
 
-                //Icon
-                ResourceLocation SEASON = getSeasonResource();
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.drawString(font, seasonCombined, iconX, iconY, 0xffffffff);
                 seasonStack.pose().popPose();
             }
         }

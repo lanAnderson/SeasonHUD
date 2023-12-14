@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.7.0] - 2023-12-17
+
+### Changed
+- Redid how icons are handled. Should always be lined up with the text properly now
+- Edited the season icons, so they are an odd amount of pixels, so that they can be properly centered on the text
+- Made a new winter icon since I couldn't get the snowflake to look right with an odd amount of pixels
+
+
 ## [1.6.4] - 2023-12-08
 
 ### Changed

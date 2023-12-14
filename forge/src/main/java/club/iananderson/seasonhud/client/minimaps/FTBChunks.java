@@ -12,6 +12,7 @@ import dev.ftb.mods.ftbteams.api.Team;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
@@ -19,18 +20,23 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.*;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.SeasonHUD.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
 
 public class FTBChunks {
     public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
         int i = 0;
 
-        if (loadedMinimap("ftbchunks")) {
+        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+        MutableComponent seasonName = getSeasonName().get(1).copy();
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+
+        if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
             MapDimension dim = MapDimension.getCurrent().get();
             MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
@@ -55,7 +61,7 @@ public class FTBChunks {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
+            MINIMAP_TEXT_LIST.add(seasonCombined);
 
             if (!minimapHidden() && (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty())) {
                 double guiScale = mc.getWindow().getGuiScale();
@@ -107,12 +113,6 @@ public class FTBChunks {
 
                         seasonStack.drawString(mc.font, bs, (int) ((float) ((-bsw) + iconDim / 2) / 2.0F), (int) (i * 11), -1);
 
-                        //Icon
-                        ResourceLocation SEASON = getSeasonResource();
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        RenderSystem.setShaderTexture(0, SEASON);
-                        seasonStack.blit(SEASON, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.pose().popPose();
                     }
                 }
