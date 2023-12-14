@@ -34,7 +34,6 @@ public class ClientEvents{
         @SubscribeEvent
         public static void init(FMLClientSetupEvent event) {
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", SeasonHUDOverlay.HUD_SEASON);
-            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "xaero", XaeroMinimap.XAERO_SEASON);
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
             OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", JourneyMap.JOURNEYMAP_SEASON);
             MinecraftForge.EVENT_BUS.addListener(ClientForgeEvents::onKeyInput);
