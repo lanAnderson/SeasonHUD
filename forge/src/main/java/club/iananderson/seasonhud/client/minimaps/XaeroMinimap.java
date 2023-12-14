@@ -166,12 +166,12 @@ public class XaeroMinimap {
                 seasonStack.pose().scale(1.0F / mapScale, 1.0F / mapScale, 1.0F);
 
                 //Icon
-                ResourceLocation SEASON = getSeasonResource();
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                seasonStack.pose().translate(1,-1,0);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.setShaderTexture(0, SEASON);
-                seasonStack.blit(SEASON, (stringX), (stringY), 0, 0, iconDim, iconDim, iconDim, iconDim);
+//                ResourceLocation SEASON = getSeasonResource();
+//                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+//                seasonStack.pose().translate(1,-1,0);
+//                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+//                RenderSystem.setShaderTexture(0, SEASON);
+//                seasonStack.blit(SEASON, (stringX), (stringY), 0, 0, iconDim, iconDim, iconDim, iconDim);
                 seasonStack.pose().popPose();
             }
         }
