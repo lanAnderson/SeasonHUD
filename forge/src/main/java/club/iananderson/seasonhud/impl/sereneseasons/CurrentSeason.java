@@ -124,9 +124,13 @@ public class CurrentSeason {
         ArrayList<Component> text = new ArrayList<>();
 
         if (Config.showDay.get()) {
-            text.add(Component.translatable("desc.seasonhud.detailed", getSeasonIcon(getSeasonFileName()),Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()).withStyle(SEASON_STYLE));
+            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+            text.add(Component.translatable("desc.seasonhud.detailed",Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
         }
-        else text.add(Component.translatable("desc.seasonhud.summary",getSeasonIcon(getSeasonFileName()), Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        else {
+            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+            text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        }
 
         return text;
     }

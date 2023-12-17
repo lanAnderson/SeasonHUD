@@ -30,7 +30,10 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
-        ArrayList<Component> seasonName = getSeasonName();
+
+        ArrayList<Component> seasonCombined = getSeasonName();
+        MutableComponent seasonIcon = seasonCombined.get(0).copy().withStyle(SEASON_STYLE);
+        MutableComponent seasonName = seasonCombined.get(1).copy();
 
         float guiSize = (float) mc.getWindow().getGuiScale();
 
@@ -42,7 +45,7 @@ public class SeasonHUDOverlay {
 
         Font font = mc.font;
         int stringHeight = (font.lineHeight);
-        int stringWidth = font.width(seasonName.get(0)) + offsetDim;// might need to take offsetDim out
+        int stringWidth = font.width(seasonIcon) + font.width(seasonName)+ offsetDim;// might need to take offsetDim out
         int iconDim = stringHeight;
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
@@ -77,19 +80,11 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
-                int textX = iconX;
-                int textY = iconY + 1;
+                int textX = iconX + font.width(seasonIcon);
+                int textY = iconY;
 
-                MutableComponent seasonComponent = seasonName.get(0).copy().withStyle(SEASON_STYLE);
-
-                seasonStack.drawString(mc.font, seasonComponent, textX, textY, 0xffffffff);
-
-                //Icon
-                //ResourceLocation SEASON = getSeasonResource();
-                //RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                //RenderSystem.setShaderTexture(0, SEASON);
-                //seasonStack.blit(SEASON, iconX, iconY, 0, 0, iconDim, iconDim, iconDim, iconDim);
+                seasonStack.drawString(font, seasonIcon, iconX, iconY, 0xffffffff);
+                seasonStack.drawString(font, seasonName, textX, textY, 0xffffffff);
                 seasonStack.pose().popPose();
             }
         }
