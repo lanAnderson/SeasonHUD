@@ -55,8 +55,10 @@
   "desc.seasonhud.mid_dry": "Середина засухи",
   "desc.seasonhud.late_dry": "Поздняя засуха",
 
-  "desc.seasonhud.detailed": "%s %s, день %s",
-  "desc.seasonhud.summary": "%s %s",
+  "desc.seasonhud.icon": "%s",
+  "desc.seasonhud.detailed": "%s, Day %s",
+  "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.combined": "%s %s",
 
   "item.calendar.tooltip": "Используется как Амулет"
 }

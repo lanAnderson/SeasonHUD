@@ -55,8 +55,10 @@
   "desc.seasonhud.mid_dry": "旱季中期",
   "desc.seasonhud.late_dry": "旱季后期",
 
-  "desc.seasonhud.detailed": "%s %s 第 %s 天",
-  "desc.seasonhud.summary": "%s %s",
+  "desc.seasonhud.icon": "%s",
+  "desc.seasonhud.detailed": "%s, Day %s",
+  "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.combined": "%s %s",
 
   "item.calendar.tooltip": "Slot: Charm"
 }

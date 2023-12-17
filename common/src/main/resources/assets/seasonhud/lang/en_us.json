@@ -55,9 +55,10 @@
   "desc.seasonhud.mid_dry": "Mid Dry",
   "desc.seasonhud.late_dry": "Late Dry",
 
-  "desc.seasonhud.icon": "%s ",
+  "desc.seasonhud.icon": "%s",
   "desc.seasonhud.detailed": "%s, Day %s",
   "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.combined": "%s %s",
 
   "item.calendar.tooltip": "Slot: Charm"
 }
