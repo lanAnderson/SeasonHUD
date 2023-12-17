@@ -10,8 +10,7 @@ import java.util.List;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.dimensionHideHUD;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static xaero.common.settings.ModOptions.modMain;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.seasonCombined;
 
 
 public class XaeroInfoDisplays {
@@ -21,18 +20,8 @@ public class XaeroInfoDisplays {
     static{
         SEASON = new InfoDisplay("season", Component.translatable("menu.seasonhud.infodisplay.season"), true, InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON, (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
             if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar()) {
-                ArrayList<Component> seasonName = getSeasonName();
-
-                for (Component s : seasonName) {
-                    compiler.addLine(s);}
+                compiler.addLine(seasonCombined);
             }
         },ALL);
-    }
-
-    public static boolean aboveSeason(InfoDisplay<?> infoDisplay){
-        List<InfoDisplay<?>> managerList = modMain.getInterfaces().getMinimapInterface().getInfoDisplayManager().getStream().toList();
-        int seasonIndex = managerList.indexOf(SEASON);
-        int infoIndex = managerList.indexOf(infoDisplay);
-        return infoIndex < seasonIndex;
     }
 }
