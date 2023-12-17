@@ -21,16 +21,15 @@ import java.util.*;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonResource;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.seasonCombined;
 
 public class FTBChunks {
     public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
         int i = 0;
 
-        if (loadedMinimap("ftbchunks")) {
+        if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
             MapDimension dim = MapDimension.getCurrent().get();
             MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
@@ -55,7 +54,7 @@ public class FTBChunks {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
+            MINIMAP_TEXT_LIST.add(seasonCombined);
 
             if (!minimapHidden() && (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty())) {
                 double guiScale = mc.getWindow().getGuiScale();
@@ -107,12 +106,6 @@ public class FTBChunks {
 
                         seasonStack.drawString(mc.font, bs, (int) ((float) ((-bsw) + iconDim / 2) / 2.0F), (int) (i * 11), -1);
 
-                        //Icon
-                        ResourceLocation SEASON = getSeasonResource();
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        RenderSystem.setShaderTexture(0, SEASON);
-                        seasonStack.blit(SEASON, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.pose().popPose();
                     }
                 }
