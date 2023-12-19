@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;

@@ -6,11 +6,16 @@ import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 
 public class SeasonHUD implements ModInitializer {
     public static final String MOD_ID = "seasonhud";
     private static boolean curiosLoaded;
     private static boolean extrasLoaded;
+    public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MOD_ID,"season_icons");
+    public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
+
 
     public SeasonHUD(){
         curiosLoaded = FabricLoader.getInstance().isModLoaded("trinkets");

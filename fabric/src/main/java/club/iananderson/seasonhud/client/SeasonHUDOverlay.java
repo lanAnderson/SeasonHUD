@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
@@ -86,7 +86,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
 
-                font.drawShadow(font, seasonCombined, iconX, iconY, 0xffffffff);
+                font.drawShadow(seasonStack, seasonCombined, iconX, iconY, 0xffffffff);
                 seasonStack.popPose();
             }
         }

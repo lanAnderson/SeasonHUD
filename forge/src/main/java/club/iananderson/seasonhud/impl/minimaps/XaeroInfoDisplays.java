@@ -9,7 +9,7 @@ import xaero.common.minimap.info.widget.InfoDisplayCommonWidgetFactories;
 import java.util.ArrayList;
 import java.util.List;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.dimensionHideHUD;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;

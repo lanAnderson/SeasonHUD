@@ -10,7 +10,7 @@ import sereneseasons.config.ServerConfig;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 
 public class CurrentSeason {
 

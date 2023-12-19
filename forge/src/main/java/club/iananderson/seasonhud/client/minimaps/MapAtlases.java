@@ -16,7 +16,7 @@ import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 

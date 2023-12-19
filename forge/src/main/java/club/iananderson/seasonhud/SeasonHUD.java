@@ -1,6 +1,8 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,6 +30,8 @@ public class  SeasonHUD{
     public static final Logger LOGGER = LogManager.getLogger("seasonhud");
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final ResourceLocation SEASON_ICONS = new ResourceLocation(MODID,"season_icons");
+    public static final Style SEASON_STYLE = Style.EMPTY.withFont(SEASON_ICONS);
 
     public SeasonHUD() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

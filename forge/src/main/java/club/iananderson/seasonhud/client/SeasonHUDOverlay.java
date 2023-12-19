@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
@@ -68,7 +68,7 @@ public class SeasonHUDOverlay {
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
 
-                mc.font.drawString(font, seasonCombined, iconX, iconY, 0xffffffff);
+                font.drawShadow(seasonStack, seasonCombined, iconX, iconY, 0xffffffff);
                 seasonStack.popPose();
             }
         }

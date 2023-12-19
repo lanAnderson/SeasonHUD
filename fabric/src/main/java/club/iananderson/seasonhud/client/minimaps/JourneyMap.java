@@ -10,12 +10,15 @@ import journeymap.client.ui.theme.Theme;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
@@ -102,7 +105,7 @@ public class JourneyMap implements HudRenderCallback{
                 double labelX = (textureX);
                 double labelY = (textureY + translateY)-labelPad;
 
-                DrawUtil.drawBatchLabel(seasonStack, seasonCombined,seasonStack.bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
+                DrawUtil.drawBatchLabel(seasonStack, seasonCombined, mc.renderBuffers().bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
                 seasonStack.popPose();
             }
         }
