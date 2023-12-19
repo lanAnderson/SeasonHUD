@@ -22,11 +22,11 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 
 public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
-    private final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
 
-    private static void drawStringWithLighterShadow(PoseStack context, Font font, MutableComponent text, int x, int y) {
-        context.drawString(font, text, x + 1, y + 1, 5855577, false);
-        context.drawString(font, text, x, y, 14737632, false);
+    private static void drawStringWithLighterShadow(PoseStack poseStack, Font font, MutableComponent text, float x, float y) {
+        mc.font.draw(poseStack, text, x + 1.0F, y + 1.0F, 5855577);
+        mc.font.draw(poseStack, text, x, y, 14737632);
     }
 
     public static void drawScaledComponent(PoseStack context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
@@ -42,7 +42,7 @@ public class MapAtlases implements IGuiOverlay{
         context.popPose();
     }
 
-    public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
+    public static void drawMapComponentSeason(PoseStack poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {
             MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
             MutableComponent seasonName = getSeasonName().get(1).copy();

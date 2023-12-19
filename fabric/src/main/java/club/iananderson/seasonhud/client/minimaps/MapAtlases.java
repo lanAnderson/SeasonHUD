@@ -27,7 +27,7 @@ public class MapAtlases implements HudRenderCallback {
 
     private static final Minecraft mc = Minecraft.getInstance();
 
-    public static void drawScaledText(PoseStack poseStack, int x, int y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
+    public static void drawScaledText(PoseStack poseStack, float x, float y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
         float textWidth = (float)mc.font.width(text) * textScaling;
         float textX = (float)((double)x + (double)originOffsetWidth / 2.0 - (double)textWidth / 2.0);
         float textY = (float)(y + originOffsetHeight);
@@ -38,8 +38,8 @@ public class MapAtlases implements HudRenderCallback {
         poseStack.pushPose();
         poseStack.translate(textX, textY, 5.0F);
         poseStack.scale(textScaling, textScaling, 1.0F);
-        poseStack.drawString(mc.font, text, 1, 1, Integer.parseInt("595959", 16), false);
-        poseStack.drawString(mc.font, text, 0, 0, Integer.parseInt("E0E0E0", 16), false);
+        mc.font.draw(poseStack, text, 1.0F, 1.0F, Integer.parseInt("595959", 16));
+        mc.font.draw(poseStack, text, 0.0F, 0.0F, Integer.parseInt("E0E0E0", 16));
         poseStack.popPose();
     }
 
