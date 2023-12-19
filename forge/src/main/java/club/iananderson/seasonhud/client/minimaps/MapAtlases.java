@@ -20,7 +20,6 @@ import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 
 public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
