@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 
@@ -39,10 +40,14 @@ public class FTBChunks implements HudRenderCallback {
     @Override
     public void onHudRender(GuiGraphics seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(3);
+        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
         int i = 0;
 
-        if (loadedMinimap("ftbchunks")) {
+        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+        MutableComponent seasonName = getSeasonName().get(1).copy();
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+
+        if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
             MapDimension dim = MapDimension.getCurrent().get();
             MapRegionData data = Objects.requireNonNull(dim).getRegion(XZ.regionFromChunk(currentPlayerPos)).getData();
@@ -67,7 +72,7 @@ public class FTBChunks implements HudRenderCallback {
             }
 
             //Season
-            MINIMAP_TEXT_LIST.add(getSeasonName().get(0));
+            MINIMAP_TEXT_LIST.add(seasonCombined);
 
             if (!minimapHidden() && (mc.player != null && mc.level != null && !MapManager.getInstance().isEmpty() && !MapDimension.getCurrent().isEmpty())) {
                 double guiScale = mc.getWindow().getGuiScale();
@@ -81,24 +86,24 @@ public class FTBChunks implements HudRenderCallback {
 
                     if (!mc.getDebugOverlay().showDebugScreen() && FTBChunksClientConfig.MINIMAP_ENABLED.get() && FTBChunksClientConfig.MINIMAP_VISIBILITY.get() != 0 && !(Boolean) FTBChunksWorldConfig.FORCE_DISABLE_MINIMAP.get()) {
                         float scale;
-                        if ((Boolean) FTBChunksClientConfig.MINIMAP_PROPORTIONAL.get()) {
-                            scale = (float) (4.0 / guiScale);
-                            scale = (float) ((double) scale * (double) ((float) ww / 10.0F) / ((double) scale * 64.0) * (Double) FTBChunksClientConfig.MINIMAP_SCALE.get());
+                        if ((Boolean)FTBChunksClientConfig.MINIMAP_PROPORTIONAL.get()) {
+                            scale = (float)(4.0 / guiScale);
+                            scale = (float)((double)scale * (double)((float)ww / 10.0F) / ((double)scale * 64.0) * (Double)FTBChunksClientConfig.MINIMAP_SCALE.get());
                         } else {
-                            scale = (float) ((Double) FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
+                            scale = (float)((Double)FTBChunksClientConfig.MINIMAP_SCALE.get() * 4.0 / guiScale);
                         }
                         int s = (int) (64.0 * (double) scale);
-                        float s1 = Math.max(1.0F, (float) Math.round(scale)) / 2.0F;
+                        float s1 = Math.max(1.0F, (float)Math.round(scale)) / 2.0F;
                         double halfSizeD = (double) s / 2.0;
-                        float halfSizeF = (float) s / 2.0F;
+                        float halfSizeF = (float)s / 2.0F;
                         MinimapPosition minimapPosition = FTBChunksClientConfig.MINIMAP_POSITION.get();
                         int x = minimapPosition.getX(ww, s);
                         int y = minimapPosition.getY(wh, s);
                         int offsetX = FTBChunksClientConfig.MINIMAP_OFFSET_X.get();
                         int offsetY = FTBChunksClientConfig.MINIMAP_OFFSET_Y.get();
 
-                        float textHeight = (float) (9 + 2) * i + 1 * s1;
-                        float yOff = (float) (y + s) + textHeight >= (float) wh ? -textHeight : (float) s + 2.0F;
+                        float textHeight = (float)(9 + 2) * i+1 * s1;
+                        float yOff = (float)(y + s) + textHeight >= (float)wh ? -textHeight : (float)s + 2.0F;
 
 
                         MinimapPosition.MinimapOffsetConditional offsetConditional = FTBChunksClientConfig.MINIMAP_POSITION_OFFSET_CONDITION.get();
@@ -109,7 +114,7 @@ public class FTBChunks implements HudRenderCallback {
                         }
 
                         seasonStack.pose().pushPose();
-                        seasonStack.pose().translate((double) x + halfSizeD, (double) ((float) y + yOff), 0.0);
+                        seasonStack.pose().translate((double)x + halfSizeD, (double)((float)y + yOff), 0.0);
                         seasonStack.pose().scale(s1, s1, 1.0F);
 
 
@@ -119,12 +124,6 @@ public class FTBChunks implements HudRenderCallback {
 
                         seasonStack.drawString(mc.font, bs, (int) ((float) ((-bsw) + iconDim / 2) / 2.0F), (int) (i * 11), -1);
 
-                        //Icon
-                        ResourceLocation SEASON = getSeasonResource();
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        RenderSystem.setShaderTexture(0, SEASON);
-                        seasonStack.blit(SEASON, (int) (((-bsw) + iconDim / 2) / 2.0F), (i * 11), 0, 0, iconDim, iconDim, iconDim, iconDim);
                         seasonStack.pose().popPose();
                     }
                 }

@@ -1,15 +1,12 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.config.Config;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -21,7 +18,6 @@ import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.SeasonHUD.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 

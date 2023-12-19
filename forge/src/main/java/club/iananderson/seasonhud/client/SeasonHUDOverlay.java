@@ -14,7 +14,6 @@ import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.SeasonHUD.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 public class SeasonHUDOverlay {

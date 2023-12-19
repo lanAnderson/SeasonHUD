@@ -15,8 +15,7 @@ public class HiddenMinimap {
         if (loadedMinimap("ftbchunks")
                 && !loadedMinimap("journeymap")
                 && !(loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair"))
-                && !loadedMinimap("map_atlases")
-        ) {
+                && !loadedMinimap("map_atlases")) {
             return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
         }
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {

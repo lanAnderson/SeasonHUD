@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
@@ -10,20 +9,19 @@ import dev.ftb.mods.ftbchunks.client.map.MapRegionData;
 import dev.ftb.mods.ftblibrary.math.XZ;
 import dev.ftb.mods.ftbteams.api.Team;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
-import static club.iananderson.seasonhud.SeasonHUD.*;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 public class FTBChunks {

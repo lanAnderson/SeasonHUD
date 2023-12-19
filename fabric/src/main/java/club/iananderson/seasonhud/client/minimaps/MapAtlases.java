@@ -1,13 +1,12 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.config.Config;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import pepjebs.mapatlases.MapAtlasesMod;
 import pepjebs.mapatlases.client.MapAtlasesClient;
@@ -15,10 +14,9 @@ import pepjebs.mapatlases.utils.MapAtlasesAccessUtils;
 
 import java.util.Arrays;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonResource;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledText;
 
 public class MapAtlases implements HudRenderCallback {
     public static MapAtlases HUD_INSTANCE;
@@ -28,12 +26,31 @@ public class MapAtlases implements HudRenderCallback {
         HudRenderCallback.EVENT.register(HUD_INSTANCE);
     }
 
-    private final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
+
+    public static void drawScaledText(GuiGraphics context, int x, int y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
+        PoseStack poseStack = context.pose();
+        float textWidth = (float)mc.font.width(text) * textScaling;
+        float textX = (float)((double)x + (double)originOffsetWidth / 2.0 - (double)textWidth / 2.0);
+        float textY = (float)(y + originOffsetHeight);
+        if (textX + textWidth >= (float)mc.getWindow().getGuiScaledWidth()) {
+            textX = (float)mc.getWindow().getGuiScaledWidth() - textWidth;
+        }
+
+        poseStack.pushPose();
+        poseStack.translate(textX, textY, 5.0F);
+        poseStack.scale(textScaling, textScaling, 1.0F);
+        context.drawString(mc.font, text, 1, 1, Integer.parseInt("595959", 16), false);
+        context.drawString(mc.font, text, 0, 0, Integer.parseInt("E0E0E0", 16), false);
+        poseStack.popPose();
+    }
 
     public static void drawMapComponentSeason(GuiGraphics poseStack, int x, int y, int originOffsetWidth, int originOffsetHeight, float textScaling) {
         if (loadedMinimap("map_atlases")) {
-            String seasonToDisplay = getSeasonName().get(0).getString();
-            drawScaledText(poseStack, x, y, seasonToDisplay, textScaling, originOffsetWidth, originOffsetHeight);
+            MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+            MutableComponent seasonName = getSeasonName().get(1).copy();
+            MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+            drawScaledText(poseStack, x, y, seasonCombined, textScaling, originOffsetWidth, originOffsetHeight);
         }
     }
 
@@ -118,29 +135,7 @@ public class MapAtlases implements HudRenderCallback {
                         textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
                     }
 
-                    Font font = mc.font;
-                    String seasonToDisplay = getSeasonName().get(0).getString();
-                    float textWidth = (float) font.width(seasonToDisplay) * textScaling;
-                    float stringHeight = (font.lineHeight);
-                    float textX = (float) ((double) x + (double) mapBgScaledSize / 2.0 - (double) textWidth / 2.0);
-                    float textY = (float) (y + textHeightOffset);
-                    if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
-                        textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
-                    }
-
-                    int iconDim = (int) ((stringHeight));
-
                     drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
-
-                    seasonStack.pose().pushPose();
-                    seasonStack.pose().translate((double) textX, (double) textY, 0.0);
-                    seasonStack.pose().scale(textScaling, textScaling, 1.0F);
-                    ResourceLocation SEASON = getSeasonResource();
-                    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                    RenderSystem.setShaderTexture(0, SEASON);
-                    seasonStack.blit(SEASON, 0, 0, 0, 0, iconDim, iconDim, iconDim, iconDim);
-                    seasonStack.pose().popPose();
                 }
             }
         }
