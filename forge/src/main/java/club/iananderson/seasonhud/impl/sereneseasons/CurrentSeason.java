@@ -27,7 +27,7 @@ public class CurrentSeason {
         FALL(3,"fall","\uEA03"),
         WINTER(4,"winter","\uEA04"),
         DRY(5,"dry","\uEA05"),
-        WET(6,"wet","\uEA05");
+        WET(6,"wet","\uEA06");
 
         private final int idNum;
         private final String seasonFileName;
@@ -136,4 +136,3 @@ public class CurrentSeason {
         return text;
     }
 }
-
