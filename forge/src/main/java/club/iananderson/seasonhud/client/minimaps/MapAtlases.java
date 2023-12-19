@@ -4,6 +4,7 @@ import club.iananderson.seasonhud.config.Config;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -28,7 +29,25 @@ public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;
     private final Minecraft mc = Minecraft.getInstance();
 
-    public static void drawMapComponentSeason(PoseStack poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
+    private static void drawStringWithLighterShadow(PoseStack context, Font font, MutableComponent text, int x, int y) {
+        context.drawString(font, text, x + 1, y + 1, 5855577, false);
+        context.drawString(font, text, x, y, 14737632, false);
+    }
+
+    public static void drawScaledComponent(PoseStack context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
+        float textWidth = (float)font.width(text);
+        float scale = Math.min(1.0F, (float)maxWidth * textScaling / textWidth);
+        scale *= textScaling;
+        float centerX = (float)x + (float)targetWidth / 2.0F;
+        context.pushPose();
+        context.translate(centerX, (float)(y + 4), 5.0F);
+        context.scale(scale, scale, 1.0F);
+        context.translate(-textWidth / 2.0F, -4.0F, 0.0F);
+        drawStringWithLighterShadow(context, font, text, 0, 0);
+        context.popPose();
+    }
+
+    public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {
             MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
             MutableComponent seasonName = getSeasonName().get(1).copy();
@@ -36,7 +55,7 @@ public class MapAtlases implements IGuiOverlay{
 
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             //String seasonToDisplay = getSeasonName().get(0).getString();
-            drawScaledComponent(poseStack, font, x, y, seasonCombined.getString(), textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
+            drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }
     }
 
