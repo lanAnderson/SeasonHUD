@@ -12,6 +12,7 @@ import dev.ftb.mods.ftbteams.api.Team;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
@@ -19,15 +20,21 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.*;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.seasonCombined;
+import static club.iananderson.seasonhud.SeasonHUD.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 public class FTBChunks {
     public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
         int i = 0;
+
+        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+        MutableComponent seasonName = getSeasonName().get(1).copy();
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
 
         if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();

@@ -7,6 +7,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
@@ -17,8 +19,10 @@ import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.seasonCombined;
+import static club.iananderson.seasonhud.SeasonHUD.*;
+import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 
 public class MapAtlases implements IGuiOverlay{
@@ -29,6 +33,10 @@ public class MapAtlases implements IGuiOverlay{
 
     public static void drawMapComponentSeason(GuiGraphics poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {
+            MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
+            MutableComponent seasonName = getSeasonName().get(1).copy();
+            MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             //String seasonToDisplay = getSeasonName().get(0).getString();
             drawScaledComponent(poseStack, font, x, y, seasonCombined.getString(), textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
