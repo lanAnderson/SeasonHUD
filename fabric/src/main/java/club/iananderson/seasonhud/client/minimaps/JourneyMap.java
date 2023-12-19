@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -11,7 +10,6 @@ import journeymap.client.ui.theme.Theme;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;

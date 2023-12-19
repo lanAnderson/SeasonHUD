@@ -1,19 +1,13 @@
 package club.iananderson.seasonhud.impl.sereneseasons;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FormattedCharSequence;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 import sereneseasons.config.ServerConfig;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;

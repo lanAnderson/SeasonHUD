@@ -1,13 +1,9 @@
 package club.iananderson.seasonhud.client.minimaps;
 
 import club.iananderson.seasonhud.config.Config;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -23,7 +19,6 @@ import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
-import static pepjebs.mapatlases.client.ui.MapAtlasesHUD.drawScaledComponent;
 
 public class MapAtlases implements IGuiOverlay{
     protected final int BG_SIZE = 64;

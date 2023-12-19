@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud;
 
-import club.iananderson.seasonhud.platform.Services;
-import club.iananderson.seasonhud.platform.services.IPlatformHelper;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
