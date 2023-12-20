@@ -16,7 +16,7 @@ import pepjebs.mapatlases.client.Anchoring;
 import pepjebs.mapatlases.client.MapAtlasesClient;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
@@ -44,11 +44,10 @@ public class MapAtlases implements IGuiOverlay{
 
     public static void drawMapComponentSeason(PoseStack poseStack, Font font, int x, int y, int targetWidth, float textScaling) {
         if (loadedMinimap("map_atlases")) {
+            float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
             MutableComponent seasonName = getSeasonName().get(1).copy();
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
-
-            float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
             //String seasonToDisplay = getSeasonName().get(0).getString();
             drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }

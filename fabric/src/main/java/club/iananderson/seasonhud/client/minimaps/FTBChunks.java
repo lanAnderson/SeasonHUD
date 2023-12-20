@@ -18,9 +18,11 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 
@@ -36,12 +38,12 @@ public class FTBChunks implements HudRenderCallback{
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
-        int i = 0;
-
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
+
+        int i = 0;
 
         if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();

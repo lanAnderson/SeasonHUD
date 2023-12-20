@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
@@ -19,7 +19,6 @@ import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSea
 public class SeasonHUDOverlay {
     public static final IGuiOverlay HUD_SEASON = (ForgeGui, seasonStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft mc = Minecraft.getInstance();
-
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
@@ -67,6 +66,7 @@ public class SeasonHUDOverlay {
                 //Text
                 int iconX = x + xOffset;
                 int iconY = y + yOffset + offsetDim;
+
 
                 font.drawShadow(seasonStack, seasonCombined, iconX, iconY, 0xffffffff);
                 seasonStack.popPose();

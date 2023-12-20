@@ -19,19 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 public class FTBChunks {
     public static final IGuiOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
-        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
-        int i = 0;
-
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+
+        List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
+        MINIMAP_TEXT_LIST.add(seasonCombined);
+        FormattedCharSequence seasonText = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
+
+        int i = 0;
 
         if (loadedMinimap("ftbchunks") && !loadedMinimap("journeymap") && !loadedMinimap("xaer")) {
             ChunkPos currentPlayerPos = Objects.requireNonNull(mc.player).chunkPosition();
@@ -56,9 +59,6 @@ public class FTBChunks {
             if (xyz) {
                 i++;
             }
-
-            //Season
-            MINIMAP_TEXT_LIST.add(seasonCombined);
 
             if (mc.player != null && mc.level != null && MapManager.inst != null) {
                 double guiScale = mc.getWindow().getGuiScale();
@@ -104,11 +104,10 @@ public class FTBChunks {
                         seasonStack.scale(s1, s1, 1.0F);
 
 
-                        FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
-                        int bsw = mc.font.width(bs);
+                        int bsw = mc.font.width(seasonText);
                         int iconDim = mc.font.lineHeight;
 
-                        mc.font.drawShadow(seasonStack, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
+                        mc.font.drawShadow(seasonStack, seasonText, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
 
                         seasonStack.popPose();
                     }

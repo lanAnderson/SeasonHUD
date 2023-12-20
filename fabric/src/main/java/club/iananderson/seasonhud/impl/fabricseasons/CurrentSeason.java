@@ -4,11 +4,12 @@ import club.iananderson.seasonhud.config.Config;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static io.github.lucaargolo.seasons.FabricSeasons.CONFIG;
 
 

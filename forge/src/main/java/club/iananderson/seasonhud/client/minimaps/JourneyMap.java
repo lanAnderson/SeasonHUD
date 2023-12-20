@@ -10,11 +10,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
@@ -92,8 +93,11 @@ public class JourneyMap {
                 double labelX = (textureX);
                 double labelY = (textureY + translateY)-labelPad;
 
-                DrawUtil.drawBatchLabel(seasonStack, seasonCombined,mc.renderBuffers().bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow); //No touchy. Season label offset by icon+padding
+                MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+
+                DrawUtil.drawBatchLabel(seasonStack, seasonCombined,buffers, labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below,labelColor,labelAlpha,textColor,textAlpha,fontScale,fontShadow); //No touchy. Season label offset by icon+padding
                 seasonStack.popPose();
+                buffers.endBatch();
             }
         }
     };

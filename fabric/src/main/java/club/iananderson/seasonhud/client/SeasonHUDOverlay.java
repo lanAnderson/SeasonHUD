@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import static club.iananderson.seasonhud.SeasonHUD.SEASON_STYLE;
+import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
 import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
@@ -31,10 +31,8 @@ public class SeasonHUDOverlay implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(PoseStack seasonStack, float alpha)
-    {
+    public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
