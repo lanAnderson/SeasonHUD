@@ -15,6 +15,7 @@ public class SeasonHUD implements ModInitializer {
 
     public SeasonHUD(){
         curiosLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
+        extrasLoaded = FabricLoader.getInstance().isModLoaded("seasonsextras");
     }
 
     /**
@@ -29,5 +30,9 @@ public class SeasonHUD implements ModInitializer {
 
     public static boolean curiosLoaded() {
         return curiosLoaded;
+    }
+
+    public static boolean extrasLoaded() {
+        return extrasLoaded;
     }
 }
