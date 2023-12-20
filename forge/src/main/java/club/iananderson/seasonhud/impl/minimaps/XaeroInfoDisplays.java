@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
+import club.iananderson.seasonhud.config.Config;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import xaero.common.minimap.info.InfoDisplay;
@@ -24,7 +25,7 @@ public class XaeroInfoDisplays {
             MutableComponent seasonName = getSeasonName().get(1).copy();
             MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
 
-            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar()) {
+            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar() && Config.enableMod.get()) {
                 compiler.addLine(seasonCombined);
             }
         },ALL);
