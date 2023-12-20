@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
 
@@ -40,7 +41,7 @@ public class FTBChunks implements HudRenderCallback{
         Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
 
         int i = 0;

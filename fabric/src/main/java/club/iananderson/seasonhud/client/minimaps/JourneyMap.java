@@ -1,7 +1,5 @@
 package club.iananderson.seasonhud.client.minimaps;
 
-import club.iananderson.seasonhud.impl.minimaps.JourneyMapAPI;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
@@ -15,8 +13,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
@@ -37,7 +35,7 @@ public class JourneyMap implements HudRenderCallback{
         Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
         MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
 
         if (loadedMinimap("journeymap-fabric")) {
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();

@@ -1,7 +1,8 @@
 package club.iananderson.seasonhud.impl.minimaps;
 
-import net.minecraft.network.chat.Component;
+import club.iananderson.seasonhud.config.Config;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import xaero.common.minimap.info.InfoDisplay;
 import xaero.common.minimap.info.codec.InfoDisplayCommonStateCodecs;
 import xaero.common.minimap.info.widget.InfoDisplayCommonWidgetFactories;
@@ -22,8 +23,9 @@ public class XaeroInfoDisplays {
         SEASON = new InfoDisplay("season", new TranslatableComponent("menu.seasonhud.infodisplay.season"), true, InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON, (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
             MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
             MutableComponent seasonName = getSeasonName().get(1).copy();
-            MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
-            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar()) {
+            MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
+
+            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar() && Config.enableMod.get()) {
                 compiler.addLine(seasonCombined);
             }
         },ALL);

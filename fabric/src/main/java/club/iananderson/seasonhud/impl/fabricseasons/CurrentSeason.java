@@ -4,7 +4,7 @@ import club.iananderson.seasonhud.config.Config;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.Objects;
