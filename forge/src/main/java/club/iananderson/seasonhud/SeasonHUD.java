@@ -1,8 +1,6 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,9 +20,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.SlotTypeMessage;
-
-import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
 
 @Mod(SeasonHUD.MODID)
 public class  SeasonHUD{
