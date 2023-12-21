@@ -1,40 +1,57 @@
 package club.iananderson.seasonhud.mixin;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraftforge.fml.loading.LoadingModList;
+
+import com.google.common.base.Preconditions;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.spongepowered.asm.service.MixinService;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
+
+    private static final boolean HAS_XAERO;
+
+    private static boolean hasClass(String modClass) {
+        try {
+            MixinService.getService().getBytecodeProvider().getClassNode(modClass);
+            return true;
+        } catch (ClassNotFoundException | IOException e) {
+            return false;
+        }
+    }
+
+    static{
+        HAS_XAERO = hasClass("xaero.common.IXaeroMinimap");
+    }
+
+    private String prefix = null;
 
     public SeasonHUDMixinPlugin(){
 
     }
-    private static final Supplier<Boolean> TRUE = () -> true;
 
-    private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "club.iananderson.seasonhud.mixin.XaeroBuiltInInfoDisplays", () -> ((LoadingModList.get().getModFileById("xaerominimap") != null)
-                    || (LoadingModList.get().getModFileById("xaerominimapfair") != null))
-    );
+    @Override
+    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        Preconditions.checkState(mixinClassName.startsWith(prefix), "Unexpected prefix on " + mixinClassName);
+        if (!HAS_XAERO){
+            return false;
+        }
+        else return true;
+    }
+
+
     @Override
     public void onLoad(String mixinPackage) {
-
+        prefix = mixinPackage + ".";
     }
 
     @Override
     public String getRefMapperConfig() {
         return null;
-    }
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return CONDITIONS.getOrDefault(mixinClassName, TRUE).get();
     }
 
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
