@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Made Mixin config more compatible to prevent crashes
+- Crash with latest version of FTB Chunks
 
 
 ## [1.7.0] - 2023-12-19
