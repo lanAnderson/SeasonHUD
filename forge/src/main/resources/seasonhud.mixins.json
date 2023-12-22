@@ -7,7 +7,8 @@
   "mixins": [
   ],
   "client": [
-    "XaeroBuiltInInfoDisplays"
+    "xaero.XaeroBuiltInInfoDisplays",
+    "ftbchunks.FTBChunksClientMixin"
   ],
   "plugin": "club.iananderson.seasonhud.mixin.SeasonHUDMixinPlugin",
   "injectors": {

@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.mixin;
+package club.iananderson.seasonhud.mixin.xaero;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
