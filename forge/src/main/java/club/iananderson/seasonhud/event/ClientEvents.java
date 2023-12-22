@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.event;
 import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.client.KeyBindings;
 import club.iananderson.seasonhud.client.SeasonHUDOverlay;
-import club.iananderson.seasonhud.client.minimaps.FTBChunks;
 import club.iananderson.seasonhud.client.minimaps.JourneyMap;
 import club.iananderson.seasonhud.client.minimaps.MapAtlases;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,11 +31,6 @@ public class ClientEvents{
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"season", SeasonHUDOverlay.HUD_SEASON);
-        }
-
-        @SubscribeEvent
-        public static void registerFTBChunksOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
         }
 
         @SubscribeEvent
