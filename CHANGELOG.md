@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - Changed the FTBChunks implementation to prevent crashes
+- Rewrote the Journeymap implementation
 
 
 ## [1.7.1] - 2023-12-21
