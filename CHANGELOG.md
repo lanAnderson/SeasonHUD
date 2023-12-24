@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [1.7.3] - 2023-12-24
 
 ### Added
-- Added a toggle in the settings menu/config, to correct the scaling on a retina display on MacOS
+- Added a toggle in the settings menu/config, to correct the scaling on a retina display on macOS
 
 
 ## [1.7.2] - 2023-12-23

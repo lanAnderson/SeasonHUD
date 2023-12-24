@@ -13,6 +13,7 @@
   "menu.seasonhud.button.showTropicalSeason": "Показывать тропические сезоны",
   "menu.seasonhud.button.showMinimapHidden": "Показывать, когда миникарта скрыта",
   "menu.seasonhud.button.journeyMapAboveMap": "Показывать над миникартой",
+  "menu.seasonhud.button.journeyMapMacOS": "macOS Retina Display",
 
   "menu.seasonhud.infodisplay.season": "Сезон",
 

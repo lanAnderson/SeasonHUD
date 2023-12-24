@@ -76,8 +76,8 @@ public class Config {
                 .define("enable_above_map",false);
 
         journeyMapMacOS = BUILDER
-                .comment("Toggle for MacOS retina display scaling. \n (true/false)")
-                .define("enable_MacOS",false);
+                .comment("Toggle for macOS retina display scaling. \n (true/false)")
+                .define("enable_macOS",false);
 
         BUILDER.pop();
         BUILDER.pop();
