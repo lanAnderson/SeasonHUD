@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.impl.fabricseasons;
+package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.config.Config;
 import io.github.lucaargolo.seasons.FabricSeasons;
@@ -11,7 +11,6 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static io.github.lucaargolo.seasons.FabricSeasons.CONFIG;
-
 
 public class CurrentSeason {
     public enum SeasonList{
@@ -33,15 +32,12 @@ public class CurrentSeason {
         public int getId() {
             return this.idNum;
         }
-
         public String getFileName(){
             return this.seasonFileName;
         }
-
         public String getIconChar(){
             return this.seasonIconChar;
         }
-
     }
 
     //Get the current season in Season type
@@ -50,18 +46,13 @@ public class CurrentSeason {
         return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString();
     }
 
-    //Convert Season to lower case (for file names)
-    public static String getSeasonFileName(){
-        Minecraft mc = Minecraft.getInstance();
-        return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString().toLowerCase();
-    }
-
     //Convert Season to lower case (for localized names)
     public static String getSeasonStateLower(){
         return getCurrentSeasonState().toLowerCase();
     }
 
-    public static String getCurrentSeasonNameLower(){
+    //Convert Season to lower case (for file names)
+    public static String getSeasonFileName(){
         Minecraft mc = Minecraft.getInstance();
         return FabricSeasons.getCurrentSeason(Objects.requireNonNull(mc.level)).toString().toLowerCase();
     }
@@ -70,12 +61,12 @@ public class CurrentSeason {
     public static int getDate() {
         Minecraft mc = Minecraft.getInstance();
         int worldTime = Math.toIntExact(Objects.requireNonNull(mc.level).getDayTime());
-
         int seasonDate = ((int)(worldTime - (worldTime / (long)CONFIG.getSeasonLength() * (long)CONFIG.getSeasonLength())) % CONFIG.getSeasonLength() / 24000)+1;
 
         return seasonDate;
     }
 
+    //Get the current season and match it to the icon for the font
     public static String getSeasonIcon(String seasonFileName){
         for(SeasonList season : SeasonList.values()){
             if(Objects.equals(season.getFileName(), seasonFileName)){
@@ -97,10 +88,6 @@ public class CurrentSeason {
             text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
             text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
         }
-
         return text;
     }
 }
-
-
-

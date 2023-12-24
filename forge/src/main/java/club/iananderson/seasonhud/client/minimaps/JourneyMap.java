@@ -1,10 +1,10 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import club.iananderson.seasonhud.platform.Services;
+import com.mojang.blaze3d.vertex.PoseStack;
 import journeymap.client.JourneymapClient;
 import journeymap.client.io.ThemeLoader;
 import journeymap.client.render.draw.DrawUtil;
-import journeymap.client.texture.SimpleTextureImpl;
-import journeymap.client.texture.Texture;
 import journeymap.client.ui.UIManager;
 import journeymap.client.ui.minimap.DisplayVars;
 import journeymap.client.ui.theme.Theme;
@@ -16,29 +16,36 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.SeasonHUD.MODID;
-import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
+import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
-public class JourneyMap {
+public class JourneyMap implements IGuiOverlay{
     private static String getSeason(){
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());;
 
         return seasonCombined.getString();
     }
 
-    public static final IGuiOverlay JOURNEYMAP_SEASON = (ForgeGui, seasonStack, partialTick, scaledWidth, scaledHeight) -> {
+    @Override
+    public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
         Minecraft mc = Minecraft.getInstance();
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());
+
+        if(Services.PLATFORM.isModLoaded("journeymap") && !enableMod.get()) {
+            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(MODID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
+            // Should only show up if the "Enable Mod" option in the SeasonHUD menu/config is disabled. Icon currently doesn't work
+        }
 
         if (loadedMinimap("journeymap")) {
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
@@ -57,7 +64,6 @@ public class JourneyMap {
 
             int halfWidth = minimapWidth / 2;
 
-            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(MODID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
@@ -81,6 +87,11 @@ public class JourneyMap {
                 int labelX = (int) startX;
                 int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
 
+                if(journeyMapMacOS.get()){
+                    screenWidth = screenWidth/2;
+                    screenHeight = screenHeight/2;
+                }
+
                 seasonStack.pushPose();
                 seasonStack.scale(1/fontScale,1/fontScale,0);
                 DrawUtil.sizeDisplay(seasonStack,screenWidth,screenHeight);
@@ -90,5 +101,5 @@ public class JourneyMap {
                 DrawUtil.sizeDisplay(seasonStack,scaledWidth,scaledHeight);
             }
         }
-    };
+    }
 }

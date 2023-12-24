@@ -1,32 +1,30 @@
-package club.iananderson.seasonhud.impl.sereneseasons;
+package club.iananderson.seasonhud.impl.seasons;
 
+import club.iananderson.seasonhud.config.Config;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fml.ModList;
-import sereneseasons.api.SSItems;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.List;
+import java.util.Optional;
 
-import static club.iananderson.seasonhud.config.Config.needCalendar;
-
-
+import static io.github.lucaargolo.seasonsextras.FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
+import static club.iananderson.seasonhud.SeasonHUD.*;
 
 public class Calendar {
     public static boolean invCalendar;
-
-    public static boolean curiosLoaded() {
-        return ModList.get().isLoaded("curios");
-    }
-
-    public static Item calendar = SSItems.CALENDAR.get();
+    public static Item calendar;
 
     public static boolean calendar() {
-        if (needCalendar.get()) {
+        if(extrasLoaded()){
+            calendar = SEASON_CALENDAR_ITEM;
+        }
+        else calendar = null;
+
+        if (Config.needCalendar.get() & extrasLoaded()) {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
@@ -37,7 +35,6 @@ public class Calendar {
                 invCalendar = (slot >= 0);
 
             }
-
         }
         else invCalendar = true;
 
@@ -55,9 +52,12 @@ public class Calendar {
     }
 
     private static int findCuriosCalendar(Player player, Item item) {
-        if (curiosLoaded()) {
-            List<SlotResult> findCalendar = CuriosApi.getCuriosHelper().findCurios(player, item);
-            return findCalendar.size();
+        if (curiosLoaded() && extrasLoaded()) {
+            Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
+            if(findCalendar.get().isEquipped(item)){
+                return 1;
+            }
+            else return 0;
         }
         else return 0;
     }

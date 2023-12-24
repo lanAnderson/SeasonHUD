@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.impl.sereneseasons;
+package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.Common;
 import club.iananderson.seasonhud.config.Config;
@@ -15,7 +15,6 @@ import java.util.Objects;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 
 public class CurrentSeason {
-
     public enum SeasonList{
         SPRING(0,"spring","\uEA00"),
         SUMMER(1,"summer","\uEA01"),
@@ -37,15 +36,12 @@ public class CurrentSeason {
         public int getId() {
             return this.idNum;
         }
-
         public String getFileName(){
             return this.seasonFileName;
         }
-
         public String getIconChar(){
             return this.seasonIconChar;
         }
-
     }
 
     //Get the current season in Season type
@@ -57,14 +53,21 @@ public class CurrentSeason {
         else return false;
     }
 
+    // Returns either the current tropical season, subseason, or season based on config/biome.
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
         if (isTropicalSeason()) {
             return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString();
-        } else if (Config.showSubSeason.get()) {
+        }
+        else if (Config.showSubSeason.get()) {
             return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().toString();
         }
         else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString();
+    }
+
+    //Convert Season to lower case (for localized names)
+    public static String getSeasonStateLower(){
+        return getCurrentSeasonState().toLowerCase();
     }
 
     //Convert Season to lower case (for file names)
@@ -74,16 +77,6 @@ public class CurrentSeason {
             return getCurrentSeasonState().toLowerCase();
         }
         else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
-    }
-
-    //Convert Season to lower case (for localized names)
-    public static String getSeasonStateLower(){
-        return getCurrentSeasonState().toLowerCase();
-    }
-
-    public static String getCurrentSeasonNameLower(){
-        Minecraft mc = Minecraft.getInstance();
-        return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
     }
 
     //Get the current date of the season
@@ -107,6 +100,7 @@ public class CurrentSeason {
         else return seasonDate;
     }
 
+    //Get the current season and match it to the icon for the font
     public static String getSeasonIcon(String seasonFileName){
         for(SeasonList season : SeasonList.values()){
             if(Objects.equals(season.getFileName(), seasonFileName)){

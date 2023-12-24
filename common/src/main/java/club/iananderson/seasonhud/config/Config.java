@@ -23,8 +23,8 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue showDay;
     public static ForgeConfigSpec.BooleanValue showTropicalSeason;
     public static ForgeConfigSpec.BooleanValue showMinimapHidden;
-
     public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
+    public static ForgeConfigSpec.BooleanValue journeyMapMacOS;
 
 
 
@@ -75,6 +75,10 @@ public class Config {
                 .comment("Show above the Journeymap map, instead of below. \n (true/false)")
                 .define("enable_above_map",false);
 
+        journeyMapMacOS = BUILDER
+                .comment("Toggle for macOS retina display scaling. \n (true/false)")
+                .define("enable_macOS",false);
+
         BUILDER.pop();
         BUILDER.pop();
     }
@@ -109,6 +113,9 @@ public class Config {
     }
     public static void setJourneyMapAboveMap(boolean journeyMapAboveMap) {
         Config.journeyMapAboveMap.set(journeyMapAboveMap);
+    }
+    public static void setJourneyMapMacOS(boolean journeyMapMacOS) {
+        Config.journeyMapMacOS.set(journeyMapMacOS);
     }
 
 }

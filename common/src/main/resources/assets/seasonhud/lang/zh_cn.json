@@ -13,8 +13,10 @@
   "menu.seasonhud.button.showTropicalSeason": "Show Tropical Seasons",
   "menu.seasonhud.button.showMinimapHidden": "Show When Minimap is Hidden",
   "menu.seasonhud.button.journeyMapAboveMap": "Show Above Minimap",
+  "menu.seasonhud.button.journeyMapMacOS": "macOS Retina Display",
 
   "menu.seasonhud.infodisplay.season": "Season",
+  "ftbchunks.minimap.season": "Season",
 
   "menu.seasonhud.button.desc.showDay": "Show the day of of the current Season/Sub-Season on the HUD",
   "menu.seasonhud.button.desc.showSubSeason": "Replace the Season with the current Sub-Season",

@@ -23,7 +23,9 @@ public class SeasonHUDScreen extends Screen{
     public static final int BUTTON_WIDTH_HALF = 180;
     public static final int BUTTON_HEIGHT = 20;
     public static Screen seasonScreen;
+
     public final Screen lastScreen;
+
     private static final Component TITLE = Component.translatable("menu.seasonhud.title");
     private static final Component JOURNEYMAP = Component.translatable("menu.seasonhud.journeymap");
 
@@ -65,6 +67,7 @@ public class SeasonHUDScreen extends Screen{
         Location defaultLocation = hudLocation.get();
 
         //Buttons
+
         int row = 0;
         CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -113,6 +116,14 @@ public class SeasonHUDScreen extends Screen{
                             (b, Off) -> Config.setJourneyMapAboveMap(Off));
             addRenderableWidget(journeyMapAboveMapButton);
         }
+        if(Services.PLATFORM.isModLoaded("journeymap")) {
+            row = 6;
+            CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS.get())
+                    .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                            Component.translatable("menu.seasonhud.button.journeyMapMacOS"),
+                            (b, Off) -> Config.setJourneyMapMacOS(Off));
+            addRenderableWidget(journeyMapMacOSButton);
+        }
 
         CycleButton<StupidButtonWorkAround> doneButton = CycleButton.builder(StupidButtonWorkAround::getSoDumb)
                 .withValues(StupidButtonWorkAround.DUMB)
@@ -131,6 +142,8 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
         addRenderableWidget(showMinimapHiddenButton);
+
+
         addRenderableWidget(doneButton);
     }
     public static void open(){
