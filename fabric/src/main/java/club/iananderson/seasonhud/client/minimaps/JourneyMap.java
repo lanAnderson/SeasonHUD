@@ -52,20 +52,25 @@ public class JourneyMap implements HudRenderCallback{
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
 
         if (loadedMinimap("journeymap")) {
-            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(MOD_ID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
-
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
             JourneymapClient jm = JourneymapClient.getInstance();
+
             Font fontRenderer = mc.font;
+
+            double screenWidth = mc.getWindow().getWidth();
+            double screenHeight = mc.getWindow().getHeight();
+
+            double scaledWidth = mc.getWindow().getGuiScaledWidth();
+            double scaledHeight = mc.getWindow().getGuiScaledHeight();
 
             int minimapHeight = vars.minimapHeight;
             int minimapWidth = vars.minimapWidth;
 
             float fontScale = jm.getActiveMiniMapProperties().fontScale.get();
-            float guiSize = (float) mc.getWindow().getGuiScale();
 
             int halfWidth = minimapWidth / 2;
 
+            ThemeLabelSource.InfoSlot Season = ThemeLabelSource.create(MOD_ID,"menu.seasonhud.infodisplay.season",1000L,1L, JourneyMap::getSeason);
             Theme.LabelSpec currentTheme = ThemeLoader.getCurrentTheme().minimap.square.labelBottom;
             int labelColor = currentTheme.background.getColor();
             int textColor = currentTheme.foreground.getColor();
@@ -85,18 +90,17 @@ public class JourneyMap implements HudRenderCallback{
             int startX = (int) (textureX + halfWidth);
             int startY = (int) (textureY + (journeyMapAboveMap.get() ? - margin - labelHeight : minimapHeight + margin));
 
-            //Values
             if (!minimapHidden() && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get())) {
                 int labelX = (int) startX;
                 int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
 
-                UIManager.INSTANCE.isMiniMapEnabled();
-
                 seasonStack.pose().pushPose();
-                seasonStack.pose().scale(1 / guiSize, 1 / guiSize, 1.0F);
+                DrawUtil.sizeDisplay(seasonStack.pose(),screenWidth,screenHeight);
                 DrawUtil.drawBatchLabel(seasonStack.pose(), seasonCombined,seasonStack.bufferSource(), labelX, labelY, DrawUtil.HAlign.Center, DrawUtil.VAlign.Below, labelColor, labelAlpha, textColor, textAlpha, fontScale, fontShadow);
+                seasonStack.bufferSource().endBatch();
+                DrawUtil.sizeDisplay(seasonStack.pose(),scaledWidth,scaledHeight);
                 seasonStack.pose().popPose();
             }
         }
-    };
+    }
 }
