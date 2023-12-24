@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.config.Config.enableMod;
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static net.minecraft.world.level.Level.OVERWORLD;
 
 public class CurrentMinimap {
