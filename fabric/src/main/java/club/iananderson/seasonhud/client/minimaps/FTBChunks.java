@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 
 
@@ -39,10 +39,13 @@ public class FTBChunks implements HudRenderCallback{
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());
+
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
+        MINIMAP_TEXT_LIST.add(seasonCombined);
+        FormattedCharSequence seasonText = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
 
         int i = 0;
 
@@ -105,11 +108,10 @@ public class FTBChunks implements HudRenderCallback{
                         seasonStack.translate((double)x + s2d, (double)(y + s) + 3.0, 0.0);
                         seasonStack.scale((float)(0.5 * (double)scale), (float)(0.5 * (double)scale), 1.0F);
 
-                        FormattedCharSequence bs = (MINIMAP_TEXT_LIST.get(0)).getVisualOrderText();
-                        int bsw = mc.font.width(bs);
+                        int bsw = mc.font.width(seasonText);
                         int iconDim = mc.font.lineHeight;
 
-                        mc.font.drawShadow(seasonStack, bs, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
+                        mc.font.drawShadow(seasonStack, seasonText, (float) ((-bsw) + iconDim / 2) / 2.0F, (float) (i * 11), -1);
 
                         seasonStack.popPose();
                     }
