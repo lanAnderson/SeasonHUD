@@ -15,9 +15,8 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
@@ -37,7 +36,7 @@ public class JourneyMap implements IIngameOverlay{
     }
 
     @Override
-    public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
+    public void render(ForgeIngameGui gui, PoseStack seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
         Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),

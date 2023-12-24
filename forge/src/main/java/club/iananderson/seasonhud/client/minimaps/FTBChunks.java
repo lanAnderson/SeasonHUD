@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client.minimaps;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import dev.ftb.mods.ftbchunks.client.MinimapPosition;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 
 import java.util.ArrayList;
@@ -22,14 +24,15 @@ import java.util.Objects;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.sereneseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
-public class FTBChunks {
-    public static final IIngameOverlay FTBCHUNKS_SEASON = (ForgeGui, seasonStack, partialTick, width, height) -> {
+public class FTBChunks implements IIngameOverlay{
+    @Override
+    public void render(ForgeIngameGui gui, PoseStack seasonStack, float partialTick, int width, int height) {
         Minecraft mc = Minecraft.getInstance();
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());
 
         List<Component> MINIMAP_TEXT_LIST = new ArrayList<>(2);
         MINIMAP_TEXT_LIST.add(seasonCombined);
