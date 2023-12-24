@@ -16,6 +16,7 @@
   "menu.seasonhud.button.journeyMapMacOS": "macOS Retina Display",
 
   "menu.seasonhud.infodisplay.season": "Сезон",
+  "ftbchunks.minimap.season": "Сезон",
 
   "menu.seasonhud.button.desc.showDay": "Отображение дня текущего сезона/подсезона на интерфейсе",
   "menu.seasonhud.button.desc.showSubSeason": "Замените сезон текущим подсезоном",
