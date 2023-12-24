@@ -13,6 +13,7 @@
   "menu.seasonhud.button.showTropicalSeason": "Show Tropical Seasons",
   "menu.seasonhud.button.showMinimapHidden": "Show When Minimap is Hidden",
   "menu.seasonhud.button.journeyMapAboveMap": "Show Above Minimap",
+  "menu.seasonhud.button.journeyMapMacOS": "MacOS Retina Display",
 
   "menu.seasonhud.infodisplay.season": "Season",
 

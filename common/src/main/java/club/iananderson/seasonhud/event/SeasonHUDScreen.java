@@ -111,6 +111,14 @@ public class SeasonHUDScreen extends Screen{
                             (b, Off) -> Config.setJourneyMapAboveMap(Off));
             addRenderableWidget(journeyMapAboveMapButton);
         }
+        if(Services.PLATFORM.isModLoaded("journeymap")) {
+            row = 6;
+            CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS.get())
+                    .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                            Component.translatable("menu.seasonhud.button.journeyMapMacOS"),
+                            (b, Off) -> Config.setJourneyMapMacOS(Off));
+            addRenderableWidget(journeyMapMacOSButton);
+        }
 
         Button doneButton = Button.builder(Component.translatable("gui.done"), button -> {
                     mc.options.save();
@@ -126,6 +134,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
         addRenderableWidget(showMinimapHiddenButton);
+
 
         addRenderableWidget(doneButton);
     }

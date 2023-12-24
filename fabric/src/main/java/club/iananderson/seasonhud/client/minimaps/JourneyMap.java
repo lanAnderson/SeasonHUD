@@ -23,6 +23,7 @@ import net.minecraft.network.chat.MutableComponent;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.SeasonHUD.MOD_ID;
 import static club.iananderson.seasonhud.config.Config.journeyMapAboveMap;
+import static club.iananderson.seasonhud.config.Config.journeyMapMacOS;
 import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
@@ -93,6 +94,11 @@ public class JourneyMap implements HudRenderCallback{
             if (!minimapHidden() && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get())) {
                 int labelX = (int) startX;
                 int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
+
+                if(journeyMapMacOS.get()){
+                    screenWidth = screenWidth/2;
+                    screenHeight = screenHeight/2;
+                }
 
                 seasonStack.pose().pushPose();
                 DrawUtil.sizeDisplay(seasonStack.pose(),screenWidth,screenHeight);
