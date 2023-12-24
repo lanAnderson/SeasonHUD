@@ -21,7 +21,7 @@ import static dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig.MINIMAP;
 @Mixin(FTBChunksClient.class)
 public class FTBChunksClientMixin {
 
-    private static BooleanValue MINIMAP_SEASON = (BooleanValue)MINIMAP.addBoolean("season",true).comment(new String[]{"Show season under minimap"});
+    private static BooleanValue MINIMAP_SEASON = (BooleanValue)MINIMAP.getBoolean("season",true).comment(new String[]{"Show season under minimap"});
 
     @Inject(
             method = "buildMinimapTextData",
