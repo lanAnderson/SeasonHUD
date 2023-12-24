@@ -12,8 +12,8 @@ import net.minecraft.network.chat.MutableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 
@@ -30,13 +30,11 @@ public class SeasonHUDOverlay implements HudRenderCallback{
     }
 
     @Override
-    public void onHudRender(GuiGraphics seasonStack, float alpha)
-    {
+    public void onHudRender(GuiGraphics seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());
 
         float guiSize = (float) mc.getWindow().getGuiScale();
 

@@ -13,7 +13,6 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
@@ -30,12 +29,14 @@ public class ClientEvents{
         //Overlays
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"season", SeasonHUDOverlay.HUD_SEASON);
+            SeasonHUDOverlay HUD = new SeasonHUDOverlay();
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"seasonhud", HUD);
         }
 
         @SubscribeEvent
         public static void registerJourneyMapOverlay(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", JourneyMap.JOURNEYMAP_SEASON);
+            JourneyMap HUD = new JourneyMap();
+            event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(),"journeymap", HUD);
         }
 
         @SubscribeEvent
