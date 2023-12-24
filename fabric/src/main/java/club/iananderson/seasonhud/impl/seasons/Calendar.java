@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.impl.fabricseasons;
+package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.config.Config;
 import dev.emi.trinkets.api.TrinketComponent;

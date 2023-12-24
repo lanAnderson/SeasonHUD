@@ -14,7 +14,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.curiosLoaded;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.curiosLoaded;
 
 public class CalendarSlot extends Item implements ICurioItem {
 

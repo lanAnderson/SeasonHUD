@@ -24,7 +24,9 @@ public class SeasonHUDScreen extends Screen{
     public static final int BUTTON_WIDTH_HALF = 180;
     public static final int BUTTON_HEIGHT = 20;
     public static Screen seasonScreen;
+
     public final Screen lastScreen;
+
     private static final Component TITLE = new TranslatableComponent("menu.seasonhud.title");
     private static final Component JOURNEYMAP = new TranslatableComponent("menu.seasonhud.journeymap");
 
@@ -66,6 +68,7 @@ public class SeasonHUDScreen extends Screen{
         Location defaultLocation = hudLocation.get();
 
         //Buttons
+
         int row = 0;
         CycleButton<Boolean> enableModButton = CycleButton.onOffBuilder(enableMod.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -114,6 +117,14 @@ public class SeasonHUDScreen extends Screen{
                             (b, Off) -> Config.setJourneyMapAboveMap(Off));
             addRenderableWidget(journeyMapAboveMapButton);
         }
+        if(Services.PLATFORM.isModLoaded("journeymap") || Services.PLATFORM.isModLoaded("journeymap-fabric")) {
+            row = 6;
+            CycleButton<Boolean> journeyMapMacOSButton = CycleButton.onOffBuilder(journeyMapMacOS.get())
+                    .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                            new TranslatableComponent("menu.seasonhud.button.journeyMapMacOS"),
+                            (b, Off) -> Config.setJourneyMapMacOS(Off));
+            addRenderableWidget(journeyMapMacOSButton);
+        }
 
         Button doneButton = new Button(this.width / 2 - (BUTTON_WIDTH_FULL / 2), (this.height - BUTTON_HEIGHT - PADDING), BUTTON_WIDTH_FULL, BUTTON_HEIGHT,
                 new TranslatableComponent("gui.done"),
@@ -129,6 +140,8 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
         addRenderableWidget(showMinimapHiddenButton);
+
+
         addRenderableWidget(doneButton);
     }
     public static void open(){

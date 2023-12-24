@@ -12,9 +12,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
-import static club.iananderson.seasonhud.config.Config.showMinimapHidden;
-import static club.iananderson.seasonhud.impl.fabricseasons.Calendar.calendar;
-import static club.iananderson.seasonhud.impl.fabricseasons.CurrentSeason.getSeasonName;
+import static club.iananderson.seasonhud.config.Config.*;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 
@@ -33,9 +33,9 @@ public class SeasonHUDOverlay implements HudRenderCallback{
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
         Minecraft mc = Minecraft.getInstance();
-        MutableComponent seasonIcon = getSeasonName().get(0).copy().withStyle(SEASON_STYLE);
-        MutableComponent seasonName = getSeasonName().get(1).copy();
-        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined", seasonIcon, seasonName);
+        MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
+                getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
+                getSeasonName().get(1).copy());
 
         float guiSize = (float) mc.getWindow().getGuiScale();
 
@@ -52,7 +52,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         int stringWidth = font.width(seasonCombined);
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && Config.enableMod.get() && calendar()){
-            Location hudLoc = Config.hudLocation.get();
+            Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
                     x = offsetDim;

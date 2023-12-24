@@ -1,4 +1,4 @@
-package club.iananderson.seasonhud.impl.sereneseasons;
+package club.iananderson.seasonhud.impl.seasons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;

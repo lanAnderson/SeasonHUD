@@ -15,7 +15,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static club.iananderson.seasonhud.impl.sereneseasons.Calendar.calendar;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 
 public class CuriosCalendar implements ICurioItem {
 

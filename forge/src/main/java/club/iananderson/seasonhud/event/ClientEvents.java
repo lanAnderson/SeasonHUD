@@ -15,7 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import static net.minecraftforge.client.gui.ForgeIngameGui.FROSTBITE_ELEMENT;
 
-
 public class ClientEvents{
     @Mod.EventBusSubscriber(modid = SeasonHUD.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
@@ -32,9 +31,9 @@ public class ClientEvents{
         //Overlays
         @SubscribeEvent
         public static void init(FMLClientSetupEvent event) {
-            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", SeasonHUDOverlay.HUD_SEASON);
-            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "ftbchunks", FTBChunks.FTBCHUNKS_SEASON);
-            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", JourneyMap.JOURNEYMAP_SEASON);
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "season", new SeasonHUDOverlay());
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "ftbchunks", new FTBChunks());
+            OverlayRegistry.registerOverlayAbove(FROSTBITE_ELEMENT, "journeymap", new JourneyMap());
             MinecraftForge.EVENT_BUS.addListener(ClientForgeEvents::onKeyInput);
             KeyBindings.init();
         }
