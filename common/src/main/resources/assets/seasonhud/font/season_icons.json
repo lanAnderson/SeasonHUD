@@ -1,6 +1,14 @@
 {
   "providers": [
     {
+      "type": "space",
+      "advances": {
+        " ": 2,
+        "\u200c": 0
+      }
+    },
+
+    {
       "type": "bitmap",
       "file": "seasonhud:season/spring.png",
       "ascent": 8,
