@@ -1,18 +1,11 @@
 {
   "providers": [
     {
-      "type": "reference",
-      "id": "minecraft:include/space"
-    },
-
-    {
-      "type": "reference",
-      "id": "minecraft:include/default"
-    },
-
-    {
-      "type": "reference",
-      "id": "minecraft:include/unifont"
+      "type": "space",
+      "advances": {
+        " ": 2,
+        "\u200c": 0
+      }
     },
 
     {
