@@ -72,7 +72,10 @@ public class CurrentSeason {
     public static String getSeasonFileName(){
         Minecraft mc = Minecraft.getInstance();
         if (isTropicalSeason() || !Config.showSubSeason.get()) {
-            return getCurrentSeasonState().toLowerCase();
+            if(isTropicalSeason()){
+                return getCurrentSeasonState().toLowerCase().substring(getCurrentSeasonState().toLowerCase().length() - 3);
+            }
+            else return getCurrentSeasonState().toLowerCase();
         }
         else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSeason().toString().toLowerCase();
     }
