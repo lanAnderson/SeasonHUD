@@ -54,30 +54,30 @@ public class MapAtlases implements IGuiOverlay{
         }
     }
 
-    @Override
-    public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int screenWidth, int screenHeight) {
-        if(loadedMinimap("map_atlases")) {
+
+    public static boolean shouldDraw(Minecraft mc) {
+        if (loadedMinimap("map_atlases")) {
             if (mc.level == null || mc.player == null) {
-                return;
+                return false;
             }
-
-            if (mc.options.renderDebug) {
-                return;
+            else if (mc.options.renderDebug){
+                return false;
             }
-
-            if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
-                return;
+            else if (!MapAtlasesClientConfig.drawMiniMapHUD.get()) {
+                return false;
             }
-
-            if (MapAtlasesClientConfig.hideWhenInHand.get() && (mc.player.getMainHandItem().is(MapAtlasesMod.MAP_ATLAS.get()) ||
+            else if (MapAtlasesClientConfig.hideWhenInHand.get() && (mc.player.getMainHandItem().is(MapAtlasesMod.MAP_ATLAS.get()) ||
                     mc.player.getOffhandItem().is(MapAtlasesMod.MAP_ATLAS.get()))) {
-                return;
+                return false;
             }
+            else return !MapAtlasesClient.getCurrentActiveAtlas().isEmpty();
+        }
+        else return false;
+    }
 
-            ItemStack atlas = MapAtlasesClient.getCurrentActiveAtlas();
-
-            if (atlas.isEmpty()) return;
-
+        @Override
+    public void render(ForgeGui gui, PoseStack seasonStack, float partialTick, int screenWidth, int screenHeight) {
+        if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
             int textHeightOffset = 2;
