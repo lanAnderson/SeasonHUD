@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.7.6] - 2023-12-26
+
+### Fixed
+- Fixed "Show when minimap is hidden" setting not working correctly with MapAtlases
+
+
 ## [1.7.5] - 2023-12-25
 
 ### Fixed
