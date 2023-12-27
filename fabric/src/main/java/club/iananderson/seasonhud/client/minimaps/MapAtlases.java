@@ -54,7 +54,7 @@ public class MapAtlases implements HudRenderCallback {
         }
     }
 
-    private boolean shouldDraw(Minecraft mc) {
+    public static boolean shouldDraw(Minecraft mc) {
         if (loadedMinimap("map_atlases")) {
             if (mc.player == null) {
                 return false;
@@ -66,9 +66,8 @@ public class MapAtlases implements HudRenderCallback {
                 ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
                 if (atlas.isEmpty()) {
                     return false;
-                } else if (atlas.isEmpty()) {
-                    return false;
-                } else if (MapAtlasesClient.currentMapStateId == null) {
+                }
+                else if (MapAtlasesClient.currentMapStateId == null) {
                     return false;
                 } else {
                     return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
