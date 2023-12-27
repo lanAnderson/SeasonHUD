@@ -2,9 +2,11 @@ package club.iananderson.seasonhud.impl.minimaps;
 
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import journeymap.client.JourneymapClient;
+import net.minecraft.client.Minecraft;
 import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import xaero.common.core.XaeroMinimapCore;
 
+import static club.iananderson.seasonhud.client.minimaps.MapAtlases.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 
 public class HiddenMinimap {
@@ -22,7 +24,7 @@ public class HiddenMinimap {
             return !XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimap();
         }
         if (loadedMinimap("map_atlases")) {
-            return !MapAtlasesClientConfig.drawMiniMapHUD.get();
+            return !shouldDraw(Minecraft.getInstance());
         }
         else return false;
     }
