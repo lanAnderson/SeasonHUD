@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.7.7] - 2023-12-28
+## [1.7.7] - 2023-12-29
 
 ### Changed
 - Made the config file more organized. You may need to reapply any changes you made to it previously.
