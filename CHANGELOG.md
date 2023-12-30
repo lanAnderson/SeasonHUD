@@ -9,12 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Made the config file more organized. You may need to reapply any changes you made to it previously.
 
+### Fixed
+- Fixed crash with latest version of MapAtlases
+
 
 ## [1.7.6] - 2023-12-26
 
 ### Fixed
 - Fixed "Show when minimap is hidden" setting not working correctly with MapAtlases
-- Fixed crash with latest version of MapAtlases
 
 
 ## [1.7.5] - 2023-12-25
