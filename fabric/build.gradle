@@ -131,7 +131,18 @@ dependencies {
 
     /Map Atlases/
     modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
+    modCompileOnly("curse.maven:selene-499980:4989110")
+    include(compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2")))
+
 //    modImplementation "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
+//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
+//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
+//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
+//    modImplementation("curse.maven:selene-499980:4989110")
+//    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2")))
 }
 
 loom {

@@ -41,7 +41,8 @@
 
     "suggests": {
       "xaerominimap": ">=23.4.0s",
-      "seasonsextras": "*"
+      "seasonsextras": "*",
+      "map_atlases": "2.7.0"
     }
   }
   

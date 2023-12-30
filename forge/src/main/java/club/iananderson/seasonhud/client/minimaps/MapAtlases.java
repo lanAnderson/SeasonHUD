@@ -33,6 +33,7 @@ public class MapAtlases implements IGuiOverlay{
     public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
         PoseStack pose = context.pose();
         float textWidth = (float)font.width(text);
+
         float scale = Math.min(1.0F, (float)maxWidth * textScaling / textWidth);
         scale *= textScaling;
         float centerX = (float)x + (float)targetWidth / 2.0F;
