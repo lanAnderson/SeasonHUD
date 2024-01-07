@@ -28,11 +28,11 @@ public class MapAtlases implements HudRenderCallback {
     private static final Minecraft mc = Minecraft.getInstance();
 
     public static void drawScaledText(PoseStack poseStack, float x, float y, MutableComponent text, float textScaling, int originOffsetWidth, int originOffsetHeight) {
-        float textWidth = (float)mc.font.width(text) * textScaling;
-        float textX = (float)((double)x + (double)originOffsetWidth / 2.0 - (double)textWidth / 2.0);
-        float textY = (float)(y + originOffsetHeight);
-        if (textX + textWidth >= (float)mc.getWindow().getGuiScaledWidth()) {
-            textX = (float)mc.getWindow().getGuiScaledWidth() - textWidth;
+        float textWidth = (float) mc.font.width(text) * textScaling;
+        float textX = (float) ((double) x + (double) originOffsetWidth / 2.0 - (double) textWidth / 2.0);
+        float textY = (float) (y + originOffsetHeight);
+        if (textX + textWidth >= (float) mc.getWindow().getGuiScaledWidth()) {
+            textX = (float) mc.getWindow().getGuiScaledWidth() - textWidth;
         }
 
         poseStack.pushPose();
@@ -64,8 +64,7 @@ public class MapAtlases implements HudRenderCallback {
                 ItemStack atlas = MapAtlasesAccessUtils.getAtlasFromPlayerByConfig(mc.player);
                 if (atlas.isEmpty()) {
                     return false;
-                }
-                else if (MapAtlasesClient.currentMapStateId == null) {
+                } else if (MapAtlasesClient.currentMapStateId == null) {
                     return false;
                 } else {
                     return atlas.getTag() != null && atlas.getTag().contains("maps") && Arrays.stream(atlas.getTag().getIntArray("maps")).anyMatch((i) -> {
@@ -73,8 +72,7 @@ public class MapAtlases implements HudRenderCallback {
                     });
                 }
             }
-        }
-        else return false;
+        } else return false;
     }
 
     @Override
@@ -132,8 +130,8 @@ public class MapAtlases implements HudRenderCallback {
                         textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
                     }
 
-                drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
-                seasonStack.popPose();
+                    drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+                }
             }
         }
     }
