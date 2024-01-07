@@ -153,12 +153,14 @@ dependencies {
 
     /Map Atlases/
     compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
-    compileOnly fg.deobf("curse.maven:selene-499980:4871420")
+    compileOnly fg.deobf("curse.maven:selene-499980:5000808")
     compileOnly fg.deobf("curse.maven:supplementaries-412082:4865567")
+    compileOnly fg.deobf("curse.maven:immediatelyfast-686911:4937545")
 
 //    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
-//    implementation fg.deobf("curse.maven:selene-499980:4871420")
+//    implementation fg.deobf("curse.maven:selene-499980:5000808")
 //    implementation fg.deobf("curse.maven:supplementaries-412082:4865567")
+//    implementation fg.deobf("curse.maven:immediatelyfast-686911:4937545")
 }
 
 tasks.withType(JavaCompile) {
