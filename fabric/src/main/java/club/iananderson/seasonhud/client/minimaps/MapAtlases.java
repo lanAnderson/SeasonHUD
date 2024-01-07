@@ -132,8 +132,8 @@ public class MapAtlases implements HudRenderCallback {
                         textHeightOffset = (int) ((float) textHeightOffset + 12.0F * textScaling);
                     }
 
-                    drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
-                }
+                drawMapComponentSeason(seasonStack, x, y, mapBgScaledSize, textHeightOffset, textScaling);
+                seasonStack.popPose();
             }
         }
     }
