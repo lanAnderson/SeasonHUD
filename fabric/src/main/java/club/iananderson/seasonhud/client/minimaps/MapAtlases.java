@@ -135,6 +135,7 @@ public class MapAtlases implements HudRenderCallback {
                 }
 
                 drawMapComponentSeason(seasonStack, font, (int) (x), (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+                seasonStack.pose().popPose();
             }
         }
     }

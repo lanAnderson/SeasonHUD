@@ -33,7 +33,6 @@ public class MapAtlases implements IGuiOverlay{
     public static void drawScaledComponent(GuiGraphics context, Font font, int x, int y, MutableComponent text, float textScaling, int maxWidth, int targetWidth) {
         PoseStack pose = context.pose();
         float textWidth = (float)font.width(text);
-
         float scale = Math.min(1.0F, (float)maxWidth * textScaling / textWidth);
         scale *= textScaling;
         float centerX = (float)x + (float)targetWidth / 2.0F;
@@ -52,7 +51,6 @@ public class MapAtlases implements IGuiOverlay{
                     getSeasonName().get(1).copy());
 
             float globalScale = (float)(double)MapAtlasesClientConfig.miniMapScale.get();
-            //String seasonToDisplay = getSeasonName().get(0).getString();
             drawScaledComponent(poseStack, font, x, y, seasonCombined, textScaling / globalScale, targetWidth, (int)(targetWidth / globalScale));
         }
     }
@@ -77,7 +75,7 @@ public class MapAtlases implements IGuiOverlay{
         else return false;
     }
 
-        @Override
+    @Override
     public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
         if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
@@ -131,6 +129,7 @@ public class MapAtlases implements IGuiOverlay{
                 }
 
                 drawMapComponentSeason(seasonStack, font, (int) (x), (int) (y + BG_SIZE + (textHeightOffset / globalScale)), actualBgSize, textScaling);
+                seasonStack.pose().popPose();
             }
         }
     }
