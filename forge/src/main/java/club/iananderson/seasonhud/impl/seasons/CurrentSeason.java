@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
-import sereneseasons.config.ServerConfig;
+import sereneseasons.init.ModConfig;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -84,7 +84,7 @@ public class CurrentSeason {
     public static int getDate() {
         Minecraft mc = Minecraft.getInstance();
         ISeasonState seasonState = SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level));
-        int subSeasonDuration = (Integer) ServerConfig.subSeasonDuration.get();
+        int subSeasonDuration = ModConfig.seasons.subSeasonDuration;
 
         int seasonDay = seasonState.getDay(); //total day out of 24 * 4 = 96
 

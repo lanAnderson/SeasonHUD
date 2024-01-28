@@ -3,7 +3,6 @@ package club.iananderson.seasonhud.impl.minimaps;
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import journeymap.client.JourneymapClient;
 import net.minecraft.client.Minecraft;
-import pepjebs.mapatlases.config.MapAtlasesClientConfig;
 import xaero.common.core.XaeroMinimapCore;
 
 import static club.iananderson.seasonhud.client.minimaps.MapAtlases.shouldDraw;

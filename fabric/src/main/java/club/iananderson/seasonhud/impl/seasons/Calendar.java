@@ -8,23 +8,18 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import sereneseasons.api.SSItems;
 
 import java.util.Optional;
 
-import static io.github.lucaargolo.seasonsextras.FabricSeasonsExtras.SEASON_CALENDAR_ITEM;
 import static club.iananderson.seasonhud.SeasonHUD.*;
 
 public class Calendar {
     public static boolean invCalendar;
-    public static Item calendar;
+    public static Item calendar = SSItems.CALENDAR;
 
     public static boolean calendar() {
-        if(extrasLoaded()){
-            calendar = SEASON_CALENDAR_ITEM;
-        }
-        else calendar = null;
-
-        if (Config.needCalendar.get() & extrasLoaded()) {
+        if (Config.needCalendar.get()) {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
@@ -52,7 +47,7 @@ public class Calendar {
     }
 
     private static int findCuriosCalendar(Player player, Item item) {
-        if (curiosLoaded() && extrasLoaded()) {
+        if (curiosLoaded()) {
             Optional<TrinketComponent> findCalendar = TrinketsApi.getTrinketComponent(player);
             if(findCalendar.get().isEquipped(item)){
                 return 1;

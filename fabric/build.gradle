@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'net.darkhax.curseforgegradle' version '1.1.16'
     id "com.modrinth.minotaur" version "2.+"
 }
@@ -26,11 +26,6 @@ repositories {
     maven {
         name = 'Sponge / Mixin'
         url = 'https://repo.spongepowered.org/repository/maven-public/'
-    }
-
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
     }
 
     maven {
@@ -61,30 +56,20 @@ repositories {
         name = "Fuzs Mod Resources"
         url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
     }
-
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    mappings loom.layered(){
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mapping_version}@zip")
-    }
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
 
-    /Fabric Seasons/
-    modImplementation "curse.maven:fabric-seasons-413523:${project.fabric_seasons_file_id}"
-
-    /Fabric Seasons Extras/
-    modCompileOnly "curse.maven:fabric-seasons-extras-839878:${project.fabric_seasons_extras_file_id}"
+    /Serene Seasons/
+    modImplementation "curse.maven:serene-seasons-291874:${project.serene_seasons_fabric_file_id}"
+    modImplementation "curse.maven:glitchcore-955399:${project.glitchcore_fabric_file_id}"
 
     /Xaero's Minimap/
     modCompileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
@@ -93,10 +78,6 @@ dependencies {
     /Xaero's Minimap Fair Play/
     modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 //    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
-
-    /Open Parties and Claims/
-    modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
-//    modImplementation "curse.maven:open-parties-and-claims-636608:${project.opac_fabric_file_id}"
 
     /FTB Chunks/
     modCompileOnly "curse.maven:ftb-library-fabric-438495:${project.ftb_lib_fabric_file_id}"
@@ -123,18 +104,19 @@ dependencies {
     implementation ("com.electronwill.night-config:core:3.6.3")
     implementation ("com.electronwill.night-config:toml:3.6.3")
 
-    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_file_id}"//source: https://github.com/Fuzss/forgeconfigapiport-fabric
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
+    modImplementation "curse.maven:forge-config-api-port-fabric-547434:${project.forgeconfigapiport_fabric_file_id}"
 
     /JourneyMap/
-    modApi group: 'info.journeymap', name: 'journeymap-api', version: project.journeymap_api_version_fabric, changing: true
+    modCompileOnlyApi group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version_fabric, changing: true
     modCompileOnly  "curse.maven:journeymap-${project.jm_project_id}:${project.jm_file_id_fabric}"
 
     /Map Atlases/
     modCompileOnly "curse.maven:map-atlases-436298:${project.map_atlases_fabric_file_id}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:5.2.1"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
-    modCompileOnly("curse.maven:selene-499980:5008352")
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+    modCompileOnly("curse.maven:selene-499980:5061469")
     include(compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1-beta.2")))
     modCompileOnly "curse.maven:immediatelyfast-686911:4937544"
 
@@ -220,8 +202,7 @@ modrinth {
     changelog = recentChangelogText
 
     dependencies {
-        required.project "fabric-seasons"
-        optional.project "fabric-seasons-extras"
+        required.project "serene-seasons"
         required.project "forge-config-api-port"
         optional.project "journeymap"
         optional.project "trinkets"
@@ -250,9 +231,8 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("Fabric")
     mainFile.addGameVersion("Java 17")
 
-    mainFile.addRequirement("fabric-seasons")
+    mainFile.addRequirement("serene-seasons")
     mainFile.addRequirement("forge-config-api-port-fabric")
-    mainFile.addOptional("fabric-seasons-extras")
     mainFile.addOptional("ftb-chunks-fabric")
     mainFile.addOptional("journeymap")
     mainFile.addOptional("trinkets")

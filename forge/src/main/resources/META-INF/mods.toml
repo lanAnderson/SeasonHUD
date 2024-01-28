@@ -7,37 +7,43 @@ license = "All Rights Reserved"
     version = "${file.jarVersion}" #mandatory
     displayName = "SeasonHUD" #mandatory
     displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
-    logoFile= "SeasonHud.png"
-    logoBlur = true
+    logoFile= "seasonhud.png"
     authors="IanAnderson" #optional
     description ='''
-    This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
+        This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.seasonhud]] #optional
     modId = "forge" #mandatory
     mandatory = true #mandatory
-    versionRange = "[46.0.1,)" #mandatory
+    versionRange = "${forge_version_range}" #mandatory
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.seasonhud]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.20,1.21)"
+    versionRange = "${minecraft_version_range}"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.seasonhud]]
     modId = "sereneseasons"
     mandatory = true
-    versionRange = "[1.20-9.0.0.41,)"
+    versionRange = "[1.20.4-9.3.0.13,)"
     ordering = "AFTER"
     side = "BOTH"
 
 [[dependencies.seasonhud]]
     modId = "xaerominimap"
     mandatory = false
-    versionRange = "[23.5.0,)"
+    versionRange = "[23.9.4,)"
     ordering = "AFTER"
     side = "CLIENT"
+
+[[dependencies.seasonhud]]
+    modId = "forgeconfigapiport"
+    mandatory = true
+    versionRange = "[20.4.1,)"
+    ordering = "NONE"
+    side = "BOTH"

@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.impl.seasons;
 
+import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,10 +21,10 @@ public class Calendar {
     public static boolean invCalendar;
 
     public static boolean curiosLoaded() {
-        return ModList.get().isLoaded("curios");
+        return Services.PLATFORM.isModLoaded("curios");
     }
 
-    public static Item calendar = SSItems.CALENDAR.get();
+    public static Item calendar = SSItems.CALENDAR;
 
     public static boolean calendar() {
         if (needCalendar.get()) {

@@ -1,6 +1,8 @@
 package club.iananderson.seasonhud;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.impl.curios.CuriosCalendar;
+import club.iananderson.seasonhud.impl.seasons.Calendar;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +21,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.CuriosApi;
+import fuzs.forgeconfigapiport.forge.api.neoforge.v4.NeoForgeConfigRegistry;
 
 @Mod(SeasonHUD.MODID)
 public class  SeasonHUD{
@@ -32,25 +35,19 @@ public class  SeasonHUD{
     public SeasonHUD() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::enqueue);
         modEventBus.addListener(this::commonSetup);
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
+        NeoForgeConfigRegistry.INSTANCE.register(ModConfig.Type.CLIENT, Config.GENERAL_SPEC,
                 "SeasonHUD-client.toml");
 
         MinecraftForge.EVENT_BUS.register(this);
     }
-    public void enqueue(InterModEnqueueEvent event) {
-        LOGGER.info("Talking to Curios");
-        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
-                .size(1)
-                .build());
-    }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        CuriosApi.registerCurio(Calendar.calendar,new CuriosCalendar());
     }
 
     @SubscribeEvent

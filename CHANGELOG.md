@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.7.10] - 2024-01-27
+
+### Changed
+- (1.20.4) Switched to Serene Seasons for Fabric, and dropped support for FabricSeasons since it has not been updated in some time.
+- (1.20.4) Added support for the NeoForge version of Serene Seasons
+- Hiding the season display in other dimensions will now only apply if the dimension isn't whitelisted in the Serene Seasons config.
+
+
 ## [1.7.9] - 2024-01-25
 
 ### Added

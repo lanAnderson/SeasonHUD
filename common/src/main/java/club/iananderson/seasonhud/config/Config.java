@@ -1,32 +1,32 @@
 package club.iananderson.seasonhud.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
 
 
     //Config Builder
-    public static final ForgeConfigSpec GENERAL_SPEC;
+    public static final ModConfigSpec GENERAL_SPEC;
 
     static {
-        ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
         setupConfig(BUILDER);
         GENERAL_SPEC = BUILDER.build();
     }
 
-    public static ForgeConfigSpec.BooleanValue enableMod;
-    public static ForgeConfigSpec.ConfigValue<Location> hudLocation;
-    public static ForgeConfigSpec.ConfigValue<Integer> hudX;
-    public static ForgeConfigSpec.ConfigValue<Integer> hudY;
-    public static ForgeConfigSpec.BooleanValue needCalendar;
-    public static ForgeConfigSpec.BooleanValue showTropicalSeason;
-    public static ForgeConfigSpec.BooleanValue showSubSeason;
-    public static ForgeConfigSpec.BooleanValue showDay;
-    public static ForgeConfigSpec.BooleanValue showMinimapHidden;
-    public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
-    public static ForgeConfigSpec.BooleanValue journeyMapMacOS;
+    public static ModConfigSpec.BooleanValue enableMod;
+    public static ModConfigSpec.ConfigValue<Location> hudLocation;
+    public static ModConfigSpec.ConfigValue<Integer> hudX;
+    public static ModConfigSpec.ConfigValue<Integer> hudY;
+    public static ModConfigSpec.BooleanValue needCalendar;
+    public static ModConfigSpec.BooleanValue showTropicalSeason;
+    public static ModConfigSpec.BooleanValue showSubSeason;
+    public static ModConfigSpec.BooleanValue showDay;
+    public static ModConfigSpec.BooleanValue showMinimapHidden;
+    public static ModConfigSpec.BooleanValue journeyMapAboveMap;
+    public static ModConfigSpec.BooleanValue journeyMapMacOS;
 
-    private static void setupConfig(ForgeConfigSpec.Builder BUILDER){
+    private static void setupConfig(ModConfigSpec.Builder BUILDER){
         BUILDER.push("SeasonHUD");
             enableMod = BUILDER
                     .comment("""

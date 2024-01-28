@@ -5,8 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import sereneseasons.item.CalendarItem;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -20,12 +18,6 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
 
     public CalendarSlot(Properties p_41383_) {
         super(p_41383_);
-    }
-
-    @SubscribeEvent
-    public static void sendImc(InterModEnqueueEvent event) {
-        if (curiosLoaded())
-            CuriosCalendar.registerSlots();
     }
 
     @Override
@@ -46,6 +38,7 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
+
 
 }
 

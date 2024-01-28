@@ -1,0 +1,45 @@
+modLoader = "javafml" #mandatory
+loaderVersion = "${neoforge_loader_version_range}" #mandatory
+license = "All Rights Reserved"
+
+[[mods]] #mandatory
+    modId = "seasonhud" #mandatory
+    version = "${file.jarVersion}" #mandatory
+    displayName = "SeasonHUD" #mandatory
+    displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
+    logoFile= "seasonhud.png"
+    authors="IanAnderson" #optional
+    description ='''
+    This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
+
+[[mixins]]
+    config = "seasonhud.mixins.json"
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.seasonhud]] #optional
+    modId = "neoforge"
+    type="required"
+    versionRange = "${neoforge_loader_version_range}" #mandatory
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.seasonhud]]
+    modId = "minecraft"
+    type="required"
+    versionRange = "${minecraft_version_range}"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.seasonhud]]
+    modId = "sereneseasons"
+    type="required"
+    versionRange = "[1.20.4-9.3.0.13,)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.seasonhud]]
+    modId = "xaerominimap"
+    type="optional"
+    versionRange = "[23.9.4,)"
+    ordering = "AFTER"
+    side = "CLIENT"

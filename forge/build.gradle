@@ -1,9 +1,8 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle'
-    id 'org.parchmentmc.librarian.forgegradle'
-    id 'org.spongepowered.mixin'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id('org.spongepowered.mixin') version "0.7-SNAPSHOT"
     id 'net.darkhax.curseforgegradle' version '1.1.16'
     id "com.modrinth.minotaur" version "2.+"
 }
@@ -22,7 +21,8 @@ mixin {
 }
 
 minecraft {
-    mappings channel: mapping_channel, version: "${mapping_version}-${minecraft_version}"
+    mappings channel: 'official', version: minecraft_version
+    copyIdeResources = true //Calls processResources when in dev
 
     if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -112,17 +112,18 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
     /Serene Seasons/
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_file_id}"
-    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_deobf_file_id}"
+    implementation "curse.maven:serene-seasons-291874:${project.serene_seasons_forge_file_id}"
+    implementation fg.deobf("curse.maven:glitchcore-955399:${project.glitchcore_forge_file_id}")
 
     /Curios/
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api)
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id})
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_file_id}:api")
+
+    implementation fg.deobf("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${project.forgeconfigapiport_version}")
 
     /Xaero's Minimap/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}")
@@ -131,10 +132,6 @@ dependencies {
     /Xaero's Minimap Fair Play/
     compileOnly fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
 //    implementation fg.deobf("curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}")
-
-    /Open Parties and Claims/
-    compileOnly fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
-//    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${project.opac_forge_file_id}")
 
     /FTB Chunks/
     compileOnly fg.deobf("curse.maven:ftb-library-forge-404465:${project.ftb_lib_forge_file_id}") //FTB Library
@@ -153,8 +150,8 @@ dependencies {
 
     /Map Atlases/
     compileOnly fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
-    compileOnly fg.deobf("curse.maven:selene-499980:5000808")
-    compileOnly fg.deobf("curse.maven:supplementaries-412082:4865567")
+    compileOnly fg.deobf("curse.maven:selene-499980:5061472")
+    compileOnly fg.deobf("curse.maven:supplementaries-412082:5053567")
     compileOnly fg.deobf("curse.maven:immediatelyfast-686911:4937545")
 
 //    implementation fg.deobf("curse.maven:map-atlases-forge-519759:${project.map_atlases_forge_file_id}")
@@ -170,7 +167,6 @@ tasks.withType(JavaCompile) {
 processResources {
     from project(":common").sourceSets.main.resources
 }
-
 
 jar.finalizedBy('reobfJar')
 
@@ -238,7 +234,6 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
     mainFile.addGameVersion("Forge")
-    mainFile.addGameVersion("NeoForge")
     mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
