@@ -209,6 +209,7 @@ modrinth {
 
     dependencies {
         required.project "serene-seasons"
+        required.project "forge-config-api-port"
         optional.project "curios"
         optional.project "journeymap"
         optional.project "xaeros-minimap"
@@ -237,6 +238,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
+    mainFile.addRequirement("forge-config-api-port-fabric")
     mainFile.addOptional("curios")
     mainFile.addOptional("ftb-chunks-forge")
     mainFile.addOptional("journeymap")

@@ -39,6 +39,4 @@ public class CalendarSlot extends CalendarItem implements ICurioItem {
         return true;
     }
 
-
 }
-
