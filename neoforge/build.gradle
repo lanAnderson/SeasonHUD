@@ -165,7 +165,7 @@ modrinth {
 
     List<String> mcVersions = modrinth_gameVersions.split(",")
     gameVersions = mcVersions
-    loaders = ["forge"]
+    loaders = ["neoforge"]
 
     changelog = recentChangelogText
 
@@ -195,7 +195,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
-    mainFile.addGameVersion("Forge")
+    mainFile.addGameVersion("Neoforge")
     mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
