@@ -4,11 +4,11 @@ import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import sereneseasons.config.ServerConfig;
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
-import static net.minecraft.world.level.Level.OVERWORLD;
 
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
@@ -32,6 +32,6 @@ public class CurrentMinimap {
         Minecraft mc = Minecraft.getInstance();
         ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
-        return currentDim != OVERWORLD;
+        return !ServerConfig.isDimensionWhitelisted(currentDim);
     }
 }
