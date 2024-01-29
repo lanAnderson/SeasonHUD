@@ -1,5 +1,6 @@
 package club.iananderson.seasonhud.client;
 
+import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -8,8 +9,15 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLConstructModEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
 import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.common.NeoForge;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
@@ -18,19 +26,22 @@ import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidd
 import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
-public class SeasonHUDOverlay {
+public class SeasonHUDOverlay implements IGuiOverlay{
+    private final Minecraft mc;
+    private final Font font;
 
-    public static void render(GuiGraphics seasonStack, float partialTick) {
-        Minecraft mc = Minecraft.getInstance();
+    public SeasonHUDOverlay(){
+        this.mc = Minecraft.getInstance();
+        this.font = mc.font;
+    }
 
+    @Override
+    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonName().get(1).copy());
 
         float guiSize = (float) mc.getWindow().getGuiScale();
-
-        int screenWidth = mc.getWindow().getGuiScaledWidth();
-        int screenHeight = mc.getWindow().getGuiScaledHeight();
 
         int xOffset = (int) (hudX.get()/guiSize);
         int yOffset = (int) ((hudY.get())/guiSize);
@@ -38,7 +49,6 @@ public class SeasonHUDOverlay {
         int y = 1;
         int offsetDim = 2;
 
-        Font font = mc.font;
         int stringWidth = font.width(seasonCombined);
 
         if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {

@@ -21,9 +21,15 @@ import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
-public class MapAtlases{
-    protected static final int BG_SIZE = 64;
-    private static final Minecraft mc = Minecraft.getInstance();
+public class MapAtlases implements IGuiOverlay{
+    protected final int BG_SIZE = 64;
+    private final Minecraft mc;
+    private final Font font;
+
+    public MapAtlases(){
+        this.mc = Minecraft.getInstance();
+        this.font = mc.font;
+    }
 
     private static void drawStringWithLighterShadow(GuiGraphics context, Font font, MutableComponent text, int x, int y) {
         context.drawString(font, text, x + 1, y + 1, 5855577, false);
@@ -75,10 +81,9 @@ public class MapAtlases{
         else return false;
     }
 
-    public static void render(GuiGraphics seasonStack, float partialTick) {
+    @Override
+    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
         if(loadedMinimap("map_atlases") && shouldDraw(mc)) {
-            int screenWidth = mc.getWindow().getScreenWidth();
-            int screenHeight = mc.getWindow().getScreenHeight();
             float textScaling = (float) (double) MapAtlasesClientConfig.minimapCoordsAndBiomeScale.get();
 
             int textHeightOffset = 2;
@@ -114,7 +119,6 @@ public class MapAtlases{
                     y += (offsetForEffects - y);
                 }
             }
-            Font font = mc.font;
 
             if (Config.enableMod.get()) {
                 if (MapAtlasesClientConfig.drawMinimapCoords.get()) {

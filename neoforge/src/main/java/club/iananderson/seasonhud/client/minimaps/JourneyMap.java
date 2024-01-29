@@ -25,7 +25,14 @@ import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMini
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
-public class JourneyMap{
+public class JourneyMap implements IGuiOverlay{
+    private final Minecraft mc;
+    private final Font fontRenderer;
+    public JourneyMap(){
+        this.mc = Minecraft.getInstance();
+        this.fontRenderer = mc.font;
+    }
+
     private static String getSeason(){
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
@@ -34,8 +41,8 @@ public class JourneyMap{
         return seasonCombined.getString();
     }
 
-    public static void render(GuiGraphics seasonStack, float partialTick) {
-        Minecraft mc = Minecraft.getInstance();
+    @Override
+    public void render(ExtendedGui gui, GuiGraphics seasonStack, float partialTick, int scaledWidth, int scaledHeight) {
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonName().get(1).copy());
@@ -49,13 +56,10 @@ public class JourneyMap{
             DisplayVars vars = UIManager.INSTANCE.getMiniMap().getDisplayVars();
             JourneymapClient jm = JourneymapClient.getInstance();
 
-            Font fontRenderer = mc.font;
+            float guiScale = (float) mc.getWindow().getGuiScale();
 
             double screenWidth = mc.getWindow().getWidth();
             double screenHeight = mc.getWindow().getHeight();
-
-            double scaledWidth = mc.getWindow().getGuiScaledWidth();
-            double scaledHeight = mc.getWindow().getGuiScaledHeight();
 
             int minimapHeight = vars.minimapHeight;
             int minimapWidth = vars.minimapWidth;
