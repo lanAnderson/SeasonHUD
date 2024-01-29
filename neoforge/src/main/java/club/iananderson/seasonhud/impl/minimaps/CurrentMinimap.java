@@ -33,6 +33,6 @@ public class CurrentMinimap {
         Minecraft mc = Minecraft.getInstance();
         ResourceKey<Level> currentDim = Objects.requireNonNull(mc.level).dimension();
 
-        return ModConfig.seasons.isDimensionWhitelisted(currentDim);
+        return !ModConfig.seasons.isDimensionWhitelisted(currentDim);
     }
 }
