@@ -22,9 +22,9 @@ import net.minecraft.network.chat.MutableComponent;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.SeasonHUD.MOD_ID;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 public class JourneyMap implements HudRenderCallback{
     public static JourneyMap HUD_INSTANCE;
@@ -92,7 +92,7 @@ public class JourneyMap implements HudRenderCallback{
             int startX = (int) (textureX + halfWidth);
             int startY = (int) (textureY + (journeyMapAboveMap.get() ? - margin - labelHeight : minimapHeight + margin));
 
-            if (!minimapHidden() && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && jm.getActiveMiniMapProperties().enabled.get())) {
+            if (shouldDraw() && jm.getActiveMiniMapProperties().enabled.get()) {
                 int labelX = (int) startX;
                 int labelY = startY + (journeyMapAboveMap.get() ? -topLabelHeight : bottomLabelHeight);
 

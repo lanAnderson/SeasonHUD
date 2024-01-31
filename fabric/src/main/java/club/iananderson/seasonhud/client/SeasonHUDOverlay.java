@@ -13,10 +13,10 @@ import net.minecraft.network.chat.MutableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
-import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
-import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 
 //HUD w/ no minimap installed
@@ -51,7 +51,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
         Font font = mc.font;
         int stringWidth = font.width(seasonCombined);
 
-        if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && Config.enableMod.get() && calendar()){
+        if (noMinimap() || (minimapHidden() && showMinimapHidden.get())) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
@@ -76,7 +76,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 }
             }
 
-            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui) {
+            if (shouldDraw()) {
                 seasonStack.pushPose();
                 seasonStack.scale(1F, 1F, 1F);
 
