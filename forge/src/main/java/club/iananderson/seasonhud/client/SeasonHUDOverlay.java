@@ -4,8 +4,6 @@ import club.iananderson.seasonhud.config.Location;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -14,8 +12,8 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
+import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
-import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 public class SeasonHUDOverlay implements IGuiOverlay{
@@ -36,7 +34,7 @@ public class SeasonHUDOverlay implements IGuiOverlay{
         Font font = mc.font;
         int stringWidth = font.width(seasonCombined);
 
-        if ((noMinimap() || (minimapHidden() && showMinimapHidden.get())) && enableMod.get() && calendar()) {
+        if (noMinimap() || (minimapHidden() && showMinimapHidden.get())) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
@@ -61,7 +59,7 @@ public class SeasonHUDOverlay implements IGuiOverlay{
                 }
             }
 
-            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.options.hideGui) {
+            if (shouldDraw()) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1F, 1F, 1F);
 
