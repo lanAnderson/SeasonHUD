@@ -2,12 +2,15 @@ package club.iananderson.seasonhud.impl.minimaps;
 
 import club.iananderson.seasonhud.platform.Services;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
 import static club.iananderson.seasonhud.config.Config.enableMod;
+import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static net.minecraft.world.level.Level.OVERWORLD;
 
@@ -36,5 +39,19 @@ public class CurrentMinimap {
 
         return currentDim != OVERWORLD;
 
+    }
+
+    public static boolean shouldDraw(){
+        Minecraft mc = Minecraft.getInstance();
+
+        if (mc.level == null || mc.player == null) {
+            return false;
+        }
+
+        return (enableMod.get()
+                && !minimapHidden()
+                && !dimensionHideHUD()
+                && calendar()
+                && ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.renderDebug && !mc.player.isScoping()));
     }
 }
