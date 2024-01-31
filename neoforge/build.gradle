@@ -195,7 +195,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 
     List<String> mcVersions = curseforge_gameVersions.split(",")
     mainFile.gameVersions = mcVersions
-    mainFile.addGameVersion("Neoforge")
+    mainFile.addGameVersion("NeoForge")
     mainFile.addGameVersion("Java 17")
 
     mainFile.addRequirement("serene-seasons")
