@@ -5,14 +5,16 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 
@@ -20,6 +22,12 @@ import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonNam
 public class SeasonHUDOverlay implements HudRenderCallback{
 
     public static SeasonHUDOverlay HUD_INSTANCE;
+
+    private final Minecraft mc;
+
+    public SeasonHUDOverlay(){
+        this.mc = Minecraft.getInstance();
+    }
 
     public static void init()
     {
@@ -29,7 +37,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
 
     @Override
     public void onHudRender(GuiGraphics seasonStack, float alpha) {
-        Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonName().get(1).copy());
@@ -73,7 +80,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 }
             }
 
-            if (shouldDraw()) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.renderDebug && !mc.player.isScoping() && calendar()) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1F, 1F, 1F);
 
