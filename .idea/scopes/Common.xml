@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Common" pattern="(file[common.seasonhud.common.main]:*/||file[seasonhud.common]:build.gradle)&amp;&amp;!file[seasonhud.fabric*]:*//*&amp;&amp;!file[seasonhud.forge*]:*//*" />
+</component>
