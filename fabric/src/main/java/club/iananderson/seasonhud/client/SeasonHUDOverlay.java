@@ -14,8 +14,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 
@@ -23,6 +23,12 @@ import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonNam
 public class SeasonHUDOverlay implements HudRenderCallback{
 
     public static SeasonHUDOverlay HUD_INSTANCE;
+
+    private final Minecraft mc;
+
+    public SeasonHUDOverlay(){
+        this.mc = Minecraft.getInstance();
+    }
 
     public static void init()
     {
@@ -32,7 +38,6 @@ public class SeasonHUDOverlay implements HudRenderCallback{
 
     @Override
     public void onHudRender(PoseStack seasonStack, float alpha) {
-        Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonName().get(1).copy());
@@ -76,7 +81,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 }
             }
 
-            if (shouldDraw()) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.renderDebug && !mc.player.isScoping() && calendar()) {
                 seasonStack.pushPose();
                 seasonStack.scale(1F, 1F, 1F);
 
