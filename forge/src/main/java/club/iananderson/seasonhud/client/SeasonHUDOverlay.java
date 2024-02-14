@@ -4,6 +4,8 @@ import club.iananderson.seasonhud.config.Location;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -12,13 +14,18 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
+import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 
 public class SeasonHUDOverlay implements IGuiOverlay{
+    private final Minecraft mc;
+
+    public SeasonHUDOverlay(){
+        this.mc = Minecraft.getInstance();
+    }
+
     public void render(ForgeGui gui, GuiGraphics seasonStack, float partialTick, int screenWidth, int screenHeight) {
-        Minecraft mc = Minecraft.getInstance();
         MutableComponent seasonCombined = Component.translatable("desc.seasonhud.combined",
                 getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                 getSeasonName().get(1).copy());
@@ -59,7 +66,7 @@ public class SeasonHUDOverlay implements IGuiOverlay{
                 }
             }
 
-            if (shouldDraw()) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.renderDebug && !mc.player.isScoping() && calendar()) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1F, 1F, 1F);
 
