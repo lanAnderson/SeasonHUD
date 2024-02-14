@@ -80,7 +80,7 @@ public class SeasonHUDOverlay implements HudRenderCallback{
                 }
             }
 
-            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.renderDebug && !mc.player.isScoping() && calendar()) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.hideGui && !mc.player.isScoping() && calendar()) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1F, 1F, 1F);
 

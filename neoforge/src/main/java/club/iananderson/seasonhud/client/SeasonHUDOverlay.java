@@ -77,7 +77,7 @@ public class SeasonHUDOverlay implements IGuiOverlay{
                 }
             }
 
-            if (shouldDraw()) {
+            if ((mc.screen == null || mc.screen instanceof ChatScreen || mc.screen instanceof DeathScreen) && !mc.isPaused() && !mc.options.hideGui && !mc.player.isScoping() && calendar()) {
                 seasonStack.pose().pushPose();
                 seasonStack.pose().scale(1F, 1F, 1F);
 
