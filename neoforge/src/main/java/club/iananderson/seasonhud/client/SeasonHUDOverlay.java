@@ -1,6 +1,5 @@
 package club.iananderson.seasonhud.client;
 
-import club.iananderson.seasonhud.SeasonHUD;
 import club.iananderson.seasonhud.config.Location;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -9,20 +8,12 @@ import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLConstructModEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
 import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
-import net.neoforged.neoforge.common.NeoForge;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
 import static club.iananderson.seasonhud.config.Config.*;
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.noMinimap;
-import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.shouldDraw;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
