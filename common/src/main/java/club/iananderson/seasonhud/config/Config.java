@@ -21,7 +21,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue needCalendar;
     public static ForgeConfigSpec.BooleanValue showTropicalSeason;
     public static ForgeConfigSpec.BooleanValue showSubSeason;
-    public static ForgeConfigSpec.BooleanValue showDay;
+    public static ForgeConfigSpec.ConfigValue<ShowDay> showDay;
     public static ForgeConfigSpec.BooleanValue showMinimapHidden;
     public static ForgeConfigSpec.BooleanValue journeyMapAboveMap;
     public static ForgeConfigSpec.BooleanValue journeyMapMacOS;
@@ -77,9 +77,9 @@ public class Config {
                 showDay = BUILDER
                         .comment("""
                                 Show the current day of the season/sub-season?
-                                (true/false)
-                                Default is true.""")
-                        .define("enable_show_day",true);
+                                NONE, SHOW_DAY, SHOW_WITH_TOTAL_DAYS
+                                Default is SHOW_DAY.""")
+                        .defineEnum("enable_show_day",ShowDay.SHOW_DAY);
             BUILDER.pop();
 
             BUILDER.push("Minimap");
@@ -134,7 +134,7 @@ public class Config {
     public static void setShowSubSeason(boolean showSubSeason) {
         Config.showSubSeason.set(showSubSeason);
     }
-    public static void setShowDay(boolean showDay) {
+    public static void setShowDay(ShowDay showDay) {
         Config.showDay.set(showDay);
     }
 

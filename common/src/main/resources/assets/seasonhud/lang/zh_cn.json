@@ -27,6 +27,10 @@
   "location.seasonhud.bottomLeft": "左下",
   "location.seasonhud.bottomRight": "右下",
 
+  "showday.seasonhud.none": "OFF",
+  "showday.seasonhud.showDay": "Day #",
+  "showday.seasonhud.totalDays": "Day #/#",
+
   "desc.seasonhud.spring": "春季",
   "desc.seasonhud.early_spring": "早春",
   "desc.seasonhud.mid_spring": "仲春",
@@ -49,17 +53,20 @@
   "desc.seasonhud.mid_winter": "仲冬",
   "desc.seasonhud.late_winter": "深冬",
 
+  "desc.seasonhud.wet": "雨季",
   "desc.seasonhud.early_wet": "雨季初期",
   "desc.seasonhud.mid_wet": "雨季中期",
   "desc.seasonhud.late_wet": "雨季后期",
 
+  "desc.seasonhud.dry": "旱季",
   "desc.seasonhud.early_dry": "旱季初期",
   "desc.seasonhud.mid_dry": "旱季中期",
   "desc.seasonhud.late_dry": "旱季后期",
 
   "desc.seasonhud.icon": "%s ",
-  "desc.seasonhud.detailed": "%s, 第 %s 天",
   "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.detailed": "%s, 第 %s 天",
+  "desc.seasonhud.detailed.total": "%s, 第 %s/%s 天",
   "desc.seasonhud.combined": "%s%s",
 
   "item.calendar.tooltip": "Slot: Charm"

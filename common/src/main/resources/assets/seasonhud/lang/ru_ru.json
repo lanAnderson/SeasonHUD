@@ -27,6 +27,10 @@
   "location.seasonhud.bottomLeft": "Снизу слева",
   "location.seasonhud.bottomRight": "Снизу справа",
 
+  "showday.seasonhud.none": "OFF",
+  "showday.seasonhud.showDay": "Day #",
+  "showday.seasonhud.totalDays": "Day #/#",
+
   "desc.seasonhud.spring": "Весна",
   "desc.seasonhud.early_spring": "Ранняя весна",
   "desc.seasonhud.mid_spring": "Середина весны",
@@ -49,17 +53,20 @@
   "desc.seasonhud.mid_winter": "Середина зимы",
   "desc.seasonhud.late_winter": "Поздняя зима",
 
+  "desc.seasonhud.wet": "Наводнения",
   "desc.seasonhud.early_wet": "Ранние паводки",
-  "desc.seasonhud.mid_wet": "Середина паводка",
+  "desc.seasonhud.mid_wet": "Середина паводки",
   "desc.seasonhud.late_wet": "Поздние паводки",
 
+  "desc.seasonhud.dry": "Засуха",
   "desc.seasonhud.early_dry": "Ранняя засуха",
   "desc.seasonhud.mid_dry": "Середина засухи",
   "desc.seasonhud.late_dry": "Поздняя засуха",
 
   "desc.seasonhud.icon": "%s ",
-  "desc.seasonhud.detailed": "%s, Day %s",
   "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.detailed": "%s, Day %s",
+  "desc.seasonhud.detailed.total": "%s, Day %s/%s",
   "desc.seasonhud.combined": "%s%s",
 
   "item.calendar.tooltip": "Используется как Амулет"
