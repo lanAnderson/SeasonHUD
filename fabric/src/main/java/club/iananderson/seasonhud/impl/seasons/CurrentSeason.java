@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.config.ShowDay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import sereneseasons.api.season.ISeasonState;
@@ -55,7 +56,11 @@ public class CurrentSeason {
     public static String getCurrentSeasonState(){
         Minecraft mc = Minecraft.getInstance();
         if (isTropicalSeason()) {
-            return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString();
+            if(Config.showSubSeason.get()){
+                return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString();
+            }
+            else return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString()
+                    .substring(SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getTropicalSeason().toString().length() - 3);
         }
         else if (Config.showSubSeason.get()) {
             return SeasonHelper.getSeasonState(Objects.requireNonNull(mc.level)).getSubSeason().toString();
@@ -90,9 +95,12 @@ public class CurrentSeason {
 
         int seasonDate = (seasonDay % (subSeasonDuration * 3)) + 1; //24 days in a season (8 days * 3 weeks)
         int subDate = (seasonDay % subSeasonDuration) + 1; //8 days in each subSeason (1 week)
-        int subTropDate = ((seasonDay + 24) % 16) + 1; //16 days in each tropical "subSeason". Starts are "Early Dry" (Summer 1), so need to offset 24 days (Spring 1 -> Summer 1)
+        int subTropDate = ((seasonDay + (subSeasonDuration * 3)) % (subSeasonDuration * 2)) + 1; //16 days in each tropical "subSeason". Starts are "Early Dry" (Summer 1), so need to offset 24 days (Spring 1 -> Summer 1)
 
         if(isTropicalSeason()){
+            if(!Config.showSubSeason.get()){
+                subTropDate = ((seasonDay + (subSeasonDuration * 3)) % (subSeasonDuration * 6)) + 1;
+            }
             return subTropDate;
         }
         else if(Config.showSubSeason.get()){
@@ -114,14 +122,32 @@ public class CurrentSeason {
     //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
+        ShowDay showDay = Config.showDay.get();
 
-        if (Config.showDay.get()) {
-            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-            text.add(Component.translatable("desc.seasonhud.detailed",Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
+        int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
+
+        if(isTropicalSeason()){
+            seasonDuration = seasonDuration * 2;
         }
-        else {
-            text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-            text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+        if(Config.showSubSeason.get()){
+            seasonDuration = seasonDuration / 3;
+        }
+
+        switch(showDay){
+            case NONE ->{
+                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+            }
+
+            case SHOW_DAY ->{
+                text.add(Component.translatable("desc.seasonhud.icon", getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(Component.translatable("desc.seasonhud.detailed", Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate()));
+            }
+
+            case SHOW_WITH_TOTAL_DAYS ->{
+                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(Component.translatable("desc.seasonhud.detailed.total",Component.translatable("desc.seasonhud." + getSeasonStateLower()), getDate(), seasonDuration));
+            }
         }
 
         return text;
