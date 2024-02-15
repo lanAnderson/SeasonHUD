@@ -3,8 +3,8 @@ package club.iananderson.seasonhud.event;
 
 import club.iananderson.seasonhud.config.Config;
 import club.iananderson.seasonhud.config.Location;
+import club.iananderson.seasonhud.config.ShowDay;
 import club.iananderson.seasonhud.platform.Services;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -64,8 +64,6 @@ public class SeasonHUDScreen extends Screen{
         int BUTTON_START_Y = MENU_PADDING_FULL;
         int y_OFFSET = BUTTON_HEIGHT + PADDING;
 
-        Location defaultLocation = hudLocation.get();
-
         //Buttons
 
         int row = 0;
@@ -76,16 +74,16 @@ public class SeasonHUDScreen extends Screen{
 
         CycleButton<Location> hudLocationButton = CycleButton.builder(Location::getLocationName)
                 .withValues(Location.TOP_LEFT, Location.TOP_CENTER, Location.TOP_RIGHT, Location.BOTTOM_LEFT, Location.BOTTOM_RIGHT)
-                .withInitialValue(defaultLocation)
+                .withInitialValue(hudLocation.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.hudLocation"),
                         (b, location) -> Config.setHudLocation(location));
 
         row = 1;
-        CycleButton<Boolean> showDayButton = CycleButton.onOffBuilder(showDay.get())
+        CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        Component.translatable("menu.seasonhud.button.showDay"),
-                        (b, Off) -> Config.setShowDay(Off));
+                        Component.translatable("menu.seasonhud.button.showTropicalSeason"),
+                        (b, Off) -> Config.setShowTropicalSeason(Off));
 
         CycleButton<Boolean> showSubSeasonButton = CycleButton.onOffBuilder(showSubSeason.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -93,10 +91,12 @@ public class SeasonHUDScreen extends Screen{
                         (b, Off) -> Config.setShowSubSeason(Off));
 
         row = 2;
-        CycleButton<Boolean> showTropicalSeasonButton = CycleButton.onOffBuilder(showTropicalSeason.get())
+        CycleButton<ShowDay> showDayButton = CycleButton.builder(ShowDay::getDayDisplayName)
+                .withValues(ShowDay.NONE,ShowDay.SHOW_DAY,ShowDay.SHOW_WITH_TOTAL_DAYS)
+                .withInitialValue(showDay.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        Component.translatable("menu.seasonhud.button.showTropicalSeason"),
-                        (b, Off) -> Config.setShowTropicalSeason(Off));
+                        Component.translatable("menu.seasonhud.button.showDay"),
+                        (b, showDay) -> Config.setShowDay(showDay));
 
         CycleButton<Boolean> needCalendarButton = CycleButton.onOffBuilder(needCalendar.get())
                 .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
@@ -108,6 +108,8 @@ public class SeasonHUDScreen extends Screen{
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         Component.translatable("menu.seasonhud.button.showMinimapHidden"),
                         (b, Off) -> Config.setShowMinimapHidden(Off));
+
+
         if(Services.PLATFORM.isModLoaded("journeymap")) {
             row = 6;
             CycleButton<Boolean> journeyMapAboveMapButton = CycleButton.onOffBuilder(journeyMapAboveMap.get())
@@ -136,11 +138,11 @@ public class SeasonHUDScreen extends Screen{
                         });
 
         addRenderableWidget(enableModButton);
-        addRenderableWidget(needCalendarButton);
-        addRenderableWidget(showDayButton);
-        addRenderableWidget(showSubSeasonButton);
         addRenderableWidget(hudLocationButton);
         addRenderableWidget(showTropicalSeasonButton);
+        addRenderableWidget(showSubSeasonButton);
+        addRenderableWidget(showDayButton);
+        addRenderableWidget(needCalendarButton);
         addRenderableWidget(showMinimapHiddenButton);
 
 

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.7.13] - 2024-02-15
+
+### Added
+- Added an option to display the total days in the current season/sub-season.
+
+### Fixed
+- Fixed tropical seasons displaying incorrectly when "Show Sub-Season" was off.
+- Fixed calculation for the current tropical season day to account for changes in the Serene Seasons config.
+
+
 ## [1.7.12] - 2024-02-14
 
 ### Fixed

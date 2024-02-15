@@ -27,6 +27,10 @@
   "location.seasonhud.bottomLeft": "Bottom Left",
   "location.seasonhud.bottomRight": "Bottom Right",
 
+  "showday.seasonhud.none": "OFF",
+  "showday.seasonhud.showDay": "Day #",
+  "showday.seasonhud.totalDays": "Day #/#",
+
   "desc.seasonhud.spring": "Spring",
   "desc.seasonhud.early_spring": "Early Spring",
   "desc.seasonhud.mid_spring": "Mid Spring",
@@ -49,17 +53,20 @@
   "desc.seasonhud.mid_winter": "Mid Winter",
   "desc.seasonhud.late_winter": "Late Winter",
 
+  "desc.seasonhud.wet": "Wet",
   "desc.seasonhud.early_wet": "Early Wet",
   "desc.seasonhud.mid_wet": "Mid Wet",
   "desc.seasonhud.late_wet": "Late Wet",
 
+  "desc.seasonhud.dry": "Dry",
   "desc.seasonhud.early_dry": "Early Dry",
   "desc.seasonhud.mid_dry": "Mid Dry",
   "desc.seasonhud.late_dry": "Late Dry",
 
   "desc.seasonhud.icon": "%s ",
-  "desc.seasonhud.detailed": "%s, Day %s",
   "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.detailed": "%s, Day %s",
+  "desc.seasonhud.detailed.total": "%s, Day %s/%s",
   "desc.seasonhud.combined": "%s%s",
 
   "item.calendar.tooltip": "Slot: Charm"
