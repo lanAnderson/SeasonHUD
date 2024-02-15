@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.impl.seasons;
 
 import club.iananderson.seasonhud.config.Config;
+import club.iananderson.seasonhud.config.ShowDay;
 import io.github.lucaargolo.seasons.FabricSeasons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -79,15 +80,27 @@ public class CurrentSeason {
    //Localized name for the hud
     public static ArrayList<Component> getSeasonName() {
         ArrayList<Component> text = new ArrayList<>();
+        ShowDay showDay = Config.showDay.get();
 
-        if (Config.showDay.get()) {
-            text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-            text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), getDate()));
+        int seasonDuration = CONFIG.getSeasonLength() / 24000;
+
+        switch(showDay){
+            case NONE ->{
+                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+            }
+
+            case SHOW_DAY ->{
+                text.add(new TranslatableComponent("desc.seasonhud.icon", getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.detailed", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), getDate()));
+            }
+
+            case SHOW_WITH_TOTAL_DAYS ->{
+                text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.detailed.total",new TranslatableComponent("desc.seasonhud." + getSeasonStateLower()), getDate(), seasonDuration));
+            }
         }
-        else {
-            text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-            text.add(new TranslatableComponent("desc.seasonhud.summary", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower())));
-        }
+
         return text;
     }
 }
