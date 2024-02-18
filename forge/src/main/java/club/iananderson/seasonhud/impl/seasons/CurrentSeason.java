@@ -136,8 +136,8 @@ public class CurrentSeason {
 
         switch(showDay){
             case NONE ->{
-                text.add(Component.translatable("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
-                text.add(Component.translatable("desc.seasonhud.summary", Component.translatable("desc.seasonhud." + getSeasonStateLower())));
+                text.add(new TranslatableComponent("desc.seasonhud.icon",getSeasonIcon(getSeasonFileName())).withStyle(SEASON_STYLE));
+                text.add(new TranslatableComponent("desc.seasonhud.summary", new TranslatableComponent("desc.seasonhud." + getSeasonStateLower())));
             }
 
             case SHOW_DAY ->{

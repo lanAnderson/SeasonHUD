@@ -1,6 +1,7 @@
 package club.iananderson.seasonhud.config;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public enum ShowDay {
     NONE(0, "none"),
@@ -15,7 +16,7 @@ public enum ShowDay {
     private ShowDay(int id, String dayType) {
         this.idNum = id;
         this.currentDayDisplay = dayType;
-        this.dayDisplayName = Component.translatable("showday.seasonhud."+ dayType);
+        this.dayDisplayName = new TranslatableComponent("showday.seasonhud."+ dayType);
     }
 
     public int getId() {
