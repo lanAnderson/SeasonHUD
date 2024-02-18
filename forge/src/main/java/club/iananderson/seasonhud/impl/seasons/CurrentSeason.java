@@ -124,7 +124,7 @@ public class CurrentSeason {
         ArrayList<Component> text = new ArrayList<>();
         ShowDay showDay = Config.showDay.get();
 
-        int seasonDuration = ServerConfig.subSeasonDuration.get() * 3;
+        int seasonDuration = ModConfig.seasons.subSeasonDuration * 3;
 
         if(isTropicalSeason()){
             seasonDuration = seasonDuration * 2;
