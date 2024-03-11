@@ -1,0 +1,73 @@
+{
+  "key.categories.seasonhud": "SeasonHUD",
+  "key.seasonhud.seasonhudOptions": "Opções do SeasonHUD",
+
+  "menu.seasonhud.title": "Opções do SeasonHUD",
+  "menu.seasonhud.journeymap": "JourneyMap",
+
+  "menu.seasonhud.button.enableMod": "Habilitar mod",
+  "menu.seasonhud.button.needCalendar": "Precisa de um item de calendário",
+  "menu.seasonhud.button.showDay": "Mostrar o valor do dia",
+  "menu.seasonhud.button.showSubSeason": "Mostrar a subestação",
+  "menu.seasonhud.button.hudLocation": "Localização do HUD",
+  "menu.seasonhud.button.showTropicalSeason": "Mostrar estações tropicais",
+  "menu.seasonhud.button.showMinimapHidden": "Mostrar quando o minimapa estiver oculto",
+  "menu.seasonhud.button.journeyMapAboveMap": "Mostrar acima do minimapa",
+  "menu.seasonhud.button.journeyMapMacOS": "Tela retina do macOS",
+
+  "menu.seasonhud.infodisplay.season": "Estação",
+  "ftbchunks.minimap.season": "Estação",
+
+  "menu.seasonhud.button.desc.showDay": "Mostrar o dia da estação/subestação atual no HUD",
+  "menu.seasonhud.button.desc.showSubSeason": "Substituir a estação pela subestação atual",
+
+  "location.seasonhud.topLeft": "Canto superior esquerdo",
+  "location.seasonhud.topCenter": "Centro superior",
+  "location.seasonhud.topRight": "Canto superior direito",
+  "location.seasonhud.bottomLeft": "Inferior esquerdo",
+  "location.seasonhud.bottomRight": "Canto inferior direito",
+
+  "showday.seasonhud.none": "Desligado",
+  "showday.seasonhud.showDay": "Dia #",
+  "showday.seasonhud.totalDays": "Dia #/#",
+
+  "desc.seasonhud.spring": "Primavera",
+  "desc.seasonhud.early_spring": "Começo da primavera",
+  "desc.seasonhud.mid_spring": "Meio da primavera",
+  "desc.seasonhud.late_spring": "Final da primavera",
+
+  "desc.seasonhud.summer": "Verão",
+  "desc.seasonhud.early_summer": "Começo do verão",
+  "desc.seasonhud.mid_summer": "Meio do verão",
+  "desc.seasonhud.late_summer": "Final de verão",
+
+  "desc.seasonhud.autumn": "Outono",
+  "desc.seasonhud.early_autumn": "Começo do outono",
+  "desc.seasonhud.mid_autumn": "Meio do outono",
+  "desc.seasonhud.late_autumn": "Final do outono",
+
+  "desc.seasonhud.fall": "Outono",
+
+  "desc.seasonhud.winter": "Inverno",
+  "desc.seasonhud.early_winter": "Começo do inverno",
+  "desc.seasonhud.mid_winter": "Meio do inverno",
+  "desc.seasonhud.late_winter": "Final do inverno",
+
+  "desc.seasonhud.wet": "Estação chuvosa",
+  "desc.seasonhud.early_wet": "Começo da estação chuvosa",
+  "desc.seasonhud.mid_wet": "Meio da estação chuvosa",
+  "desc.seasonhud.late_wet": "Final da estação chuvosa",
+
+  "desc.seasonhud.dry": "Seca",
+  "desc.seasonhud.early_dry": "Começo da seca",
+  "desc.seasonhud.mid_dry": "Meio da seca",
+  "desc.seasonhud.late_dry": "Final da seca",
+
+  "desc.seasonhud.icon": "%s ",
+  "desc.seasonhud.summary": "%s",
+  "desc.seasonhud.detailed": "%s, Dia %s",
+  "desc.seasonhud.detailed.total": "%s, Dia %s/%s",
+  "desc.seasonhud.combined": "%s%s",
+
+  "item.calendar.tooltip": "Encaixe: Amuleto"
+}
