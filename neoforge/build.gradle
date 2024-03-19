@@ -89,11 +89,11 @@ dependencies {
     api "fuzs.forgeconfigapiport:forgeconfigapiport-neoforge:${project.forgeconfigapiport_version}"
 
     /Xaero's Minimap/
-    compileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}"
+    compileOnly "curse.maven:xaeros-minimap-263420:${project.xaeros_neoforge_file_id}"
 //    implementation "curse.maven:xaeros-minimap-263420:${project.xaeros_forge_file_id}"
 
     /Xaero's Minimap Fair Play/
-    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
+//    compileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
 //    implementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_forge_file_id}"
 
     /FTB Chunks/

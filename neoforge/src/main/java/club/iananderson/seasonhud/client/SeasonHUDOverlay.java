@@ -43,7 +43,7 @@ public class SeasonHUDOverlay implements IGuiOverlay{
 
         int stringWidth = font.width(seasonCombined);
 
-        if (noMinimap() || (minimapHidden() && showMinimapHidden.get())) {
+        if (enableMod.get() & (noMinimap() || (minimapHidden() && showMinimapHidden.get()))) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
