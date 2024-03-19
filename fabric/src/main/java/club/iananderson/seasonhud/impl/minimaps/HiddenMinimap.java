@@ -2,7 +2,7 @@ package club.iananderson.seasonhud.impl.minimaps;
 
 import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import journeymap.client.ui.UIManager;
-import xaero.common.core.XaeroMinimapCore;
+import xaero.common.HudMod;
 
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.loadedMinimap;
 
@@ -18,7 +18,7 @@ public class HiddenMinimap {
             return !FTBChunksClientConfig.MINIMAP_ENABLED.get();
         }
         if (loadedMinimap("xaerominimap") || loadedMinimap("xaerominimapfair")) {
-            return !XaeroMinimapCore.currentSession.getModMain().getSettings().getMinimap();
+            return HudMod.INSTANCE.getSettings().getMinimap();
         }
         else return false;
     }

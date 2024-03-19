@@ -16,11 +16,11 @@ import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonNam
 import static club.iananderson.seasonhud.impl.minimaps.CurrentMinimap.dimensionHideHUD;
 
 public class XaeroInfoDisplays {
-    private static List<InfoDisplay<?>> ALL = new ArrayList<>();
+    private static final List<InfoDisplay<?>> ALL = new ArrayList<>();
     public static final InfoDisplay<Boolean> SEASON;
 
     static{
-        SEASON = new InfoDisplay("season", new TranslatableComponent("menu.seasonhud.infodisplay.season"), true, InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON, (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
+        SEASON = new InfoDisplay<>("season", new TranslatableComponent("menu.seasonhud.infodisplay.season"), true, InfoDisplayCommonStateCodecs.BOOLEAN, InfoDisplayCommonWidgetFactories.OFF_ON, (displayInfo, compiler, session, processor, x, y, w, h, scale, size, playerBlockX, playerBlockY, playerBlockZ, playerPos) -> {
             MutableComponent seasonCombined = new TranslatableComponent("desc.seasonhud.combined",
                     getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                     getSeasonName().get(1).copy());
