@@ -7,7 +7,7 @@ license = "All Rights Reserved"
     version = "${file.jarVersion}" #mandatory
     displayName = "SeasonHUD" #mandatory
     displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
-    logoFile= "SeasonHud.png"
+    logoFile= "SeasonHUD.png"
     logoBlur = true
     authors="IanAnderson" #optional
     description ='''
@@ -38,7 +38,7 @@ license = "All Rights Reserved"
 [[dependencies.seasonhud]]
     modId = "xaerominimap"
     mandatory = false
-    versionRange = "[23.3.3,)"
+    versionRange = "[24.0.0,)"
     ordering = "AFTER"
     side = "CLIENT"
 

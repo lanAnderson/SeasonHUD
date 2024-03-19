@@ -12,7 +12,7 @@
       "repo": "https://github.com/lanAnderson/SeasonHUD-Fabric"
     },
     "license": "All-Rights-Reserved",
-    "icon": "assets/seasonhud/icon.png",
+    "icon": "SeasonHUD.png",
     "environment": "client",
 
     "entrypoints": {
@@ -40,8 +40,10 @@
 
     },
 
-    "suggests": {
-      "xaerominimap": ">=23.4.0s",
+    "breaks": {
+      "xaerominimap": "<24.0.0"
+    },
+  "suggests": {
       "seasonsextras": "*",
       "ftbchunks": ">=1902.4.2"
     }
