@@ -76,7 +76,7 @@ dependencies {
 //    modImplementation "curse.maven:xaeros-minimap-263420:${project.xaeros_fabric_file_id}"
 
     /Xaero's Minimap Fair Play/
-    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
+//    modCompileOnly "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 //    modImplementation "curse.maven:xaeros-minimap-fair-play-edition-263466:${project.xaeros_fairplay_fabric_file_id}"
 
     /FTB Chunks/
