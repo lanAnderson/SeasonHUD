@@ -25,7 +25,7 @@ public class SeasonHUDMixinPlugin implements IMixinConfigPlugin {
     }
 
     static{
-        HAS_XAERO = hasClass("xaero.common.AXaeroMinimap");
+        HAS_XAERO = hasClass("xaero.common.HudMod");
     }
 
     private String prefix = null;
