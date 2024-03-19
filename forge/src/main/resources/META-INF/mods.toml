@@ -7,7 +7,8 @@ license = "All Rights Reserved"
     version = "${file.jarVersion}" #mandatory
     displayName = "SeasonHUD" #mandatory
     displayURL = "https://www.curseforge.com/minecraft/mc-mods/seasonhud"
-    logoFile= "seasonhud.png"
+    logoFile= "SeasonHUD.png"
+    logoBlur = true
     authors="IanAnderson" #optional
     description ='''
         This is an addon for SereneSeasons that displays the current season on the HUD or under a minimap'''
@@ -37,7 +38,7 @@ license = "All Rights Reserved"
 [[dependencies.seasonhud]]
     modId = "xaerominimap"
     mandatory = false
-    versionRange = "[23.9.4,)"
+    versionRange = "[24.0.0,)"
     ordering = "AFTER"
     side = "CLIENT"
 

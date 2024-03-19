@@ -12,7 +12,7 @@
       "repo": "https://github.com/lanAnderson/SeasonHUD"
     },
     "license": "All-Rights-Reserved",
-    "icon": "seasonhud.png",
+    "icon": "SeasonHUD.png",
     "environment": "client",
 
     "entrypoints": {
@@ -38,9 +38,9 @@
       "forgeconfigapiport": ">=7.0.0"
     },
 
-    "suggests": {
-      "xaerominimap": ">=23.4.0s",
-      "map_atlases": ">=2.7.0"
+    "breaks": {
+      "xaerominimap": "<24.0.0",
+      "map_atlases": "<2.7.0"
     }
   }
   
