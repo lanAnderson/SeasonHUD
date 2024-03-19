@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+
+## [1.7.15] - 2024-03-19
+
+### Changed
+- Built against Xaero's Minimap 24.x.x and set that as the minimum version.
+
+### Fixed
+- Fixed the Fabric versions icon pointing to the wrong file for like a year now.
+
 
 ## [1.7.14] - 2024-03-10
 
