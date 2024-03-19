@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 - Fixed the Fabric versions icon pointing to the wrong file for like a year now.
+- Fixed the "enableMod" option not working correctly.
 
 
 ## [1.7.14] - 2024-03-10
