@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Fabric" pattern="file[seasonhud.fabric.main]:*/||file[seasonhud.fabric]:build.gradle" />
+</component>
