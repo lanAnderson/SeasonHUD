@@ -9,7 +9,7 @@
       "IanAnderson"
     ],
     "contact": {
-      "repo": "https://github.com/lanAnderson/SeasonHUD-Fabric"
+      "repo": "https://github.com/lanAnderson/SeasonHUD"
     },
     "license": "All-Rights-Reserved",
     "icon": "SeasonHUD.png",
@@ -43,7 +43,8 @@
     "breaks": {
       "xaerominimap": "<24.0.0"
     },
-  "suggests": {
+
+    "suggests": {
       "seasonsextras": "*",
       "ftbchunks": ">=1902.4.2"
     }
