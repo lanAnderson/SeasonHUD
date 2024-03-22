@@ -87,7 +87,7 @@ public class Config {
                         Enable integration with minimap mods.
                         (true/false)
                         Default is true.""")
-                    .define("enable_minimap_integration",false);
+                    .define("enable_minimap_integration",true);
                 showMinimapHidden = BUILDER
                     .comment("""
                             Show the default SeasonHUD display when the minimap is hidden.
