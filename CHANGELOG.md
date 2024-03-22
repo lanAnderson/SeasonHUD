@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
+## [1.7.16] - 2024-03-22
+
+### Added
+- Added an option disable minimap integration and continue to use the default hud option.
+
+
 ## [1.7.15] - 2024-03-19
 
 ### Changed

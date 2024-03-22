@@ -11,6 +11,7 @@
   "menu.seasonhud.button.showSubSeason": "显示子季节",
   "menu.seasonhud.button.hudLocation": "HUD 位置",
   "menu.seasonhud.button.showTropicalSeason": "显示热带季节",
+  "menu.seasonhud.button.enableMinimapIntegration": "Enable Minimap Integration",
   "menu.seasonhud.button.showMinimapHidden": "当小地图隐藏时显示",
   "menu.seasonhud.button.journeyMapAboveMap": "在小地图上方显示",
   "menu.seasonhud.button.journeyMapMacOS": "macOS Retina 显示器",

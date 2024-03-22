@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
+import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.impl.minimaps.HiddenMinimap.minimapHidden;
 import static club.iananderson.seasonhud.impl.seasons.Calendar.calendar;
@@ -17,7 +18,7 @@ import static net.minecraft.world.level.Level.OVERWORLD;
 
 public class CurrentMinimap {
     public static boolean loadedMinimap(String minimap){
-        if(enableMod.get() && calendar() && !dimensionHideHUD()){
+        if(enableMod.get() && enableMinimapIntegration.get() && calendar() && !dimensionHideHUD()){
             return Services.PLATFORM.isModLoaded(minimap);
         }
         else return false;
