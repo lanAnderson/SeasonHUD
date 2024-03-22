@@ -25,7 +25,7 @@ public class XaeroInfoDisplays {
                     getSeasonName().get(0).copy().withStyle(SEASON_STYLE),
                     getSeasonName().get(1).copy());
 
-            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar() && Config.enableMod.get()) {
+            if ((Boolean)displayInfo.getState() && !dimensionHideHUD() && calendar() && Config.enableMod.get() && Config.enableMinimapIntegration.get()) {
                 compiler.addLine(seasonCombined);
             }
         },ALL);
