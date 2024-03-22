@@ -106,8 +106,13 @@ public class SeasonHUDScreen extends Screen{
                         (b, Off) -> Config.setNeedCalendar(Off));
 
         row = 3;
-        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
+        CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(enableMinimapIntegration.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
+                        Component.translatable("menu.seasonhud.button.enableMinimapIntegration"),
+                        (b, Off) -> Config.setEnableMinimapIntegration(Off));
+
+        CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
+                .create(BUTTON_START_X_RIGHT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
                         new TranslatableComponent("menu.seasonhud.button.showMinimapHidden"),
                         (b, Off) -> Config.setShowMinimapHidden(Off));
 
@@ -142,6 +147,7 @@ public class SeasonHUDScreen extends Screen{
         addRenderableWidget(showSubSeasonButton);
         addRenderableWidget(showDayButton);
         addRenderableWidget(needCalendarButton);
+        addRenderableWidget(enableMinimapIntegrationButton);
         addRenderableWidget(showMinimapHiddenButton);
 
 

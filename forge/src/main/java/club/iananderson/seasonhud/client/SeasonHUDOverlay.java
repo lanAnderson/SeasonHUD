@@ -41,7 +41,7 @@ public class SeasonHUDOverlay implements IIngameOverlay{
         Font font = mc.font;
         int stringWidth = font.width(seasonCombined);
 
-        if (enableMod.get() & (noMinimap() || (minimapHidden() && showMinimapHidden.get()))) {
+        if (enableMod.get() & (noMinimap() || (minimapHidden() && showMinimapHidden.get()) || !enableMinimapIntegration.get())) {
             Location hudLoc = hudLocation.get();
             switch (hudLoc) {
                 case TOP_LEFT -> {
