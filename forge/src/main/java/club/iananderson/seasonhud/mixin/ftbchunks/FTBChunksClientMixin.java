@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 import static club.iananderson.seasonhud.Common.SEASON_STYLE;
+import static club.iananderson.seasonhud.config.Config.enableMinimapIntegration;
 import static club.iananderson.seasonhud.config.Config.enableMod;
 import static club.iananderson.seasonhud.impl.seasons.CurrentSeason.getSeasonName;
 import static dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig.MINIMAP;
@@ -37,7 +38,7 @@ public class FTBChunksClientMixin {
 
         enableMod.set(MINIMAP_SEASON.get());
 
-        if(enableMod.get()) {
+        if(enableMod.get() && enableMinimapIntegration.get()) {
             res.add(seasonCombined);
         }
 
