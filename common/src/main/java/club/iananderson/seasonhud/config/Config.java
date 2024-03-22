@@ -3,8 +3,6 @@ package club.iananderson.seasonhud.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
-
-
     //Config Builder
     public static final ModConfigSpec GENERAL_SPEC;
 
@@ -22,6 +20,7 @@ public class Config {
     public static ModConfigSpec.BooleanValue showTropicalSeason;
     public static ModConfigSpec.BooleanValue showSubSeason;
     public static ModConfigSpec.ConfigValue<ShowDay> showDay;
+    public static ModConfigSpec.BooleanValue enableMinimapIntegration;
     public static ModConfigSpec.BooleanValue showMinimapHidden;
     public static ModConfigSpec.BooleanValue journeyMapAboveMap;
     public static ModConfigSpec.BooleanValue journeyMapMacOS;
@@ -83,12 +82,18 @@ public class Config {
             BUILDER.pop();
 
             BUILDER.push("Minimap");
+                enableMinimapIntegration = BUILDER
+                    .comment("""
+                        Enable integration with minimap mods.
+                        (true/false)
+                        Default is true.""")
+                    .define("enable_minimap_integration",false);
                 showMinimapHidden = BUILDER
-                            .comment("""
-                                    Show the default SeasonHUD display when the minimap is hidden.
-                                    (true/false)
-                                    Default is false.""")
-                            .define("enable_show_minimap_hidden",false);
+                    .comment("""
+                            Show the default SeasonHUD display when the minimap is hidden.
+                            (true/false)
+                            Default is false.""")
+                    .define("enable_show_minimap_hidden",false);
 
                 BUILDER.push("Journeymap");
                     journeyMapAboveMap = BUILDER
@@ -139,6 +144,9 @@ public class Config {
     }
 
     //Minimap
+    public static void setEnableMinimapIntegration(boolean enableMinimapIntegration) {
+        Config.enableMinimapIntegration.set(enableMinimapIntegration);
+    }
     public static void setShowMinimapHidden(boolean showMinimapHidden) {
         Config.showMinimapHidden.set(showMinimapHidden);
     }
