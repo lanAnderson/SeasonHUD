@@ -11,6 +11,7 @@
   "menu.seasonhud.button.showSubSeason": "Mostrar a subestação",
   "menu.seasonhud.button.hudLocation": "Localização do HUD",
   "menu.seasonhud.button.showTropicalSeason": "Mostrar estações tropicais",
+  "menu.seasonhud.button.enableMinimapIntegration": "Enable Minimap Integration",
   "menu.seasonhud.button.showMinimapHidden": "Mostrar quando o minimapa estiver oculto",
   "menu.seasonhud.button.journeyMapAboveMap": "Mostrar acima do minimapa",
   "menu.seasonhud.button.journeyMapMacOS": "Tela retina do macOS",
