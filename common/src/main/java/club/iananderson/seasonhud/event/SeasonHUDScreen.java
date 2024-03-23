@@ -108,7 +108,7 @@ public class SeasonHUDScreen extends Screen{
         row = 3;
         CycleButton<Boolean> enableMinimapIntegrationButton = CycleButton.onOffBuilder(enableMinimapIntegration.get())
                 .create(BUTTON_START_X_LEFT, (BUTTON_START_Y + (row * y_OFFSET)), BUTTON_WIDTH_HALF, BUTTON_HEIGHT,
-                        Component.translatable("menu.seasonhud.button.enableMinimapIntegration"),
+                        new TranslatableComponent("menu.seasonhud.button.enableMinimapIntegration"),
                         (b, Off) -> Config.setEnableMinimapIntegration(Off));
 
         CycleButton<Boolean> showMinimapHiddenButton = CycleButton.onOffBuilder(showMinimapHidden.get())
